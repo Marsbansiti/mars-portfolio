@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>The Arbour | Contemporary Classic · Surrey Hills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300;1,9..144,400&family=Syne:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/shared.css">
+<style>
+*{ margin:0; padding:0; box-sizing:border-box; }
+:root{ --panel-gap: 6px; }
+body{ height:100vh; overflow:hidden; background:var(--bg); }
+
+/* REMOVE ALL SCROLLBARS - html, body, navigation */
+html, body { overflow-x: hidden; }
+nav { overflow-x: hidden; width: 100%; }
+
+/* COMPLETE SCROLLBAR REMOVAL FOR VIEWPORT */
+#vp::-webkit-scrollbar { display: none; }
+#vp{ -ms-overflow-style: none; scrollbar-width: none; overflow-x: auto; overflow-y: hidden; }
+
+nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative; z-index:500; width:100%; overflow-x: hidden; }
+.nav-links { display: flex; flex-wrap: nowrap; }
+.nav-mid { white-space: nowrap; }
+
+#prog-wrap{ position:fixed; top:58px; left:0; right:0; height:1.5px; background:var(--border); z-index:600; }
+#prog{ height:100%; width:0%; background:var(--gold); transition:width .04s linear; }
+#counter{ position:fixed; bottom:22px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:14px; z-index:600; background:rgba(12,10,7,.4); backdrop-filter:blur(4px); padding:6px 14px; border-radius:40px; }
+#cnt-cur{ font-family:var(--serif); font-style:italic; font-size:14px; font-weight:200; color:var(--gold); min-width:24px; text-align:right; }
+.cnt-track{ width:48px; height:1px; background:var(--border); position:relative; overflow:hidden; }
+.cnt-fill{ position:absolute; top:0; left:0; height:100%; background:var(--gold); transition:width .4s ease; }
+#cnt-tot{ font-family:var(--serif); font-style:italic; font-size:14px; font-weight:200; color:var(--text-dim); min-width:24px; }
+#hint{ position:fixed; bottom:22px; right:44px; z-index:600; display:flex; align-items:center; gap:10px; transition:opacity .7s; background:rgba(12,10,7,.3); padding:5px 12px; border-radius:40px; backdrop-filter:blur(4px); }
+#hint span{ font-size:9px; font-weight:400; letter-spacing:.25em; text-transform:uppercase; color:var(--text-dim); }
+.h-line{ width:32px; height:1px; background:var(--gold); position:relative; overflow:hidden; }
+.h-line::after{ content:'';position:absolute; top:0; left:-100%; width:100%; height:100%; background:var(--text); animation:slide 2s ease-in-out infinite; }
+@keyframes slide{ 0%{left:-100%} 50%{left:100%} 100%{left:100%} }
+#vp{ position:fixed; inset:0; top:59.5px; overflow-x:auto; overflow-y:hidden; scroll-behavior:smooth; scrollbar-width: none; }
+#track{ display:flex; flex-direction:row; height:calc(100vh - 59.5px); will-change:transform; gap: var(--panel-gap); padding-right: var(--panel-gap); }
+.p{ flex-shrink:0; height:100%; position:relative; overflow:hidden; }
+.pi img{ width:100%; height:100%; object-fit:cover; display:block; transition:filter .5s; cursor:pointer; }
+.pi img:hover{ filter:brightness(1.02) contrast(1.02); }
+.hero-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+.hero-veil{ position:absolute; inset:0; background: linear-gradient(105deg, rgba(12,10,7,.45) 0%, transparent 48%), linear-gradient(to top, rgba(12,10,7,.72) 0%, transparent 44%); pointer-events:none; }
+.hero-foot{ position:absolute; bottom:0; left:0; right:0; padding:44px 52px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
+.h-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(72px,10vw,128px); line-height:.88; letter-spacing:-.02em; color:var(--text); }
+.h-eyebrow{ font-size:9px; font-weight:500; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:block; }
+.h-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:17px; color:rgba(232,226,213,.7); }
+.info{ background:var(--surface); border-right:1px solid var(--border); border-left:2px solid var(--gold); display:flex; flex-direction:column; justify-content:space-between; padding:52px 46px 46px; overflow-y:auto; scrollbar-width: thin; }
+.info::-webkit-scrollbar{ width:3px; background:var(--border); }
+.info::-webkit-scrollbar-thumb{ background:var(--gold); }
+.i-label{ font-size:9px; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--text-dim); }
+.i-rule{ display:flex; align-items:center; gap:12px; margin:18px 0 22px; }
+.i-rule::before{ content:''; width:20px; height:1px; background:var(--gold); }
+.i-rule::after{ content:''; flex:1; height:1px; background:var(--border); }
+.i-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--text-dim); line-height:1.6; margin-bottom:10px; }
+.i-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(58px,5.5vw,80px); line-height:.9; letter-spacing:-.02em; color:var(--text); margin-bottom:36px; }
+.i-body{ font-size:12.5px; font-weight:300; line-height:1.9; color:var(--text-dim); margin-bottom:40px; }
+.svc-list{ list-style:none; border-top:1px solid var(--border); }
+.svc-item{ display:flex; align-items:center; justify-content:space-between; padding:11px 0; border-bottom:1px solid var(--border); transition:padding-left .3s; position:relative; }
+.svc-item:hover{ padding-left:8px; }
+.svc-item::before{ content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:0; height:1px; background:var(--gold); transition:width .3s; }
+.svc-item:hover::before{ width:6px; }
+.svc-name{ font-size:11.5px; font-weight:400; letter-spacing:.03em; color:var(--text); }
+.svc-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--gold); }
+.area-blk{ margin-top:38px; }
+.area-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:54px; line-height:1; letter-spacing:-.02em; color:var(--text); }
+.area-unit{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:16px; color:var(--gold); display:inline-block; margin-left:5px; }
+.area-label{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--text-dim); margin-top:10px; display:block; }
+.sec-lbl{ position:absolute; bottom:36px; left:28px; z-index:2; display:flex; align-items:center; gap:10px; pointer-events:none; }
+.sec-lbl-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:11px; color:rgba(232,226,213,.5); }
+.sec-lbl-name{ font-size:9px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:rgba(232,226,213,.4); }
+.sec-lbl::before{ content:''; width:18px; height:1px; background:rgba(200,128,60,.4); }
+.wm{ position:absolute; bottom:-10px; right:-8px; font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(130px,16vw,200px); line-height:1; color:rgba(255,255,255,.05); pointer-events:none; z-index:1; letter-spacing:-.04em; user-select:none; }
+.end-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+.end-veil{ position:absolute; inset:0; background:linear-gradient(to top, rgba(12,10,7,.82) 0%, rgba(12,10,7,.18) 55%, transparent 100%); pointer-events:none; }
+.end-foot{ position:absolute; bottom:0; left:0; right:0; padding:52px 56px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
+.end-q{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2.4vw,30px); line-height:1.5; color:var(--text); max-width:520px; }
+.end-meta{ text-align:right; }
+.end-tag{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; display:block; }
+.end-name{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:18px; color:rgba(232,226,213,.75); }
+
+/* LIGHTBOX STYLES */
+.lb-overlay{ position:fixed; inset:0; background:rgba(8,6,4,.96); backdrop-filter:blur(28px); z-index:2000; display:flex; align-items:center; justify-content:center; visibility:hidden; opacity:0; transition:visibility .25s, opacity .25s; cursor:pointer; }
+.lb-overlay.active{ visibility:visible; opacity:1; }
+.lb-img{ max-width:90vw; max-height:85vh; object-fit:contain; box-shadow:0 25px 45px rgba(0,0,0,.4); border-radius:2px; cursor:default; }
+.lb-close{ position:fixed; top:28px; right:32px; width:44px; height:44px; background:rgba(255,255,255,.05); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:200; color:var(--gold); transition:all .2s; cursor:pointer; backdrop-filter:blur(8px); border:1px solid rgba(232,226,213,.2); }
+.lb-close:hover{ background:rgba(200,128,60,.2); transform:scale(1.02); color:#fff; }
+.lb-caption{ position:fixed; bottom:24px; left:0; right:0; text-align:center; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,226,213,.6); font-weight:300; pointer-events:none; }
+
+@media (max-width:720px){
+  .hero-foot{ padding: 28px 28px; }
+  .info{ padding: 32px 24px; }
+  .lb-close{ top:18px; right:20px; width:38px; height:38px; font-size:26px; }
+  .lb-img{ max-width:95vw; max-height:75vh; }
+  #counter{ bottom: 16px; padding: 4px 12px; }
+  #hint{ bottom: 16px; right: 20px; }
+}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">Mars<span>.</span>Bansiti</a>
+  <div class="nav-mid">
+    <span class="nav-cat" data-en="Selected Works · ArchViz" data-vi="Tác phẩm chọn lọc · Kiến trúc 3D">Selected Works · ArchViz</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="../index.html" data-en="Home" data-vi="Trang chủ">Home</a></li>
+    <li><a href="../projects.html" data-en="Projects" data-vi="Dự án">Projects</a></li>
+    <li><a href="../about.html" data-en="About me" data-vi="Về tôi">About me</a></li>
+    <li><button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button></li>
+  </ul>
+</nav>
+
+<div id="prog-wrap"><div id="prog"></div></div>
+
+<div id="vp"><div id="track">
+  <!-- HERO panel - The Arbour main intro -->
+  <div class="p pi" style="width:100vw" data-i="0">
+    <img class="hero-img" src="https://cdn.yodezeen.com/94/126/ELA_hotel_View06_Interactive_Light_Mix_View240000_52676ee9c2.jpg" alt="The Arbour Surrey Hills luxury residence" data-full="https://cdn.yodezeen.com/94/126/ELA_hotel_View06_Interactive_Light_Mix_View240000_52676ee9c2.jpg">
+    <div class="hero-veil"></div>
+    <div class="hero-foot">
+      <div>
+        <span class="h-eyebrow" data-en="Surrey Hills · UK · In progress" data-vi="Surrey Hills · UK · Đang thi công">Surrey Hills · UK · In progress</span>
+        <h1 class="h-title">The<br>Arbour</h1>
+      </div>
+      <div style="text-align:right;padding-bottom:6px">
+        <span class="h-eyebrow" style="text-align:right" data-en="Contemporary Classic" data-vi="Cổ điển đương đại">Contemporary Classic</span>
+        <p class="h-sub" data-en="Architecture guided by light" data-vi="Kiến trúc dẫn dắt bởi ánh sáng">Architecture guided by light</p>
+      </div>
+    </div>
+    <span class="wm">01</span>
+  </div>
+
+  <!-- INFO panel: detailed stats and concept -->
+  <div class="p info" style="width:450px">
+    <div>
+      <p class="i-label" data-en="Residential · Surrey Hills · In progress" data-vi="Nhà ở · Surrey Hills · Đang thi công">Residential · Surrey Hills · In progress</p>
+      <div class="i-rule"></div>
+      <p class="i-sub" data-en="A serene retreat where architecture quietly blends with nature" data-vi="Một nơi tĩnh lặng nơi kiến trúc hòa quyện nhẹ nhàng với thiên nhiên">A serene retreat where architecture quietly blends with nature</p>
+      <h2 class="i-title">The<br>Arbour</h2>
+      <div class="i-body">
+        <p data-en="The Arbour was conceived as a serene retreat where architecture quietly blends with nature. A warm, restrained material palette sets the tone, while a sculptural staircase becomes the central symbolic gesture of the home. Large glass facades blur the line between indoors and outdoors, and the common areas transition naturally from one zone to another. Textures, volumes, and sightlines are arranged to maintain balance and visual clarity, with the staircase anchoring the entire composition." data-vi="The Arbour được hình thành như một nơi nghỉ dưỡng tĩnh lặng, nơi kiến trúc hòa quyện nhẹ nhàng với thiên nhiên. Bảng màu vật liệu ấm áp, tiết chế tạo nên bản sắc, trong khi cầu thang điêu khắc trở thành cử chỉ biểu tượng trung tâm. Mặt kính lớn xóa nhòa ranh giới trong - ngoài, các không gian chung chuyển tiếp tự nhiên. Kết cấu, khối tích và tầm nhìn được sắp xếp để duy trì sự cân bằng và rõ ràng, với cầu thang làm neo cho toàn bộ bố cục.">The Arbour was conceived as a serene retreat where architecture quietly blends with nature. A warm, restrained material palette sets the tone, while a sculptural staircase becomes the central symbolic gesture of the home. Large glass facades blur the line between indoors and outdoors, and the common areas transition naturally from one zone to another. Textures, volumes, and sightlines are arranged to maintain balance and visual clarity, with the staircase anchoring the entire composition.</p>
+      </div>
+      <ul class="svc-list">
+        <li class="svc-item"><span class="svc-name" data-en="Exterior Visualization" data-vi="Hình ảnh ngoại thất">Exterior Visualization</span><span class="svc-num">01</span></li>
+        <li class="svc-item"><span class="svc-name" data-en="Landscape Integration" data-vi="Tích hợp cảnh quan">Landscape Integration</span><span class="svc-num">02</span></li>
+        <li class="svc-item"><span class="svc-name" data-en="Interior Continuity" data-vi="Liên tục nội thất">Interior Continuity</span><span class="svc-num">03</span></li>
+      </ul>
+    </div>
+    <div class="area-blk">
+      <span class="area-num">43,056</span><span class="area-unit">ft²</span>
+      <span class="area-label" data-en="Total Property Area" data-vi="Tổng diện tích bất động sản">Total Property Area</span>
+      <div style="margin-top:12px; border-top:1px solid var(--border); padding-top:14px;">
+        <span class="area-label" style="margin-top:0" data-en="Material palette · Travertine · Oak · Brass" data-vi="Vật liệu chủ đạo · Travertine · Gỗ sồi · Đồng thau">Travertine · Oak · Brass</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- GALLERY PANEL 1: Main facade + light study -->
+  <div class="p pi" style="width:65vw" data-i="1">
+    <img src="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View30000000_501d78ea66.jpg" alt="Main facade light interplay" data-full="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View30000000_501d78ea66.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">01</span><span class="sec-lbl-name" data-en="Main Facade · Light interplay" data-vi="Mặt tiền chính · Tương tác ánh sáng">Main Facade · Light interplay</span></div>
+    <span class="wm">02</span>
+  </div>
+
+  <!-- GALLERY PANEL 2: Sculptural staircase / central gesture -->
+  <div class="p pi" style="width:58vw" data-i="2">
+    <img src="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View030000_cc8200da83.jpg" alt="Sculptural staircase anchoring composition" data-full="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View030000_cc8200da83.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">02</span><span class="sec-lbl-name" data-en="Sculptural Staircase · Central gesture" data-vi="Cầu thang điêu khắc · Cử chỉ trung tâm">Sculptural Staircase · Central gesture</span></div>
+    <span class="wm">03</span>
+  </div>
+
+  <!-- GALLERY PANEL 3: Glass facade blurring boundaries -->
+  <div class="p pi" style="width:72vw" data-i="3">
+    <img src="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View440000_dbe28c40ff.jpg" alt="Glass facade blurring indoors and outdoors" data-full="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View440000_dbe28c40ff.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">03</span><span class="sec-lbl-name" data-en="Transparency · Blurred boundaries" data-vi="Trong suốt · Ranh giới mờ">Transparency · Blurred boundaries</span></div>
+    <span class="wm">04</span>
+  </div>
+
+  <!-- GALLERY PANEL 4: Warm material palette / oak + travertine -->
+  <div class="p pi" style="width:60vw" data-i="4">
+    <img src="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View060000_6c57cb5694.jpg" alt="Warm material palette oak and travertine" data-full="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View060000_6c57cb5694.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">04</span><span class="sec-lbl-name" data-en="Material harmony · Oak & Travertine" data-vi="Hài hòa vật liệu · Gỗ sồi & Travertine">Material harmony · Oak & Travertine</span></div>
+    <span class="wm">05</span>
+  </div>
+
+  <!-- GALLERY PANEL 5: Sightlines and volumes -->
+  <div class="p pi" style="width:55vw" data-i="5">
+    <img src="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View070000_812d2b059b.jpg" alt="Balanced volumes and sightlines" data-full="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View070000_812d2b059b.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">05</span><span class="sec-lbl-name" data-en="Volumes · Visual clarity" data-vi="Khối tích · Rõ ràng thị giác">Volumes · Visual clarity</span></div>
+    <span class="wm">06</span>
+  </div>
+
+  <!-- GALLERY PANEL 6: Natural transition zones -->
+  <div class="p pi" style="width:68vw" data-i="6">
+    <img src="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View010000_c61054f7d7.jpg" alt="Natural flow between common areas" data-full="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View010000_c61054f7d7.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">06</span><span class="sec-lbl-name" data-en="Seamless flow · Living zones" data-vi="Luân chuyển liền mạch · Khu vực sinh hoạt">Seamless flow · Living zones</span></div>
+    <span class="wm">07</span>
+  </div>
+
+  <!-- GALLERY PANEL 7: Brass accents + detail -->
+  <div class="p pi" style="width:52vw" data-i="7">
+    <img src="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View020000_8048462bcf.jpg" alt="Brass accents warm details" data-full="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View020000_8048462bcf.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">07</span><span class="sec-lbl-name" data-en="Brass · Warm refinement" data-vi="Đồng thau · Tinh tế ấm áp">Brass · Warm refinement</span></div>
+    <span class="wm">08</span>
+  </div>
+
+  <!-- GALLERY PANEL 8: Exterior & landscape dialogue -->
+  <div class="p pi" style="width:66vw" data-i="8">
+    <img src="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View300000_62ece4ba20.jpg" alt="Dialogue between nature and architecture" data-full="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View300000_62ece4ba20.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">08</span><span class="sec-lbl-name" data-en="Nature dialogue · Landscape integration" data-vi="Đối thoại thiên nhiên · Tích hợp cảnh quan">Nature dialogue · Landscape integration</span></div>
+    <span class="wm">09</span>
+  </div>
+
+  <!-- GALLERY PANEL 9: Contemplative atmosphere -->
+  <div class="p pi" style="width:58vw" data-i="9">
+    <img src="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View410000_3dc922f375.jpg" alt="Contemplative atmosphere and timeless ease" data-full="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View410000_3dc922f375.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">09</span><span class="sec-lbl-name" data-en="Atmosphere · Contemplation" data-vi="Bầu không khí · Chiêm nghiệm">Atmosphere · Contemplation</span></div>
+    <span class="wm">10</span>
+  </div>
+
+  <!-- GALLERY PANEL 10: Light as guiding principle -->
+  <div class="p pi" style="width:64vw" data-i="10">
+    <img src="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View170000_82820a766e.jpg" alt="Architecture guided by light" data-full="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View170000_82820a766e.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">10</span><span class="sec-lbl-name" data-en="Guided by light" data-vi="Dẫn dắt bởi ánh sáng">Guided by light</span></div>
+    <span class="wm">11</span>
+  </div>
+
+  <!-- GALLERY PANEL 11: Sculptural volume evening -->
+  <div class="p pi" style="width:70vw" data-i="11">
+    <img src="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View130000_69bc6027d6.jpg" alt="Sculptural volume during golden hour" data-full="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View130000_69bc6027d6.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">11</span><span class="sec-lbl-name" data-en="Golden hour · Sculptural form" data-vi="Giờ vàng · Hình khối điêu khắc">Golden hour · Sculptural form</span></div>
+    <span class="wm">12</span>
+  </div>
+
+  <!-- GALLERY PANEL 12: Refined timelessness -->
+  <div class="p pi" style="width:54vw" data-i="12">
+    <img src="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View290000_1133ad0c7c.jpg" alt="Timeless elegance and refinement" data-full="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View290000_1133ad0c7c.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">12</span><span class="sec-lbl-name" data-en="Timeless elegance" data-vi="Thanh lịch vượt thời gian">Timeless elegance</span></div>
+    <span class="wm">13</span>
+  </div>
+
+  <!-- CLOSING / RESULT PANEL: final statement + villa essence -->
+  <div class="p pi" style="width:90vw" data-i="13">
+    <img class="end-img" src="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View200000_278c1d7841.jpg" alt="The Arbour completed villa essence" data-full="https://cdn.yodezeen.com/94/109/ELA_hotel_View06_Interactive_Light_Mix_View200000_278c1d7841.jpg">
+    <div class="end-veil"></div>
+    <div class="end-foot">
+      <p class="end-q" data-en="The completed villa embodies a timeless sense of ease and elegance. Light, travertine, oak, and brass work together to shape an atmosphere made for contemplation, connection, and everyday beauty — a harmonious dialogue between nature and architecture." data-vi="Biệt thự hoàn thiện toát lên vẻ thanh thản và thanh lịch vượt thời gian. Ánh sáng, travertine, gỗ sồi và đồng thau hòa quyện tạo nên bầu không khí chiêm nghiệm, kết nối và vẻ đẹp đời thường — một cuộc đối thoại hài hòa giữa thiên nhiên và kiến trúc.">The completed villa embodies a timeless sense of ease and elegance. Light, travertine, oak, and brass work together to shape an atmosphere made for contemplation, connection, and everyday beauty — a harmonious dialogue between nature and architecture.</p>
+      <div class="end-meta">
+        <span class="end-tag" data-en="Contemporary Classic" data-vi="Cổ điển đương đại">Contemporary Classic</span>
+        <p class="end-name">The Arbour · Surrey Hills · 43,056 ft²</p>
+      </div>
+    </div>
+    <span class="wm" style="font-size:clamp(100px,13vw,170px)">14</span>
+  </div>
+</div></div>
+
+<div id="counter">
+  <span id="cnt-cur">01</span>
+  <div class="cnt-track"><div class="cnt-fill" id="cnt-fill"></div></div>
+  <span id="cnt-tot">14</span>
+</div>
+
+<div id="hint">
+  <span data-en="Scroll" data-vi="Cuộn">Scroll</span>
+  <div class="h-line"></div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lb-overlay">
+  <div class="lb-close" id="lbClose">✕</div>
+  <img id="lbImg" class="lb-img" src="" alt="Full size view">
+  <div id="lbCaption" class="lb-caption"></div>
+</div>
+
+<script src="../assets/js/shared.js"></script>
+<script>
+const track = document.getElementById('track'), vp = document.getElementById('vp'), prog = document.getElementById('prog');
+const hint = document.getElementById('hint'), cntCur = document.getElementById('cnt-cur'), cntFill = document.getElementById('cnt-fill');
+let tx=0, cx=0, maxS=0;
+const piEls = Array.from(document.querySelectorAll('.p'));
+const TOTAL = piEls.length;
+document.getElementById('cnt-tot').textContent = String(TOTAL).padStart(2,'0');
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function getMax(){ return track.scrollWidth - vp.offsetWidth; }
+window.addEventListener('wheel', e=>{ e.preventDefault(); maxS=getMax(); tx=clamp(tx+e.deltaY*1.55+e.deltaX,0,maxS); },{passive:false});
+
+// LIGHTBOX FUNCTIONALITY
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbClose = document.getElementById('lbClose');
+const lbCaption = document.getElementById('lbCaption');
+
+function openLightbox(imgElement) {
+  const fullUrl = imgElement.getAttribute('data-full') || imgElement.src;
+  lbImg.src = fullUrl;
+  let captionText = imgElement.alt || '';
+  const parentPanel = imgElement.closest('.p');
+  if(parentPanel){
+    const secLabelSpan = parentPanel.querySelector('.sec-lbl-name');
+    if(secLabelSpan) captionText = secLabelSpan.innerText.trim() + ' · The Arbour';
+    else if(parentPanel.classList.contains('pi') && !secLabelSpan){
+      const heroEyebrow = parentPanel.querySelector('.h-eyebrow');
+      if(heroEyebrow) captionText = heroEyebrow.innerText.trim() + ' · Surrey Hills';
+    }
+  }
+  lbCaption.textContent = captionText || 'The Arbour · Architectural study';
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  lightbox.classList.remove('active');
+  setTimeout(()=>{ lbImg.src = ''; }, 200);
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.pi img, .hero-img, .end-img').forEach(img => {
+  img.style.cursor = 'pointer';
+  img.addEventListener('click', (e) => { e.stopPropagation(); openLightbox(img); });
+});
+lbClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => { if(lightbox.classList.contains('active') && e.key === 'Escape') closeLightbox(); });
+
+// SCROLL LOOP
+(function loop(){
+  cx+=(tx-cx)*.09; if(Math.abs(tx-cx)<0.05) cx=tx;
+  track.style.transform=`translateX(${-cx}px)`;
+  maxS=getMax(); prog.style.width=(maxS>0?(cx/maxS)*100:0)+'%';
+  hint.style.opacity=cx>100?'0':'1';
+  let visIdx=0, bestOverlap=-1;
+  piEls.forEach((p,i)=>{
+    const r=p.getBoundingClientRect();
+    const overlap=Math.min(r.right,window.innerWidth)-Math.max(r.left,0);
+    if(overlap>bestOverlap){bestOverlap=overlap;visIdx=i;}
+  });
+  cntCur.textContent=String(visIdx+1).padStart(2,'0');
+  cntFill.style.width=((visIdx+1)/TOTAL*100)+'%';
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

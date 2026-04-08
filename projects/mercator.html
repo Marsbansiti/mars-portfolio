@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Wonen in Mercator | Light & Atmosphere · The Netherlands</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300;1,9..144,400&family=Syne:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/shared.css">
+<style>
+*{ margin:0; padding:0; box-sizing:border-box; }
+:root{ --panel-gap: 6px; }
+body{ height:100vh; overflow:hidden; background:var(--bg); }
+
+/* REMOVE ALL SCROLLBARS */
+html, body { overflow-x: hidden; }
+nav { overflow-x: hidden; width: 100%; }
+#vp::-webkit-scrollbar { display: none; }
+#vp{ -ms-overflow-style: none; scrollbar-width: none; overflow-x: auto; overflow-y: hidden; }
+
+nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative; z-index:500; width:100%; overflow-x: hidden; }
+.nav-links { display: flex; flex-wrap: nowrap; }
+.nav-mid { white-space: nowrap; }
+
+#prog-wrap{ position:fixed; top:58px; left:0; right:0; height:1.5px; background:var(--border); z-index:600; }
+#prog{ height:100%; width:0%; background:var(--gold); transition:width .04s linear; }
+#counter{ position:fixed; bottom:22px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:14px; z-index:600; background:rgba(12,10,7,.4); backdrop-filter:blur(4px); padding:6px 14px; border-radius:40px; }
+#cnt-cur{ font-family:var(--serif); font-style:italic; font-size:14px; font-weight:200; color:var(--gold); min-width:24px; text-align:right; }
+.cnt-track{ width:48px; height:1px; background:var(--border); position:relative; overflow:hidden; }
+.cnt-fill{ position:absolute; top:0; left:0; height:100%; background:var(--gold); transition:width .4s ease; }
+#cnt-tot{ font-family:var(--serif); font-style:italic; font-size:14px; font-weight:200; color:var(--text-dim); min-width:24px; }
+#hint{ position:fixed; bottom:22px; right:44px; z-index:600; display:flex; align-items:center; gap:10px; transition:opacity .7s; background:rgba(12,10,7,.3); padding:5px 12px; border-radius:40px; backdrop-filter:blur(4px); }
+#hint span{ font-size:9px; font-weight:400; letter-spacing:.25em; text-transform:uppercase; color:var(--text-dim); }
+.h-line{ width:32px; height:1px; background:var(--gold); position:relative; overflow:hidden; }
+.h-line::after{ content:'';position:absolute; top:0; left:-100%; width:100%; height:100%; background:var(--text); animation:slide 2s ease-in-out infinite; }
+@keyframes slide{ 0%{left:-100%} 50%{left:100%} 100%{left:100%} }
+#vp{ position:fixed; inset:0; top:59.5px; overflow-x:auto; overflow-y:hidden; scroll-behavior:smooth; scrollbar-width: none; }
+#track{ display:flex; flex-direction:row; height:calc(100vh - 59.5px); will-change:transform; gap: var(--panel-gap); padding-right: var(--panel-gap); }
+.p{ flex-shrink:0; height:100%; position:relative; overflow:hidden; }
+.pi img{ width:100%; height:100%; object-fit:cover; display:block; transition:filter .5s; cursor:pointer; }
+.pi img:hover{ filter:brightness(1.02) contrast(1.02); }
+.hero-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+.hero-veil{ position:absolute; inset:0; background: linear-gradient(105deg, rgba(12,10,7,.45) 0%, transparent 48%), linear-gradient(to top, rgba(12,10,7,.72) 0%, transparent 44%); pointer-events:none; }
+.hero-foot{ position:absolute; bottom:0; left:0; right:0; padding:44px 52px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
+.h-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(72px,10vw,128px); line-height:.88; letter-spacing:-.02em; color:var(--text); }
+.h-eyebrow{ font-size:9px; font-weight:500; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:block; }
+.h-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:17px; color:rgba(232,226,213,.7); }
+.info{ background:var(--surface); border-right:1px solid var(--border); border-left:2px solid var(--gold); display:flex; flex-direction:column; justify-content:space-between; padding:52px 46px 46px; overflow-y:auto; scrollbar-width: thin; }
+.info::-webkit-scrollbar{ width:3px; background:var(--border); }
+.info::-webkit-scrollbar-thumb{ background:var(--gold); }
+.i-label{ font-size:9px; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--text-dim); }
+.i-rule{ display:flex; align-items:center; gap:12px; margin:18px 0 22px; }
+.i-rule::before{ content:''; width:20px; height:1px; background:var(--gold); }
+.i-rule::after{ content:''; flex:1; height:1px; background:var(--border); }
+.i-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--text-dim); line-height:1.6; margin-bottom:10px; }
+.i-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(58px,5.5vw,80px); line-height:.9; letter-spacing:-.02em; color:var(--text); margin-bottom:36px; }
+.i-body{ font-size:12.5px; font-weight:300; line-height:1.9; color:var(--text-dim); margin-bottom:40px; }
+.svc-list{ list-style:none; border-top:1px solid var(--border); }
+.svc-item{ display:flex; align-items:center; justify-content:space-between; padding:11px 0; border-bottom:1px solid var(--border); transition:padding-left .3s; position:relative; }
+.svc-item:hover{ padding-left:8px; }
+.svc-item::before{ content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:0; height:1px; background:var(--gold); transition:width .3s; }
+.svc-item:hover::before{ width:6px; }
+.svc-name{ font-size:11.5px; font-weight:400; letter-spacing:.03em; color:var(--text); }
+.svc-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--gold); }
+.area-blk{ margin-top:38px; }
+.area-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:54px; line-height:1; letter-spacing:-.02em; color:var(--text); }
+.area-unit{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:16px; color:var(--gold); display:inline-block; margin-left:5px; }
+.area-label{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--text-dim); margin-top:10px; display:block; }
+.sec-lbl{ position:absolute; bottom:36px; left:28px; z-index:2; display:flex; align-items:center; gap:10px; pointer-events:none; }
+.sec-lbl-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:11px; color:rgba(232,226,213,.5); }
+.sec-lbl-name{ font-size:9px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:rgba(232,226,213,.4); }
+.sec-lbl::before{ content:''; width:18px; height:1px; background:rgba(200,128,60,.4); }
+.wm{ position:absolute; bottom:-10px; right:-8px; font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(130px,16vw,200px); line-height:1; color:rgba(255,255,255,.05); pointer-events:none; z-index:1; letter-spacing:-.04em; user-select:none; }
+.concept{ background:var(--bg2); border-left:1px solid var(--border); border-right:1px solid var(--border); display:flex; flex-direction:column; justify-content:center; padding:64px 44px; position:relative; overflow:hidden; }
+.concept-bg{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(100px,14vw,160px); letter-spacing:-.04em; white-space:nowrap; color:rgba(232,226,213,.04); pointer-events:none; user-select:none; line-height:1; }
+.concept-label{ font-size:9px; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:28px; display:flex; align-items:center; gap:12px; }
+.concept-label::after{ content:''; width:24px; height:1px; background:var(--gold); opacity:.4; }
+.qmark{ font-family:var(--serif); font-weight:200; font-size:64px; line-height:.65; color:var(--gold); opacity:.35; margin-bottom:10px; }
+.qtext{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2vw,22px); line-height:1.65; color:var(--text); margin-bottom:38px; }
+.qtext strong{ font-style:normal; font-weight:300; color:var(--gold); }
+.mat-row{ display:flex; flex-wrap:wrap; gap:6px; margin-top:32px; }
+.mat{ font-size:9px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); padding:5px 12px; border:1px solid var(--border); transition:all .3s; }
+.mat:hover{ background:var(--gold); color:var(--bg); border-color:var(--gold); }
+.end-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+.end-veil{ position:absolute; inset:0; background:linear-gradient(to top, rgba(12,10,7,.82) 0%, rgba(12,10,7,.18) 55%, transparent 100%); pointer-events:none; }
+.end-foot{ position:absolute; bottom:0; left:0; right:0; padding:52px 56px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
+.end-q{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2.4vw,30px); line-height:1.5; color:var(--text); max-width:520px; }
+.end-meta{ text-align:right; }
+.end-tag{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; display:block; }
+.end-name{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:18px; color:rgba(232,226,213,.75); }
+
+/* BACK BUTTON - TOP LEFT CORNER */
+.back-projects-btn {
+  position: fixed;
+  top: 72px;
+  left: 28px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(12, 10, 7, 0.85);
+  backdrop-filter: blur(16px);
+  padding: 8px 20px;
+  border-radius: 40px;
+  border: 1px solid rgba(200, 128, 60, 0.6);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+}
+.back-projects-btn:hover {
+  background: rgba(200, 128, 60, 0.25);
+  border-color: var(--gold);
+  gap: 14px;
+  letter-spacing: 0.24em;
+  color: #fff;
+}
+.back-projects-btn::before {
+  content: "←";
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gold);
+  transition: transform 0.2s;
+}
+.back-projects-btn:hover::before {
+  transform: translateX(-4px);
+}
+
+/* LIGHTBOX STYLES */
+.lb-overlay{ position:fixed; inset:0; background:rgba(8,6,4,.96); backdrop-filter:blur(28px); z-index:2000; display:flex; align-items:center; justify-content:center; visibility:hidden; opacity:0; transition:visibility .25s, opacity .25s; cursor:pointer; }
+.lb-overlay.active{ visibility:visible; opacity:1; }
+.lb-img{ max-width:90vw; max-height:85vh; object-fit:contain; box-shadow:0 25px 45px rgba(0,0,0,.4); border-radius:2px; cursor:default; }
+.lb-close{ position:fixed; top:28px; right:32px; width:44px; height:44px; background:rgba(255,255,255,.05); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:200; color:var(--gold); transition:all .2s; cursor:pointer; backdrop-filter:blur(8px); border:1px solid rgba(232,226,213,.2); }
+.lb-close:hover{ background:rgba(200,128,60,.2); transform:scale(1.02); color:#fff; }
+.lb-caption{ position:fixed; bottom:24px; left:0; right:0; text-align:center; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,226,213,.6); font-weight:300; pointer-events:none; }
+
+@media (max-width:720px){
+  .back-projects-btn{ top: 68px; left: 16px; padding: 6px 16px; font-size: 9px; gap: 8px; }
+  .hero-foot{ padding: 28px 28px; }
+  .info{ padding: 32px 24px; width: 380px; }
+  .lb-close{ top:18px; right:20px; width:38px; height:38px; font-size:26px; }
+  .lb-img{ max-width:95vw; max-height:75vh; }
+  #counter{ bottom: 16px; padding: 4px 12px; }
+  #hint{ bottom: 16px; right: 20px; }
+}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">Mars<span>.</span>Bansiti</a>
+  <div class="nav-mid">
+    <span class="nav-cat" data-en="YUCONVR · Residential" data-vi="YUCONVR · Nhà ở">YUCONVR · Residential</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="../index.html" data-en="Home" data-vi="Trang chủ">Home</a></li>
+    <li><a href="../projects.html" data-en="Projects" data-vi="Dự án">Projects</a></li>
+    <li><a href="../about.html" data-en="About me" data-vi="Về tôi">About me</a></li>
+    <li><button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button></li>
+  </ul>
+</nav>
+
+<div id="prog-wrap"><div id="prog"></div></div>
+
+<!-- BACK TO PROJECTS BUTTON -->
+<a href="../projects.html" class="back-projects-btn" data-en="← Back to projects" data-vi="← Quay lại dự án">← Back to projects</a>
+
+<div id="vp"><div id="track">
+  <!-- HERO panel - Mercator main intro -->
+  <div class="p pi" style="width:100vw" data-i="0">
+    <img class="hero-img" src="https://yuconvr.com/wp-content/uploads/2025/06/42910_Bnr-12-min.jpg" alt="Wonen in Mercator bright living space hero" data-full="https://yuconvr.com/wp-content/uploads/2025/06/42910_Bnr-12-min.jpg">
+    <div class="hero-veil"></div>
+    <div class="hero-foot">
+      <div>
+        <span class="h-eyebrow" data-en="The Netherlands · 2025" data-vi="Hà Lan · 2025">The Netherlands · 2025</span>
+        <h1 class="h-title">Wonen in<br>Mercator</h1>
+      </div>
+      <div style="text-align:right;padding-bottom:6px">
+        <span class="h-eyebrow" style="text-align:right" data-en="New Construction" data-vi="Xây dựng mới">New Construction</span>
+        <p class="h-sub" data-en="Atmosphere · Light · Detail" data-vi="Không gian · Ánh sáng · Chi tiết">Atmosphere · Light · Detail</p>
+      </div>
+    </div>
+    <span class="wm">01</span>
+  </div>
+
+  <!-- INFO panel: detailed stats -->
+  <div class="p info" style="width:440px">
+    <div>
+      <p class="i-label" data-en="The Netherlands · 2025 · YUCONVR" data-vi="Hà Lan · 2025 · YUCONVR">The Netherlands · 2025 · YUCONVR</p>
+      <div class="i-rule"></div>
+      <p class="i-sub" data-en="Living in Mercator · New construction project" data-vi="Wonen in Mercator · Dự án xây dựng mới">Living in Mercator · New construction project</p>
+      <h2 class="i-title">Wonen in<br>Mercator</h2>
+      <div class="i-body">
+        <p data-en="For the new construction project 'Living in Mercator' (Wonen in Mercator), YUCONVR provided the visuals that bring the plan to life. With an eye for atmosphere, light, and detail, the team showcased what the homes will really feel like — from the architecture to the surrounding green environment. The design embraces natural light, warm textures, and a seamless connection between indoor and outdoor spaces. Each interior has been carefully crafted to reflect a sense of comfort and modern elegance, with open living spaces that flow naturally from one area to the next." data-vi="Cho dự án xây dựng mới 'Living in Mercator' (Wonen in Mercator), YUCONVR đã cung cấp các hình ảnh trực quan giúp kế hoạch trở nên sống động. Với sự chú ý đến không gian, ánh sáng và chi tiết, nhóm đã thể hiện cảm giác thực sự của những ngôi nhà — từ kiến trúc đến môi trường xanh xung quanh. Thiết kế tận dụng ánh sáng tự nhiên, kết cấu ấm áp và sự kết nối liền mạch giữa không gian trong nhà và ngoài trời. Mỗi không gian nội thất đã được chế tác cẩn thận để phản ánh cảm giác thoải mái và thanh lịch hiện đại, với không gian sống mở chuyển tiếp tự nhiên từ khu vực này sang khu vực khác.">For the new construction project 'Living in Mercator' (Wonen in Mercator), YUCONVR provided the visuals that bring the plan to life. With an eye for atmosphere, light, and detail, the team showcased what the homes will really feel like — from the architecture to the surrounding green environment. The design embraces natural light, warm textures, and a seamless connection between indoor and outdoor spaces. Each interior has been carefully crafted to reflect a sense of comfort and modern elegance, with open living spaces that flow naturally from one area to the next.</p>
+      </div>
+      <ul class="svc-list">
+        <li class="svc-item"><span class="svc-name" data-en="Interior Visualization" data-vi="Hình ảnh nội thất">Interior Visualization</span><span class="svc-num">01</span></li>
+        <li class="svc-item"><span class="svc-name" data-en="Architectural Rendering" data-vi="Kết xuất kiến trúc">Architectural Rendering</span><span class="svc-num">02</span></li>
+        <li class="svc-item"><span class="svc-name" data-en="Lifestyle Imaging" data-vi="Hình ảnh phong cách sống">Lifestyle Imaging</span><span class="svc-num">03</span></li>
+      </ul>
+    </div>
+    <div class="area-blk">
+      <span class="area-num">New</span><span class="area-unit">Construction</span>
+      <span class="area-label" data-en="Wonen in Mercator" data-vi="Wonen in Mercator">Wonen in Mercator</span>
+      <div style="margin-top:12px; border-top:1px solid var(--border); padding-top:14px;">
+        <span class="area-label" style="margin-top:0" data-en="Atmosphere · Light · Detail · Green surroundings" data-vi="Không gian · Ánh sáng · Chi tiết · Môi trường xanh">Atmosphere · Light · Detail · Green surroundings</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- GALLERY PANEL 1: Interior View 1 - Open living/dining room with round jute rug -->
+  <div class="p pi" style="width:52vw" data-i="1">
+    <img src="https://yuconvr.com/wp-content/uploads/2025/06/42910_Bnr-12-min.jpg" alt="Open living and dining room with round jute rug and balcony access" data-full="https://yuconvr.com/wp-content/uploads/2025/06/42910_Bnr-12-min.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">01</span><span class="sec-lbl-name" data-en="Living & Dining · Jute rug" data-vi="Phòng khách & ăn · Thảm đay">Living & Dining · Jute rug</span></div>
+    <span class="wm">02</span>
+  </div>
+
+  <!-- GALLERY PANEL 2: Interior View 2 - Bright living room with light wood floors -->
+  <div class="p pi" style="width:48vw" data-i="2">
+    <img src="https://yuconvr.com/wp-content/uploads/2025/06/42910_Bnr-26-min.jpg" alt="Bright living room with light wood floors and woven decor" data-full="https://yuconvr.com/wp-content/uploads/2025/06/42910_Bnr-26-min.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">02</span><span class="sec-lbl-name" data-en="Living Room · Light wood floors" data-vi="Phòng khách · Sàn gỗ sáng">Living Room · Light wood floors</span></div>
+    <span class="wm">03</span>
+  </div>
+
+  <!-- CONCEPT PANEL -->
+  <div class="p concept" style="width:400px">
+    <div class="concept-bg">Mercator</div>
+    <div class="concept-label" data-en="The Vision" data-vi="Tầm nhìn">The Vision</div>
+    <div class="qmark">"</div>
+    <p class="qtext" data-en="With an eye for <strong>atmosphere, light, and detail,</strong> we showcase what the homes will really feel like — from the architecture to the surrounding green environment." data-vi="Với sự chú ý đến <strong>không gian, ánh sáng và chi tiết,</strong> chúng tôi thể hiện cảm giác thực sự của những ngôi nhà — từ kiến trúc đến môi trường xanh xung quanh.">With an eye for <strong>atmosphere, light, and detail,</strong> we showcase what the homes will really feel like — from the architecture to the surrounding green environment.</p>
+    <div class="mat-row">
+      <span class="mat" data-en="Natural light" data-vi="Ánh sáng tự nhiên">Natural light</span>
+      <span class="mat" data-en="Warm textures" data-vi="Kết cấu ấm áp">Warm textures</span>
+      <span class="mat" data-en="Green surroundings" data-vi="Môi trường xanh">Green surroundings</span>
+      <span class="mat" data-en="Modern elegance" data-vi="Thanh lịch hiện đại">Modern elegance</span>
+    </div>
+  </div>
+
+  <!-- GALLERY PANEL 3: Interior View 3 - Open-plan space overlooking balcony -->
+  <div class="p pi" style="width:46vw" data-i="3">
+    <img src="https://yuconvr.com/wp-content/uploads/2025/06/42910_Bnr-66-min.jpg" alt="Open-plan space overlooking balcony and outdoor seating" data-full="https://yuconvr.com/wp-content/uploads/2025/06/42910_Bnr-66-min.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">03</span><span class="sec-lbl-name" data-en="Open-plan · Balcony view" data-vi="Không gian mở · Nhìn ra ban công">Open-plan · Balcony view</span></div>
+    <span class="wm">04</span>
+  </div>
+
+  <!-- GALLERY PANEL 4: Interior View 4 - Living area with built-in bookcase divider -->
+  <div class="p pi" style="width:50vw" data-i="4">
+    <img src="https://yuconvr.com/wp-content/uploads/2025/06/42910_Bnr-72-min.jpg" alt="Living area with built-in bookcase acting as room divider" data-full="https://yuconvr.com/wp-content/uploads/2025/06/42910_Bnr-72-min.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">04</span><span class="sec-lbl-name" data-en="Bookcase divider · Smart layout" data-vi="Kệ sách phân chia · Bố trí thông minh">Bookcase divider · Smart layout</span></div>
+    <span class="wm">05</span>
+  </div>
+
+  <!-- GALLERY PANEL 5: Interior View 5 - Brown and beige decor with round dining table -->
+  <div class="p pi" style="width:44vw" data-i="5">
+    <img src="https://yuconvr.com/wp-content/uploads/2025/06/42910_Bnr-78-min.jpg" alt="Brown and beige decor with round dining table and natural light" data-full="https://yuconvr.com/wp-content/uploads/2025/06/42910_Bnr-78-min.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">05</span><span class="sec-lbl-name" data-en="Dining · Round table" data-vi="Phòng ăn · Bàn tròn">Dining · Round table</span></div>
+    <span class="wm">06</span>
+  </div>
+
+  <!-- GALLERY PANEL 6: Interior View 6 - Spacious room with herringbone hardwood floors -->
+  <div class="p pi" style="width:49vw" data-i="6">
+    <img src="https://yuconvr.com/wp-content/uploads/2025/06/42910_Bnr-81-min.jpg" alt="Spacious room with herringbone hardwood floors and contemporary furniture" data-full="https://yuconvr.com/wp-content/uploads/2025/06/42910_Bnr-81-min.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">06</span><span class="sec-lbl-name" data-en="Herringbone floors · Contemporary" data-vi="Sàn herringbone · Đương đại">Herringbone floors · Contemporary</span></div>
+    <span class="wm">07</span>
+  </div>
+
+  <!-- GALLERY PANEL 7: Interior View 7 - Light gray corner sofa and dining area -->
+  <div class="p pi" style="width:47vw" data-i="7">
+    <img src="https://yuconvr.com/wp-content/uploads/2025/06/42910_Int-Type-F-Bnr-14-min.jpg" alt="Light gray corner sofa, TV unit, and dining area with wooden chairs" data-full="https://yuconvr.com/wp-content/uploads/2025/06/42910_Int-Type-F-Bnr-14-min.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">07</span><span class="sec-lbl-name" data-en="Corner sofa · TV unit" data-vi="Sofa góc · Kệ TV">Corner sofa · TV unit</span></div>
+    <span class="wm">08</span>
+  </div>
+
+  <!-- GALLERY PANEL 8: Interior View 8 - Marble table, orange rug, cozy seating -->
+  <div class="p pi" style="width:45vw" data-i="8">
+    <img src="https://yuconvr.com/wp-content/uploads/2025/06/42910_Int-Type-H-Bnr-18-min.jpg" alt="Marble table, orange rug, and cozy seating area near the balcony" data-full="https://yuconvr.com/wp-content/uploads/2025/06/42910_Int-Type-H-Bnr-18-min.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">08</span><span class="sec-lbl-name" data-en="Marble table · Orange rug" data-vi="Bàn đá cẩm thạch · Thảm cam">Marble table · Orange rug</span></div>
+    <span class="wm">09</span>
+  </div>
+
+  <!-- GALLERY PANEL 9: Interior View 9 - Light corner sofa, artwork, wooden table -->
+  <div class="p pi" style="width:48vw" data-i="9">
+    <img src="https://yuconvr.com/wp-content/uploads/2025/06/42910_Int-Type-N-Bnr-29-min.jpg" alt="Light corner sofa, artwork, wooden table, and large potted plant" data-full="https://yuconvr.com/wp-content/uploads/2025/06/42910_Int-Type-N-Bnr-29-min.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">09</span><span class="sec-lbl-name" data-en="Artwork · Potted plant" data-vi="Tác phẩm nghệ thuật · Cây cảnh">Artwork · Potted plant</span></div>
+    <span class="wm">10</span>
+  </div>
+
+  <!-- CLOSING / RESULT PANEL: final statement -->
+  <div class="p pi" style="width:86vw" data-i="10">
+    <img class="end-img" src="https://yuconvr.com/wp-content/uploads/2025/06/42910_Bnr-12-min.jpg" alt="Wonen in Mercator - modern living" data-full="https://yuconvr.com/wp-content/uploads/2025/06/42910_Bnr-12-min.jpg">
+    <div class="end-veil"></div>
+    <div class="end-foot">
+      <p class="end-q" data-en="Wonen in Mercator represents modern living at its finest — where natural light, warm textures, and thoughtful design come together to create homes that are both beautiful and livable. With an eye for atmosphere, light, and detail, YUCONVR brought the plan to life, showcasing the true feeling of these exceptional homes." data-vi="Wonen in Mercator đại diện cho cuộc sống hiện đại ở đỉnh cao — nơi ánh sáng tự nhiên, kết cấu ấm áp và thiết kế chu đáo kết hợp để tạo ra những ngôi nhà vừa đẹp vừa đáng sống. Với sự chú ý đến không gian, ánh sáng và chi tiết, YUCONVR đã thổi hồn vào kế hoạch, thể hiện cảm giác thực sự của những ngôi nhà đặc biệt này.">Wonen in Mercator represents modern living at its finest — where natural light, warm textures, and thoughtful design come together to create homes that are both beautiful and livable. With an eye for atmosphere, light, and detail, YUCONVR brought the plan to life, showcasing the true feeling of these exceptional homes.</p>
+      <div class="end-meta">
+        <span class="end-tag" data-en="Wonen in Mercator · 2025" data-vi="Wonen in Mercator · 2025">Wonen in Mercator · 2025</span>
+        <p class="end-name">YUCONVR · Residential Visualization</p>
+      </div>
+    </div>
+    <span class="wm" style="font-size:clamp(100px,13vw,170px)">11</span>
+  </div>
+</div></div>
+
+<div id="counter">
+  <span id="cnt-cur">01</span>
+  <div class="cnt-track"><div class="cnt-fill" id="cnt-fill"></div></div>
+  <span id="cnt-tot">11</span>
+</div>
+
+<div id="hint">
+  <span data-en="Scroll" data-vi="Cuộn">Scroll</span>
+  <div class="h-line"></div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lb-overlay">
+  <div class="lb-close" id="lbClose">✕</div>
+  <img id="lbImg" class="lb-img" src="" alt="Full size view">
+  <div id="lbCaption" class="lb-caption"></div>
+</div>
+
+<script src="../assets/js/shared.js"></script>
+<script>
+const track = document.getElementById('track'), vp = document.getElementById('vp'), prog = document.getElementById('prog');
+const hint = document.getElementById('hint'), cntCur = document.getElementById('cnt-cur'), cntFill = document.getElementById('cnt-fill');
+let tx=0, cx=0, maxS=0;
+const piEls = Array.from(document.querySelectorAll('.p'));
+const TOTAL = piEls.length;
+document.getElementById('cnt-tot').textContent = String(TOTAL).padStart(2,'0');
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function getMax(){ return track.scrollWidth - vp.offsetWidth; }
+window.addEventListener('wheel', e=>{ e.preventDefault(); maxS=getMax(); tx=clamp(tx+e.deltaY*1.55+e.deltaX,0,maxS); },{passive:false});
+
+// LIGHTBOX FUNCTIONALITY
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbClose = document.getElementById('lbClose');
+const lbCaption = document.getElementById('lbCaption');
+
+function openLightbox(imgElement) {
+  const fullUrl = imgElement.getAttribute('data-full') || imgElement.src;
+  lbImg.src = fullUrl;
+  let captionText = imgElement.alt || '';
+  const parentPanel = imgElement.closest('.p');
+  if(parentPanel){
+    const secLabelSpan = parentPanel.querySelector('.sec-lbl-name');
+    if(secLabelSpan) captionText = secLabelSpan.innerText.trim() + ' · Wonen in Mercator';
+    else if(parentPanel.classList.contains('pi') && !secLabelSpan){
+      const heroEyebrow = parentPanel.querySelector('.h-eyebrow');
+      if(heroEyebrow) captionText = heroEyebrow.innerText.trim() + ' · The Netherlands';
+    }
+  }
+  lbCaption.textContent = captionText || 'Wonen in Mercator · Modern Living';
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  lightbox.classList.remove('active');
+  setTimeout(()=>{ lbImg.src = ''; }, 200);
+  document.body.style.overflow = '';
+}
+
+// Attach click listeners to all images
+document.querySelectorAll('.pi img, .hero-img, .end-img').forEach(img => {
+  img.style.cursor = 'pointer';
+  img.addEventListener('click', (e) => { e.stopPropagation(); openLightbox(img); });
+});
+lbClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => { if(lightbox.classList.contains('active') && e.key === 'Escape') closeLightbox(); });
+
+// SCROLL LOOP
+(function loop(){
+  cx+=(tx-cx)*.09; if(Math.abs(tx-cx)<0.05) cx=tx;
+  track.style.transform=`translateX(${-cx}px)`;
+  maxS=getMax(); prog.style.width=(maxS>0?(cx/maxS)*100:0)+'%';
+  hint.style.opacity=cx>100?'0':'1';
+  let visIdx=0, bestOverlap=-1;
+  piEls.forEach((p,i)=>{
+    const r=p.getBoundingClientRect();
+    const overlap=Math.min(r.right,window.innerWidth)-Math.max(r.left,0);
+    if(overlap>bestOverlap){bestOverlap=overlap;visIdx=i;}
+  });
+  cntCur.textContent=String(visIdx+1).padStart(2,'0');
+  cntFill.style.width=((visIdx+1)/TOTAL*100)+'%';
+  requestAnimationFrame(loop);
+})();
+
+// Language toggle (shared.js compatible fallback)
+function toggleLang() {
+  const btn = document.getElementById('lang-btn');
+  if(btn.textContent === 'EN') btn.textContent = 'VI';
+  else btn.textContent = 'EN';
+}
+</script>
+</body>
+</html>

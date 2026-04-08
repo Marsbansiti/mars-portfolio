@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>DU52 | Unit Home · Thiết kế nội thất hiện đại · Kyiv</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300;1,9..144,400&family=Syne:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{ margin:0; padding:0; box-sizing:border-box; }
+:root{ 
+  --panel-gap: 6px; 
+  --bg: #0a0806;
+  --bg2: #0e0c09;
+  --surface: #11100c;
+  --border: #2a241e;
+  --gold: #c09a6b;
+  --text: #e8e2d5;
+  --text-dim: #b7aa99;
+  --serif: 'Fraunces', serif;
+  --sans: 'Syne', sans-serif;
+}
+body{ height:100vh; overflow:hidden; background:var(--bg); font-family: var(--sans); }
+
+/* REMOVE ALL SCROLLBARS */
+html, body { overflow-x: hidden; }
+nav { overflow-x: hidden; width: 100%; }
+#vp::-webkit-scrollbar { display: none; }
+#vp{ -ms-overflow-style: none; scrollbar-width: none; overflow-x: auto; overflow-y: hidden; }
+
+nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative; z-index:500; width:100%; display: flex; align-items: center; justify-content: space-between; padding: 12px 28px; border-bottom: 1px solid rgba(192,154,107,0.2); }
+.nav-logo{ font-family: var(--serif); font-style: italic; font-size: 18px; font-weight: 300; letter-spacing: -0.2px; color: var(--text); text-decoration: none; }
+.nav-logo span{ color: var(--gold); }
+.nav-mid .nav-cat{ font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-dim); }
+.nav-links{ display: flex; gap: 32px; list-style: none; }
+.nav-links li a{ font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+.nav-links li a:hover{ color: var(--gold); }
+.lang-btn{ background: none; border: 1px solid var(--border); padding: 4px 12px; border-radius: 40px; font-size: 10px; font-weight: 600; color: var(--text); cursor: pointer; transition: all 0.2s; }
+.lang-btn:hover{ border-color: var(--gold); color: var(--gold); }
+
+#prog-wrap{ position:fixed; top:58px; left:0; right:0; height:1.5px; background:var(--border); z-index:600; }
+#prog{ height:100%; width:0%; background:var(--gold); transition:width .04s linear; }
+#counter{ position:fixed; bottom:22px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:14px; z-index:600; background:rgba(12,10,7,.4); backdrop-filter:blur(4px); padding:6px 14px; border-radius:40px; }
+#cnt-cur{ font-family:var(--serif); font-style:italic; font-size:14px; font-weight:200; color:var(--gold); min-width:24px; text-align:right; }
+.cnt-track{ width:48px; height:1px; background:var(--border); position:relative; overflow:hidden; }
+.cnt-fill{ position:absolute; top:0; left:0; height:100%; background:var(--gold); transition:width .4s ease; }
+#cnt-tot{ font-family:var(--serif); font-style:italic; font-size:14px; font-weight:200; color:var(--text-dim); min-width:24px; }
+#hint{ position:fixed; bottom:22px; right:44px; z-index:600; display:flex; align-items:center; gap:10px; transition:opacity .7s; background:rgba(12,10,7,.3); padding:5px 12px; border-radius:40px; backdrop-filter:blur(4px); }
+#hint span{ font-size:9px; font-weight:400; letter-spacing:.25em; text-transform:uppercase; color:var(--text-dim); }
+.h-line{ width:32px; height:1px; background:var(--gold); position:relative; overflow:hidden; }
+.h-line::after{ content:'';position:absolute; top:0; left:-100%; width:100%; height:100%; background:var(--text); animation:slide 2s ease-in-out infinite; }
+@keyframes slide{ 0%{left:-100%} 50%{left:100%} 100%{left:100%} }
+#vp{ position:fixed; inset:0; top:59.5px; overflow-x:auto; overflow-y:hidden; scroll-behavior:smooth; scrollbar-width: none; }
+#track{ display:flex; flex-direction:row; height:calc(100vh - 59.5px); will-change:transform; gap: var(--panel-gap); padding-right: var(--panel-gap); }
+.p{ flex-shrink:0; height:100%; position:relative; overflow:hidden; }
+.pi img{ width:100%; height:100%; object-fit:cover; display:block; transition:filter .5s; cursor:pointer; }
+.pi img:hover{ filter:brightness(1.02) contrast(1.02); }
+.hero-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+.hero-veil{ position:absolute; inset:0; background: linear-gradient(105deg, rgba(12,10,7,.45) 0%, transparent 48%), linear-gradient(to top, rgba(12,10,7,.72) 0%, transparent 44%); pointer-events:none; }
+.hero-foot{ position:absolute; bottom:0; left:0; right:0; padding:44px 52px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
+.h-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(72px,10vw,128px); line-height:.88; letter-spacing:-.02em; color:var(--text); }
+.h-eyebrow{ font-size:9px; font-weight:500; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:block; }
+.h-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:17px; color:rgba(232,226,213,.7); }
+.info{ background:var(--surface); border-right:1px solid var(--border); border-left:2px solid var(--gold); display:flex; flex-direction:column; justify-content:space-between; padding:52px 46px 46px; overflow-y:auto; scrollbar-width: thin; }
+.info::-webkit-scrollbar{ width:3px; background:var(--border); }
+.info::-webkit-scrollbar-thumb{ background:var(--gold); }
+.i-label{ font-size:9px; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--text-dim); }
+.i-rule{ display:flex; align-items:center; gap:12px; margin:18px 0 22px; }
+.i-rule::before{ content:''; width:20px; height:1px; background:var(--gold); }
+.i-rule::after{ content:''; flex:1; height:1px; background:var(--border); }
+.i-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--text-dim); line-height:1.6; margin-bottom:10px; }
+.i-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(58px,5.5vw,80px); line-height:.9; letter-spacing:-.02em; color:var(--text); margin-bottom:36px; }
+.i-body{ font-size:12.5px; font-weight:300; line-height:1.9; color:var(--text-dim); margin-bottom:40px; }
+.svc-list{ list-style:none; border-top:1px solid var(--border); }
+.svc-item{ display:flex; align-items:center; justify-content:space-between; padding:11px 0; border-bottom:1px solid var(--border); transition:padding-left .3s; position:relative; }
+.svc-item:hover{ padding-left:8px; }
+.svc-item::before{ content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:0; height:1px; background:var(--gold); transition:width .3s; }
+.svc-item:hover::before{ width:6px; }
+.svc-name{ font-size:11.5px; font-weight:400; letter-spacing:.03em; color:var(--text); }
+.svc-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--gold); }
+.area-blk{ margin-top:38px; }
+.area-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:54px; line-height:1; letter-spacing:-.02em; color:var(--text); }
+.area-unit{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:16px; color:var(--gold); display:inline-block; margin-left:5px; }
+.area-label{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--text-dim); margin-top:10px; display:block; }
+.sec-lbl{ position:absolute; bottom:36px; left:28px; z-index:2; display:flex; align-items:center; gap:10px; pointer-events:none; }
+.sec-lbl-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:11px; color:rgba(232,226,213,.5); }
+.sec-lbl-name{ font-size:9px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:rgba(232,226,213,.4); }
+.sec-lbl::before{ content:''; width:18px; height:1px; background:rgba(200,128,60,.4); }
+.wm{ position:absolute; bottom:-10px; right:-8px; font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(130px,16vw,200px); line-height:1; color:rgba(255,255,255,.05); pointer-events:none; z-index:1; letter-spacing:-.04em; user-select:none; }
+.concept{ background:var(--bg2); border-left:1px solid var(--border); border-right:1px solid var(--border); display:flex; flex-direction:column; justify-content:center; padding:64px 44px; position:relative; overflow:hidden; }
+.concept-bg{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(100px,14vw,160px); letter-spacing:-.04em; white-space:nowrap; color:rgba(232,226,213,.04); pointer-events:none; user-select:none; line-height:1; }
+.concept-label{ font-size:9px; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:28px; display:flex; align-items:center; gap:12px; }
+.concept-label::after{ content:''; width:24px; height:1px; background:var(--gold); opacity:.4; }
+.qmark{ font-family:var(--serif); font-weight:200; font-size:64px; line-height:.65; color:var(--gold); opacity:.35; margin-bottom:10px; }
+.qtext{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2vw,22px); line-height:1.65; color:var(--text); margin-bottom:38px; }
+.qtext strong{ font-style:normal; font-weight:300; color:var(--gold); }
+.mat-row{ display:flex; flex-wrap:wrap; gap:6px; margin-top:32px; }
+.mat{ font-size:9px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); padding:5px 12px; border:1px solid var(--border); transition:all .3s; }
+.mat:hover{ background:var(--gold); color:var(--bg); border-color:var(--gold); }
+.end-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+.end-veil{ position:absolute; inset:0; background:linear-gradient(to top, rgba(12,10,7,.82) 0%, rgba(12,10,7,.18) 55%, transparent 100%); pointer-events:none; }
+.end-foot{ position:absolute; bottom:0; left:0; right:0; padding:52px 56px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
+.end-q{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2.4vw,30px); line-height:1.5; color:var(--text); max-width:520px; }
+.end-meta{ text-align:right; }
+.end-tag{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; display:block; }
+.end-name{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:18px; color:rgba(232,226,213,.75); }
+
+/* BACK BUTTON - TOP LEFT CORNER */
+.back-projects-btn {
+  position: fixed;
+  top: 72px;
+  left: 28px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(12, 10, 7, 0.85);
+  backdrop-filter: blur(16px);
+  padding: 8px 20px;
+  border-radius: 40px;
+  border: 1px solid rgba(200, 128, 60, 0.6);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+}
+.back-projects-btn:hover {
+  background: rgba(200, 128, 60, 0.25);
+  border-color: var(--gold);
+  gap: 14px;
+  letter-spacing: 0.24em;
+  color: #fff;
+}
+.back-projects-btn::before {
+  content: "←";
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gold);
+  transition: transform 0.2s;
+}
+.back-projects-btn:hover::before {
+  transform: translateX(-4px);
+}
+
+/* LIGHTBOX STYLES */
+.lb-overlay{ position:fixed; inset:0; background:rgba(8,6,4,.96); backdrop-filter:blur(28px); z-index:2000; display:flex; align-items:center; justify-content:center; visibility:hidden; opacity:0; transition:visibility .25s, opacity .25s; cursor:pointer; }
+.lb-overlay.active{ visibility:visible; opacity:1; }
+.lb-img{ max-width:90vw; max-height:85vh; object-fit:contain; box-shadow:0 25px 45px rgba(0,0,0,.4); border-radius:2px; cursor:default; }
+.lb-close{ position:fixed; top:28px; right:32px; width:44px; height:44px; background:rgba(255,255,255,.05); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:200; color:var(--gold); transition:all .2s; cursor:pointer; backdrop-filter:blur(8px); border:1px solid rgba(232,226,213,.2); }
+.lb-close:hover{ background:rgba(200,128,60,.2); transform:scale(1.02); color:#fff; }
+.lb-caption{ position:fixed; bottom:24px; left:0; right:0; text-align:center; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,226,213,.6); font-weight:300; pointer-events:none; }
+
+@media (max-width:720px){
+  .back-projects-btn{ top: 68px; left: 16px; padding: 6px 16px; font-size: 9px; gap: 8px; }
+  .hero-foot{ padding: 28px 28px; }
+  .info{ padding: 32px 24px; width: 380px; }
+  .lb-close{ top:18px; right:20px; width:38px; height:38px; font-size:26px; }
+  .lb-img{ max-width:95vw; max-height:75vh; }
+  #counter{ bottom: 16px; padding: 4px 12px; }
+  #hint{ bottom: 16px; right: 20px; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">LEMON<span>.</span>Design</a>
+  <div class="nav-mid">
+    <span class="nav-cat">LEMON Interior Design · Kyiv</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="../index.html">Trang chủ</a></li>
+    <li><a href="../projects.html">Dự án</a></li>
+    <li><a href="../about.html">Về chúng tôi</a></li>
+    <li><button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button></li>
+  </ul>
+</nav>
+
+<div id="prog-wrap"><div id="prog"></div></div>
+
+<!-- BACK TO PROJECTS BUTTON (Vietnamese default) -->
+<a href="../projects.html" class="back-projects-btn" id="backBtn">← Quay lại dự án</a>
+
+<div id="vp"><div id="track">
+  <!-- HERO panel: DU52 Unit Home introduction -->
+  <div class="p pi" style="width:100vw" data-i="0">
+    <img class="hero-img" src="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-lr_15.jpg" alt="DU52 Unit Home nội thất chính" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-lr_15.jpg">
+    <div class="hero-veil"></div>
+    <div class="hero-foot">
+      <div>
+        <span class="h-eyebrow" id="heroAddr">Kyiv · str. Gareta Jones, 12</span>
+        <h1 class="h-title">DU52</h1>
+      </div>
+      <div style="text-align:right;padding-bottom:6px">
+        <span class="h-eyebrow" style="text-align:right" id="heroComplex">ЖК Unit Home</span>
+        <p class="h-sub" id="heroSub">50 m² · Thiết kế trọn gói · Nội thất cá nhân hóa</p>
+      </div>
+    </div>
+    <span class="wm">01</span>
+  </div>
+
+  <!-- INFO panel: Project details & services -->
+  <div class="p info" style="width:440px">
+    <div>
+      <p class="i-label" id="infoLabel">LEMON Interior Design · Giải pháp toàn diện</p>
+      <div class="i-rule"></div>
+      <p class="i-sub" id="infoSub">50 m² · Phòng khách & bếp mở · Phòng ngủ · Phòng tắm · Không gian làm việc · Hành lang</p>
+      <h2 class="i-title">DU52</h2>
+      <div class="i-body" id="infoBody">
+        <p>Dự án DU52 tọa lạc tại khu phức hợp dân cư "Unit Home" ở Kyiv, với diện tích 50 mét vuông. LEMON Interior Design thể hiện năng lực cung cấp các giải pháp nội thất tùy chỉnh chất lượng cao. Không gian bao gồm khu vực sinh hoạt kết hợp bếp tinh tế, phòng ngủ yên tĩnh, phòng tắm sang trọng, góc làm việc tiện dụng và hành lang đón tiếp — mỗi khu vực đều được chăm chút tỉ mỉ với vật liệu cao cấp và phong cách riêng biệt.</p>
+      </div>
+      <ul class="svc-list">
+        <li class="svc-item"><span class="svc-name" id="svc1">Phát triển ý tưởng</span><span class="svc-num">01</span></li>
+        <li class="svc-item"><span class="svc-name" id="svc2">Hồ sơ chi tiết</span><span class="svc-num">02</span></li>
+        <li class="svc-item"><span class="svc-name" id="svc3">Giám sát tác giả</span><span class="svc-num">03</span></li>
+        <li class="svc-item"><span class="svc-name" id="svc4">Cải tạo chìa khóa trao tay</span><span class="svc-num">04</span></li>
+      </ul>
+    </div>
+    <div class="area-blk">
+      <span class="area-num">50</span><span class="area-unit">m²</span>
+      <span class="area-label" id="areaLabel">Bố trí thông minh · Kyiv</span>
+      <div style="margin-top:12px; border-top:1px solid var(--border); padding-top:14px;">
+        <span class="area-label" style="margin-top:0" id="areaTags">Phòng khách · Bếp · Phòng ngủ · Phòng tắm · Góc làm việc · Hành lang</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIVING AREA & KITCHEN GALLERY -->
+  <div class="p pi" style="width:52vw" data-i="1"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-lr_12.jpg" alt="Phòng khách không gian mở" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-lr_12.jpg"><div class="sec-lbl"><span class="sec-lbl-num">01</span><span class="sec-lbl-name" id="cap1_1">Phòng khách & Bếp · Liên thông</span></div><span class="wm">02</span></div>
+  <div class="p pi" style="width:46vw" data-i="2"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-lr_01.jpg" alt="Bếp với ánh sáng ấm áp" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-lr_01.jpg"><div class="sec-lbl"><span class="sec-lbl-num">02</span><span class="sec-lbl-name" id="cap2_1">Bếp · Thanh lịch đương đại</span></div><span class="wm">03</span></div>
+  <div class="p pi" style="width:48vw" data-i="3"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-lr_14.jpg" alt="Phòng khách chi tiết" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-lr_14.jpg"><div class="sec-lbl"><span class="sec-lbl-num">03</span><span class="sec-lbl-name" id="cap3_1">Phòng khách · Không gian ấm cúng</span></div><span class="wm">04</span></div>
+  <div class="p pi" style="width:44vw" data-i="4"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-lr_09.jpg" alt="Góc ăn uống" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-lr_09.jpg"><div class="sec-lbl"><span class="sec-lbl-num">04</span><span class="sec-lbl-name" id="cap4_1">Khu vực ăn · Tiện nghi tinh tế</span></div><span class="wm">05</span></div>
+  <div class="p pi" style="width:50vw" data-i="5"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-lr_04.jpg" alt="Phòng khách ánh sáng tự nhiên" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-lr_04.jpg"><div class="sec-lbl"><span class="sec-lbl-num">05</span><span class="sec-lbl-name" id="cap5_1">Phòng khách · Sắc thái trung tính</span></div><span class="wm">06</span></div>
+  <div class="p pi" style="width:46vw" data-i="6"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-lr_03.jpg" alt="Chi tiết tủ bếp" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-lr_03.jpg"><div class="sec-lbl"><span class="sec-lbl-num">06</span><span class="sec-lbl-name" id="cap6_1">Bếp · Sang trọng tối giản</span></div><span class="wm">07</span></div>
+
+  <!-- CONCEPT PANEL -->
+  <div class="p concept" style="width:400px">
+    <div class="concept-bg">Unit Home</div>
+    <div class="concept-label" id="conceptLabel">Triết lý thiết kế</div>
+    <div class="qmark">"</div>
+    <p class="qtext" id="conceptText">Giải pháp nội thất tùy chỉnh cho không gian sang trọng nhỏ gọn. Mọi khu vực — phòng khách, bếp, phòng ngủ, góc làm việc — đều nhận được <strong>sự chăm chút riêng</strong>, cân bằng giữa thẩm mỹ và công năng trong 50m² tại Unit Home, Kyiv.</p>
+    <div class="mat-row"><span class="mat">Tinh tế</span><span class="mat">Tối giản</span><span class="mat">Công năng</span><span class="mat">Ấm áp</span><span class="mat">Cá nhân hóa</span></div>
+  </div>
+
+  <!-- BEDROOM GALLERY -->
+  <div class="p pi" style="width:46vw" data-i="7"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-bedroom_01.jpg" alt="Phòng ngủ thanh bình" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-bedroom_01.jpg"><div class="sec-lbl"><span class="sec-lbl-num">07</span><span class="sec-lbl-name" id="cap7_1">Phòng ngủ · Nơi an yên</span></div><span class="wm">08</span></div>
+  <div class="p pi" style="width:42vw" data-i="8"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-bedroom_02.jpg" alt="Phòng ngủ vải mềm" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-bedroom_02.jpg"><div class="sec-lbl"><span class="sec-lbl-num">08</span><span class="sec-lbl-name" id="cap8_1">Phòng ngủ · Tiện nghi hữu cơ</span></div><span class="wm">09</span></div>
+  <div class="p pi" style="width:48vw" data-i="9"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-bedroom_03.jpg" alt="Phòng ngủ ánh sáng ấm" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-bedroom_03.jpg"><div class="sec-lbl"><span class="sec-lbl-num">09</span><span class="sec-lbl-name" id="cap9_1">Phòng ngủ · Bảng màu nghỉ ngơi</span></div><span class="wm">10</span></div>
+  <div class="p pi" style="width:44vw" data-i="10"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-bedroom_04.jpg" alt="Đầu giường tùy chỉnh" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-bedroom_04.jpg"><div class="sec-lbl"><span class="sec-lbl-num">10</span><span class="sec-lbl-name" id="cap10_1">Phòng ngủ · Chi tiết riêng tư</span></div><span class="wm">11</span></div>
+
+  <!-- WORKSPACE & HALLWAY -->
+  <div class="p pi" style="width:46vw" data-i="11"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-workspace_01.jpg" alt="Góc làm việc" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-workspace_01.jpg"><div class="sec-lbl"><span class="sec-lbl-num">11</span><span class="sec-lbl-name" id="cap11_1">Góc làm việc · Năng suất</span></div><span class="wm">12</span></div>
+  <div class="p pi" style="width:44vw" data-i="12"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-hallway_01.jpg" alt="Hành lang lưu trữ thông minh" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-hallway_01.jpg"><div class="sec-lbl"><span class="sec-lbl-num">12</span><span class="sec-lbl-name" id="cap12_1">Hành lang · Lối vào thông minh</span></div><span class="wm">13</span></div>
+  <div class="p pi" style="width:48vw" data-i="13"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-hallway_02.jpg" alt="Hành lang thiết kế" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-hallway_02.jpg"><div class="sec-lbl"><span class="sec-lbl-num">13</span><span class="sec-lbl-name" id="cap13_1">Hành lang · Dòng chảy liền mạch</span></div><span class="wm">14</span></div>
+
+  <!-- BATHROOM GALLERY -->
+  <div class="p pi" style="width:46vw" data-i="14"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-bathroom_01.jpg" alt="Phòng tắm hiện đại" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-bathroom_01.jpg"><div class="sec-lbl"><span class="sec-lbl-num">14</span><span class="sec-lbl-name" id="cap14_1">Phòng tắm · Sang trọng tinh khiết</span></div><span class="wm">15</span></div>
+  <div class="p pi" style="width:42vw" data-i="15"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-bathroom_02.jpg" alt="Vòi sen phòng tắm" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-bathroom_02.jpg"><div class="sec-lbl"><span class="sec-lbl-num">15</span><span class="sec-lbl-name" id="cap15_1">Phòng tắm · Đá tự nhiên</span></div><span class="wm">16</span></div>
+  <div class="p pi" style="width:48vw" data-i="16"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-bathroom_03.jpg" alt="Bồn rửa phòng tắm" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-bathroom_03.jpg"><div class="sec-lbl"><span class="sec-lbl-num">16</span><span class="sec-lbl-name" id="cap16_1">Phòng tắm · Tối giản thanh lịch</span></div><span class="wm">17</span></div>
+
+  <!-- CLOSING PANEL -->
+  <div class="p pi" style="width:86vw" data-i="17">
+    <img class="end-img" src="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-lr_13.jpg" alt="Tổng quan DU52 - LEMON Interior Design" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-lr_13.jpg">
+    <div class="end-veil"></div>
+    <div class="end-foot">
+      <p class="end-q" id="endQuote">DU52 tại Unit Home thể hiện triết lý toàn diện của LEMON Interior Design: từ ý tưởng đến giám sát hiện trường. Mỗi mét vuông trong căn hộ 50m² tại Kyiv đều được chăm chút — kết hợp không gian sống thông thoáng, phòng ngủ yên tĩnh, góc làm việc hiệu quả và phòng tắm tinh tế.</p>
+      <div class="end-meta"><span class="end-tag" id="endTag">DU52 · Unit Home · Kyiv</span><p class="end-name" id="endName">LEMON Interior Design · 50 m² giải pháp cá nhân hóa</p></div>
+    </div>
+    <span class="wm" style="font-size:clamp(100px,13vw,170px)">18</span>
+  </div>
+</div></div>
+
+<div id="counter"><span id="cnt-cur">01</span><div class="cnt-track"><div class="cnt-fill" id="cnt-fill"></div></div><span id="cnt-tot">18</span></div>
+<div id="hint"><span>Cuộn</span><div class="h-line"></div></div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lb-overlay"><div class="lb-close" id="lbClose">✕</div><img id="lbImg" class="lb-img" src="" alt="Xem toàn màn hình"><div id="lbCaption" class="lb-caption"></div></div>
+
+<script>
+// Horizontal scroll + lightbox
+const track = document.getElementById('track'), vp = document.getElementById('vp'), prog = document.getElementById('prog');
+const hint = document.getElementById('hint'), cntCur = document.getElementById('cnt-cur'), cntFill = document.getElementById('cnt-fill');
+let tx=0, cx=0, maxS=0;
+const piEls = Array.from(document.querySelectorAll('.p'));
+const TOTAL = piEls.length;
+document.getElementById('cnt-tot').textContent = String(TOTAL).padStart(2,'0');
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function getMax(){ return track.scrollWidth - vp.offsetWidth; }
+window.addEventListener('wheel', e=>{ e.preventDefault(); maxS=getMax(); tx=clamp(tx+e.deltaY*1.6+e.deltaX,0,maxS); },{passive:false});
+
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbClose = document.getElementById('lbClose');
+const lbCaption = document.getElementById('lbCaption');
+
+function openLightbox(imgElement) {
+  const fullUrl = imgElement.getAttribute('data-full') || imgElement.src;
+  lbImg.src = fullUrl;
+  let captionText = imgElement.alt || 'DU52 · Unit Home';
+  const parentPanel = imgElement.closest('.p');
+  if(parentPanel){
+    const secLabelSpan = parentPanel.querySelector('.sec-lbl-name');
+    if(secLabelSpan) captionText = secLabelSpan.innerText.trim() + ' · DU52';
+  }
+  lbCaption.textContent = captionText;
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  lightbox.classList.remove('active');
+  setTimeout(()=>{ lbImg.src = ''; }, 200);
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.pi img, .hero-img, .end-img').forEach(img => {
+  img.style.cursor = 'pointer';
+  img.addEventListener('click', (e) => { e.stopPropagation(); openLightbox(img); });
+});
+lbClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => { if(lightbox.classList.contains('active') && e.key === 'Escape') closeLightbox(); });
+
+(function loop(){
+  cx+=(tx-cx)*.09; if(Math.abs(tx-cx)<0.05) cx=tx;
+  track.style.transform=`translateX(${-cx}px)`;
+  maxS=getMax(); prog.style.width=(maxS>0?(cx/maxS)*100:0)+'%';
+  hint.style.opacity=cx>100?'0':'1';
+  let visIdx=0, bestOverlap=-1;
+  piEls.forEach((p,i)=>{
+    const r=p.getBoundingClientRect();
+    const overlap=Math.min(r.right,window.innerWidth)-Math.max(r.left,0);
+    if(overlap>bestOverlap){bestOverlap=overlap;visIdx=i;}
+  });
+  cntCur.textContent=String(visIdx+1).padStart(2,'0');
+  cntFill.style.width=((visIdx+1)/TOTAL*100)+'%';
+  requestAnimationFrame(loop);
+})();
+
+// Bilingual dictionary (Vietnamese default, English toggle)
+let lang = 'vi';
+const translations = {
+  vi: {
+    backBtn: '← Quay lại dự án', heroAddr: 'Kyiv · str. Gareta Jones, 12', heroComplex: 'ЖК Unit Home', heroSub: '50 m² · Thiết kế trọn gói · Nội thất cá nhân hóa',
+    infoLabel: 'LEMON Interior Design · Giải pháp toàn diện', infoSub: '50 m² · Phòng khách & bếp mở · Phòng ngủ · Phòng tắm · Không gian làm việc · Hành lang',
+    infoBody: 'Dự án DU52 tọa lạc tại khu phức hợp dân cư "Unit Home" ở Kyiv, với diện tích 50 mét vuông. LEMON Interior Design thể hiện năng lực cung cấp các giải pháp nội thất tùy chỉnh chất lượng cao. Không gian bao gồm khu vực sinh hoạt kết hợp bếp tinh tế, phòng ngủ yên tĩnh, phòng tắm sang trọng, góc làm việc tiện dụng và hành lang đón tiếp — mỗi khu vực đều được chăm chút tỉ mỉ với vật liệu cao cấp và phong cách riêng biệt.',
+    svc1: 'Phát triển ý tưởng', svc2: 'Hồ sơ chi tiết', svc3: 'Giám sát tác giả', svc4: 'Cải tạo chìa khóa trao tay',
+    areaLabel: 'Bố trí thông minh · Kyiv', areaTags: 'Phòng khách · Bếp · Phòng ngủ · Phòng tắm · Góc làm việc · Hành lang',
+    conceptLabel: 'Triết lý thiết kế', conceptText: 'Giải pháp nội thất tùy chỉnh cho không gian sang trọng nhỏ gọn. Mọi khu vực — phòng khách, bếp, phòng ngủ, góc làm việc — đều nhận được sự chăm chút riêng, cân bằng giữa thẩm mỹ và công năng trong 50m² tại Unit Home, Kyiv.',
+    endQuote: 'DU52 tại Unit Home thể hiện triết lý toàn diện của LEMON Interior Design: từ ý tưởng đến giám sát hiện trường. Mỗi mét vuông trong căn hộ 50m² tại Kyiv đều được chăm chút — kết hợp không gian sống thông thoáng, phòng ngủ yên tĩnh, góc làm việc hiệu quả và phòng tắm tinh tế.',
+    endTag: 'DU52 · Unit Home · Kyiv', endName: 'LEMON Interior Design · 50 m² giải pháp cá nhân hóa',
+    hintText: 'Cuộn', langBtn: 'EN', captions: {
+      cap1_1:'Phòng khách & Bếp · Liên thông', cap2_1:'Bếp · Thanh lịch đương đại', cap3_1:'Phòng khách · Không gian ấm cúng', cap4_1:'Khu vực ăn · Tiện nghi tinh tế', cap5_1:'Phòng khách · Sắc thái trung tính', cap6_1:'Bếp · Sang trọng tối giản',
+      cap7_1:'Phòng ngủ · Nơi an yên', cap8_1:'Phòng ngủ · Tiện nghi hữu cơ', cap9_1:'Phòng ngủ · Bảng màu nghỉ ngơi', cap10_1:'Phòng ngủ · Chi tiết riêng tư',
+      cap11_1:'Góc làm việc · Năng suất', cap12_1:'Hành lang · Lối vào thông minh', cap13_1:'Hành lang · Dòng chảy liền mạch',
+      cap14_1:'Phòng tắm · Sang trọng tinh khiết', cap15_1:'Phòng tắm · Đá tự nhiên', cap16_1:'Phòng tắm · Tối giản thanh lịch'
+    }
+  },
+  en: {
+    backBtn: '← Back to projects', heroAddr: 'Kyiv · str. Gareta Jones, 12', heroComplex: 'Unit Home Residential Complex', heroSub: '50 m² · Full-cycle design · Custom interior',
+    infoLabel: 'LEMON Interior Design · Full-cycle solutions', infoSub: '50 m² · Open living & kitchen · Bedroom · Bathroom · Workspace · Hallway',
+    infoBody: 'The DU52 project is located in the "Unit Home" residential complex in Kyiv, spanning 50 square meters. LEMON Interior Design showcases its capability to deliver high-quality custom interior solutions. This space includes a sophisticated living area combined with kitchen, a tranquil bedroom, elegant bathroom, functional workspace, and a welcoming hallway — each area crafted with bespoke details and premium finishes.',
+    svc1: 'Concept Development', svc2: 'Detailed Documentation', svc3: 'Author Supervision', svc4: 'Turnkey Renovation',
+    areaLabel: 'Smart compact layout · Kyiv', areaTags: 'Living · Kitchen · Bedroom · Bathroom · Workspace · Hallway',
+    conceptLabel: 'Design Philosophy', conceptText: 'Custom interior solutions for compact luxury. Every zone — living, kitchen, bedroom, workspace — receives bespoke attention, balancing aesthetics and functionality within 50 m² at Unit Home, Kyiv.',
+    endQuote: 'DU52 at Unit Home demonstrates LEMON Interior Design’s full-cycle philosophy: from concept to author supervision. Every square meter of this 50 m² Kyiv apartment is thoughtfully crafted — blending a fluid living area, serene bedroom, efficient workspace, and refined bathroom.',
+    endTag: 'DU52 · Unit Home · Kyiv', endName: 'LEMON Interior Design · 50 m² custom solution',
+    hintText: 'Scroll', langBtn: 'VI', captions: {
+      cap1_1:'Living & Kitchen · Open flow', cap2_1:'Kitchen · Contemporary elegance', cap3_1:'Living · Cozy atmosphere', cap4_1:'Dining zone · Refined comfort', cap5_1:'Living · Soft neutrals', cap6_1:'Kitchen · Minimalist luxury',
+      cap7_1:'Bedroom · Calm sanctuary', cap8_1:'Bedroom · Organic comfort', cap9_1:'Bedroom · Restful palette', cap10_1:'Bedroom · Tailored details',
+      cap11_1:'Workspace · Productive nook', cap12_1:'Hallway · Smart entry', cap13_1:'Hallway · Seamless flow',
+      cap14_1:'Bathroom · Clean luxury', cap15_1:'Bathroom · Stone finishes', cap16_1:'Bathroom · Elegant minimalism'
+    }
+  }
+};
+
+function toggleLang() {
+  const newLang = lang === 'vi' ? 'en' : 'vi';
+  lang = newLang;
+  const t = translations[lang];
+  document.getElementById('backBtn').innerText = t.backBtn;
+  document.getElementById('heroAddr').innerText = t.heroAddr;
+  document.getElementById('heroComplex').innerText = t.heroComplex;
+  document.getElementById('heroSub').innerText = t.heroSub;
+  document.getElementById('infoLabel').innerText = t.infoLabel;
+  document.getElementById('infoSub').innerText = t.infoSub;
+  document.getElementById('infoBody').innerHTML = `<p>${t.infoBody}</p>`;
+  document.getElementById('svc1').innerText = t.svc1;
+  document.getElementById('svc2').innerText = t.svc2;
+  document.getElementById('svc3').innerText = t.svc3;
+  document.getElementById('svc4').innerText = t.svc4;
+  document.getElementById('areaLabel').innerText = t.areaLabel;
+  document.getElementById('areaTags').innerText = t.areaTags;
+  document.getElementById('conceptLabel').innerText = t.conceptLabel;
+  document.getElementById('conceptText').innerHTML = t.conceptText.replace(/<strong>(.*?)<\/strong>/g, '<strong>$1</strong>');
+  document.getElementById('endQuote').innerText = t.endQuote;
+  document.getElementById('endTag').innerText = t.endTag;
+  document.getElementById('endName').innerText = t.endName;
+  document.querySelector('#hint span').innerText = t.hintText;
+  document.getElementById('lang-btn').innerText = t.langBtn;
+  // update all captions
+  for(let i=1;i<=16;i++) {
+    const el = document.getElementById(`cap${i}_1`);
+    if(el && t.captions[`cap${i}_1`]) el.innerText = t.captions[`cap${i}_1`];
+  }
+}
+window.toggleLang = toggleLang;
+</script>
+</body>
+</html>

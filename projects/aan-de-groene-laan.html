@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Nieuw Kralingen · Aan de Groene Laan | YuconVR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300;1,9..144,400&family=Syne:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/shared.css">
+<style>
+*{ margin:0; padding:0; box-sizing:border-box; }
+:root{ --panel-gap: 6px; }
+body{ height:100vh; overflow:hidden; background:var(--bg); }
+
+/* REMOVE ALL SCROLLBARS */
+html, body { overflow-x: hidden; }
+nav { overflow-x: hidden; width: 100%; }
+#vp::-webkit-scrollbar { display: none; }
+#vp{ -ms-overflow-style: none; scrollbar-width: none; overflow-x: auto; overflow-y: hidden; }
+
+nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative; z-index:500; width:100%; overflow-x: hidden; }
+.nav-links { display: flex; flex-wrap: nowrap; }
+.nav-mid { white-space: nowrap; }
+
+#prog-wrap{ position:fixed; top:58px; left:0; right:0; height:1.5px; background:var(--border); z-index:600; }
+#prog{ height:100%; width:0%; background:var(--gold); transition:width .04s linear; }
+#counter{ position:fixed; bottom:22px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:14px; z-index:600; background:rgba(12,10,7,.4); backdrop-filter:blur(4px); padding:6px 14px; border-radius:40px; }
+#cnt-cur{ font-family:var(--serif); font-style:italic; font-size:14px; font-weight:200; color:var(--gold); min-width:24px; text-align:right; }
+.cnt-track{ width:48px; height:1px; background:var(--border); position:relative; overflow:hidden; }
+.cnt-fill{ position:absolute; top:0; left:0; height:100%; background:var(--gold); transition:width .4s ease; }
+#cnt-tot{ font-family:var(--serif); font-style:italic; font-size:14px; font-weight:200; color:var(--text-dim); min-width:24px; }
+#hint{ position:fixed; bottom:22px; right:44px; z-index:600; display:flex; align-items:center; gap:10px; transition:opacity .7s; background:rgba(12,10,7,.3); padding:5px 12px; border-radius:40px; backdrop-filter:blur(4px); }
+#hint span{ font-size:9px; font-weight:400; letter-spacing:.25em; text-transform:uppercase; color:var(--text-dim); }
+.h-line{ width:32px; height:1px; background:var(--gold); position:relative; overflow:hidden; }
+.h-line::after{ content:'';position:absolute; top:0; left:-100%; width:100%; height:100%; background:var(--text); animation:slide 2s ease-in-out infinite; }
+@keyframes slide{ 0%{left:-100%} 50%{left:100%} 100%{left:100%} }
+#vp{ position:fixed; inset:0; top:59.5px; overflow-x:auto; overflow-y:hidden; scroll-behavior:smooth; scrollbar-width: none; }
+#track{ display:flex; flex-direction:row; height:calc(100vh - 59.5px); will-change:transform; gap: var(--panel-gap); padding-right: var(--panel-gap); }
+.p{ flex-shrink:0; height:100%; position:relative; overflow:hidden; }
+.pi img{ width:100%; height:100%; object-fit:cover; display:block; transition:filter .5s; cursor:pointer; }
+.pi img:hover{ filter:brightness(1.02) contrast(1.02); }
+.hero-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+.hero-veil{ position:absolute; inset:0; background: linear-gradient(105deg, rgba(12,10,7,.45) 0%, transparent 48%), linear-gradient(to top, rgba(12,10,7,.72) 0%, transparent 44%); pointer-events:none; }
+.hero-foot{ position:absolute; bottom:0; left:0; right:0; padding:44px 52px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
+.h-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(72px,10vw,128px); line-height:.88; letter-spacing:-.02em; color:var(--text); }
+.h-eyebrow{ font-size:9px; font-weight:500; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:block; }
+.h-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:17px; color:rgba(232,226,213,.7); }
+.info{ background:var(--surface); border-right:1px solid var(--border); border-left:2px solid var(--gold); display:flex; flex-direction:column; justify-content:space-between; padding:52px 46px 46px; overflow-y:auto; scrollbar-width: thin; }
+.info::-webkit-scrollbar{ width:3px; background:var(--border); }
+.info::-webkit-scrollbar-thumb{ background:var(--gold); }
+.i-label{ font-size:9px; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--text-dim); }
+.i-rule{ display:flex; align-items:center; gap:12px; margin:18px 0 22px; }
+.i-rule::before{ content:''; width:20px; height:1px; background:var(--gold); }
+.i-rule::after{ content:''; flex:1; height:1px; background:var(--border); }
+.i-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--text-dim); line-height:1.6; margin-bottom:10px; }
+.i-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(58px,5.5vw,80px); line-height:.9; letter-spacing:-.02em; color:var(--text); margin-bottom:36px; }
+.i-body{ font-size:12.5px; font-weight:300; line-height:1.9; color:var(--text-dim); margin-bottom:40px; }
+.svc-list{ list-style:none; border-top:1px solid var(--border); }
+.svc-item{ display:flex; align-items:center; justify-content:space-between; padding:11px 0; border-bottom:1px solid var(--border); transition:padding-left .3s; position:relative; }
+.svc-item:hover{ padding-left:8px; }
+.svc-item::before{ content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:0; height:1px; background:var(--gold); transition:width .3s; }
+.svc-item:hover::before{ width:6px; }
+.svc-name{ font-size:11.5px; font-weight:400; letter-spacing:.03em; color:var(--text); }
+.svc-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--gold); }
+.area-blk{ margin-top:38px; }
+.area-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:54px; line-height:1; letter-spacing:-.02em; color:var(--text); }
+.area-unit{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:16px; color:var(--gold); display:inline-block; margin-left:5px; }
+.area-label{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--text-dim); margin-top:10px; display:block; }
+.sec-lbl{ position:absolute; bottom:36px; left:28px; z-index:2; display:flex; align-items:center; gap:10px; pointer-events:none; }
+.sec-lbl-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:11px; color:rgba(232,226,213,.5); }
+.sec-lbl-name{ font-size:9px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:rgba(232,226,213,.4); }
+.sec-lbl::before{ content:''; width:18px; height:1px; background:rgba(200,128,60,.4); }
+.wm{ position:absolute; bottom:-10px; right:-8px; font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(130px,16vw,200px); line-height:1; color:rgba(255,255,255,.05); pointer-events:none; z-index:1; letter-spacing:-.04em; user-select:none; }
+.concept{ background:var(--bg2); border-left:1px solid var(--border); border-right:1px solid var(--border); display:flex; flex-direction:column; justify-content:center; padding:64px 44px; position:relative; overflow:hidden; }
+.concept-bg{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(100px,14vw,160px); letter-spacing:-.04em; white-space:nowrap; color:rgba(232,226,213,.04); pointer-events:none; user-select:none; line-height:1; }
+.concept-label{ font-size:9px; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:28px; display:flex; align-items:center; gap:12px; }
+.concept-label::after{ content:''; width:24px; height:1px; background:var(--gold); opacity:.4; }
+.qmark{ font-family:var(--serif); font-weight:200; font-size:64px; line-height:.65; color:var(--gold); opacity:.35; margin-bottom:10px; }
+.qtext{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2vw,22px); line-height:1.65; color:var(--text); margin-bottom:38px; }
+.qtext strong{ font-style:normal; font-weight:300; color:var(--gold); }
+.mat-row{ display:flex; flex-wrap:wrap; gap:6px; margin-top:32px; }
+.mat{ font-size:9px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); padding:5px 12px; border:1px solid var(--border); transition:all .3s; }
+.mat:hover{ background:var(--gold); color:var(--bg); border-color:var(--gold); }
+.gallery-grid{ display:flex; gap:12px; margin-top:28px; flex-wrap:wrap; }
+.gallery-thumb{ width:calc(33% - 8px); min-width:130px; aspect-ratio:4/3; object-fit:cover; cursor:pointer; border:1px solid var(--border); transition:all .3s; }
+.gallery-thumb:hover{ border-color:var(--gold); transform:scale(1.02); }
+.end-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+.end-veil{ position:absolute; inset:0; background:linear-gradient(to top, rgba(12,10,7,.82) 0%, rgba(12,10,7,.18) 55%, transparent 100%); pointer-events:none; }
+.end-foot{ position:absolute; bottom:0; left:0; right:0; padding:52px 56px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
+.end-q{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2.4vw,30px); line-height:1.5; color:var(--text); max-width:520px; }
+.end-meta{ text-align:right; }
+.end-tag{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; display:block; }
+.end-name{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:18px; color:rgba(232,226,213,.75); }
+
+/* BACK BUTTON - TOP LEFT CORNER */
+.back-projects-btn {
+  position: fixed;
+  top: 72px;
+  left: 28px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(12, 10, 7, 0.85);
+  backdrop-filter: blur(16px);
+  padding: 8px 20px;
+  border-radius: 40px;
+  border: 1px solid rgba(200, 128, 60, 0.6);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+}
+.back-projects-btn:hover {
+  background: rgba(200, 128, 60, 0.25);
+  border-color: var(--gold);
+  gap: 14px;
+  letter-spacing: 0.24em;
+  color: #fff;
+}
+.back-projects-btn::before {
+  content: "←";
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gold);
+  transition: transform 0.2s;
+}
+.back-projects-btn:hover::before {
+  transform: translateX(-4px);
+}
+
+/* LIGHTBOX STYLES */
+.lb-overlay{ position:fixed; inset:0; background:rgba(8,6,4,.96); backdrop-filter:blur(28px); z-index:2000; display:flex; align-items:center; justify-content:center; visibility:hidden; opacity:0; transition:visibility .25s, opacity .25s; cursor:pointer; }
+.lb-overlay.active{ visibility:visible; opacity:1; }
+.lb-img{ max-width:90vw; max-height:85vh; object-fit:contain; box-shadow:0 25px 45px rgba(0,0,0,.4); border-radius:2px; cursor:default; }
+.lb-close{ position:fixed; top:28px; right:32px; width:44px; height:44px; background:rgba(255,255,255,.05); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:200; color:var(--gold); transition:all .2s; cursor:pointer; backdrop-filter:blur(8px); border:1px solid rgba(232,226,213,.2); }
+.lb-close:hover{ background:rgba(200,128,60,.2); transform:scale(1.02); color:#fff; }
+.lb-caption{ position:fixed; bottom:24px; left:0; right:0; text-align:center; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,226,213,.6); font-weight:300; pointer-events:none; }
+
+@media (max-width:720px){
+  .back-projects-btn{ top: 68px; left: 16px; padding: 6px 16px; font-size: 9px; gap: 8px; }
+  .hero-foot{ padding: 28px 28px; }
+  .info{ padding: 32px 24px; width: 380px; }
+  .lb-close{ top:18px; right:20px; width:38px; height:38px; font-size:26px; }
+  .lb-img{ max-width:95vw; max-height:75vh; }
+  #counter{ bottom: 16px; padding: 4px 12px; }
+  #hint{ bottom: 16px; right: 20px; }
+  .gallery-thumb{ width: calc(50% - 6px); }
+}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">Mars<span>.</span>Bansiti</a>
+  <div class="nav-mid">
+    <span class="nav-cat" data-en="YuconVR · Residential" data-vi="YuconVR · Nhà ở">YuconVR · Residential</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="../index.html" data-en="Home" data-vi="Trang chủ">Home</a></li>
+    <li><a href="../projects.html" data-en="Projects" data-vi="Dự án">Projects</a></li>
+    <li><a href="../about.html" data-en="About me" data-vi="Về tôi">About me</a></li>
+    <li><button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button></li>
+  </ul>
+</nav>
+
+<div id="prog-wrap"><div id="prog"></div></div>
+
+<!-- BACK TO PROJECTS BUTTON -->
+<a href="../projects.html" class="back-projects-btn" data-en="← Back to projects" data-vi="← Quay lại dự án">← Back to projects</a>
+
+<div id="vp"><div id="track">
+  <!-- HERO panel - Nieuw Kralingen main intro -->
+  <div class="p pi" style="width:100vw" data-i="0">
+    <img class="hero-img" src="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-524-Woonkamer-1.jpg" alt="Nieuw Kralingen aan de Groene Laan hero" data-full="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-524-Woonkamer-1.jpg">
+    <div class="hero-veil"></div>
+    <div class="hero-foot">
+      <div>
+        <span class="h-eyebrow" data-en="Rotterdam · 2024" data-vi="Rotterdam · 2024">Rotterdam · 2024</span>
+        <h1 class="h-title">Nieuw<br>Kralingen</h1>
+      </div>
+      <div style="text-align:right;padding-bottom:6px">
+        <span class="h-eyebrow" style="text-align:right" data-en="Aan de Groene Laan" data-vi="Aan de Groene Laan">Aan de Groene Laan</span>
+        <p class="h-sub" data-en="Exclusive residential living" data-vi="Không gian sống độc quyền">Exclusive residential living</p>
+      </div>
+    </div>
+    <span class="wm">01</span>
+  </div>
+
+  <!-- INFO panel: detailed stats -->
+  <div class="p info" style="width:440px">
+    <div>
+      <p class="i-label" data-en="Rotterdam · 2024 · YuconVR" data-vi="Rotterdam · 2024 · YuconVR">Rotterdam · 2024 · YuconVR</p>
+      <div class="i-rule"></div>
+      <p class="i-sub" data-en="Era Contour & Heijmans" data-vi="Era Contour & Heijmans">Era Contour & Heijmans</p>
+      <h2 class="i-title">Nieuw<br>Kralingen</h2>
+      <div class="i-body">
+        <p data-en="We are proud of the visualizations and animation we have provided for the Nieuw Kralingen sub-area 'Aan de Groene Laan', an exclusive residential project in Rotterdam. For this project we created both interior and exterior renders to give future residents a realistic impression of their new home. We have also created an animation that brings the homes to life. The design combines contemporary elegance with warm, natural materials — creating a living experience that is both luxurious and inviting." data-vi="Chúng tôi tự hào về các hình ảnh trực quan và hoạt cảnh đã cung cấp cho khu vực phụ Nieuw Kralingen 'Aan de Groene Laan', một dự án nhà ở độc quyền tại Rotterdam. Cho dự án này, chúng tôi đã tạo ra cả nội thất và ngoại thất để mang đến cho cư dân tương lai một ấn tượng thực tế về ngôi nhà mới của họ. Chúng tôi cũng đã tạo ra một hoạt cảnh mang lại sức sống cho các ngôi nhà. Thiết kế kết hợp sự thanh lịch đương đại với vật liệu tự nhiên ấm áp — tạo ra trải nghiệm sống vừa sang trọng vừa hấp dẫn.">We are proud of the visualizations and animation we have provided for the Nieuw Kralingen sub-area 'Aan de Groene Laan', an exclusive residential project in Rotterdam. For this project we created both interior and exterior renders to give future residents a realistic impression of their new home. We have also created an animation that brings the homes to life. The design combines contemporary elegance with warm, natural materials — creating a living experience that is both luxurious and inviting.</p>
+      </div>
+      <ul class="svc-list">
+        <li class="svc-item"><span class="svc-name" data-en="Architectural Visualization" data-vi="Hình ảnh kiến trúc">Architectural Visualization</span><span class="svc-num">01</span></li>
+        <li class="svc-item"><span class="svc-name" data-en="Interior Rendering" data-vi="Hình ảnh nội thất">Interior Rendering</span><span class="svc-num">02</span></li>
+        <li class="svc-item"><span class="svc-name" data-en="3D Animation" data-vi="Hoạt cảnh 3D">3D Animation</span><span class="svc-num">03</span></li>
+      </ul>
+    </div>
+    <div class="area-blk">
+      <span class="area-num">Exclusive</span><span class="area-unit">residences</span>
+      <span class="area-label" data-en="Era Contour · Heijmans" data-vi="Era Contour · Heijmans">Era Contour · Heijmans</span>
+      <div style="margin-top:12px; border-top:1px solid var(--border); padding-top:14px;">
+        <span class="area-label" style="margin-top:0" data-en="Aan de Groene Laan · Rotterdam" data-vi="Aan de Groene Laan · Rotterdam">Aan de Groene Laan · Rotterdam</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- GALLERY PANEL 1: Living Room - White Sofa and Leaf Wallpaper -->
+  <div class="p pi" style="width:52vw" data-i="1">
+    <img src="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-524-Woonkamer-1.jpg" alt="Living room with white sofa and leaf wallpaper" data-full="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-524-Woonkamer-1.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">01</span><span class="sec-lbl-name" data-en="Living Room · Botanical elegance" data-vi="Phòng khách · Thanh lịch thực vật">Living Room · Botanical elegance</span></div>
+    <span class="wm">02</span>
+  </div>
+
+  <!-- GALLERY PANEL 2: Living Room Detail - Green Round Sofa -->
+  <div class="p pi" style="width:48vw" data-i="2">
+    <img src="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-524-Woonkamer_Detail-1.jpg" alt="Living room detail with green round sofa" data-full="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-524-Woonkamer_Detail-1.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">02</span><span class="sec-lbl-name" data-en="Living Detail · Green accent" data-vi="Chi tiết phòng khách · Điểm nhấn xanh">Living Detail · Green accent</span></div>
+    <span class="wm">03</span>
+  </div>
+
+  <!-- GALLERY PANEL 3: Kitchen 1 - Green Marble Island -->
+  <div class="p pi" style="width:50vw" data-i="3">
+    <img src="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-524-Keuken-1.jpg" alt="Kitchen with green marble island" data-full="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-524-Keuken-1.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">03</span><span class="sec-lbl-name" data-en="Kitchen · Green marble island" data-vi="Bếp · Đảo đá cẩm thạch xanh">Kitchen · Green marble island</span></div>
+    <span class="wm">04</span>
+  </div>
+
+  <!-- GALLERY PANEL 4: Living Room 2 - Beige Sofas and Built-in Fireplace -->
+  <div class="p pi" style="width:54vw" data-i="4">
+    <img src="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-494-Woonkamer_Detail-1.jpg" alt="Living room with beige sofas and built-in fireplace" data-full="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-494-Woonkamer_Detail-1.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">04</span><span class="sec-lbl-name" data-en="Living Room · Cozy fireplace" data-vi="Phòng khách · Lò sưởi ấm cúng">Living Room · Cozy fireplace</span></div>
+    <span class="wm">05</span>
+  </div>
+
+  <!-- CONCEPT PANEL -->
+  <div class="p concept" style="width:400px">
+    <div class="concept-bg">Groene Laan</div>
+    <div class="concept-label" data-en="The Vision" data-vi="Tầm nhìn">The Vision</div>
+    <div class="qmark">"</div>
+    <p class="qtext" data-en="Bringing homes to life through <strong>atmospheric visualizations.</strong> Interior and exterior renders that give future residents a realistic impression of their new home in Rotterdam." data-vi="Thổi hồn vào những ngôi nhà thông qua <strong>hình ảnh sống động.</strong> Hình ảnh nội thất và ngoại thất mang đến cho cư dân tương lai ấn tượng thực tế về ngôi nhà mới của họ tại Rotterdam.">Bringing homes to life through <strong>atmospheric visualizations.</strong> Interior and exterior renders that give future residents a realistic impression of their new home in Rotterdam.</p>
+    <div class="mat-row">
+      <span class="mat" data-en="Contemporary" data-vi="Đương đại">Contemporary</span>
+      <span class="mat" data-en="Natural light" data-vi="Ánh sáng tự nhiên">Natural light</span>
+      <span class="mat" data-en="Green accents" data-vi="Điểm nhấn xanh">Green accents</span>
+      <span class="mat" data-en="Warm textures" data-vi="Kết cấu ấm áp">Warm textures</span>
+    </div>
+  </div>
+
+  <!-- GALLERY PANEL 5: Kitchen 2 - Marble Island and Wooden Cabinets -->
+  <div class="p pi" style="width:46vw" data-i="5">
+    <img src="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-485-Keuken-1.jpg" alt="Kitchen with marble island and wooden cabinets" data-full="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-485-Keuken-1.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">05</span><span class="sec-lbl-name" data-en="Kitchen · Marble & wood" data-vi="Bếp · Đá cẩm thạch & gỗ">Kitchen · Marble & wood</span></div>
+    <span class="wm">06</span>
+  </div>
+
+  <!-- GALLERY PANEL 6: Kitchen Detail - Wooden Dining Table and Chandelier -->
+  <div class="p pi" style="width:49vw" data-i="6">
+    <img src="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-485-Keuken_Detail-1.jpg.webp" alt="Kitchen detail with wooden dining table and chandelier" data-full="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-485-Keuken_Detail-1.jpg.webp">
+    <div class="sec-lbl"><span class="sec-lbl-num">06</span><span class="sec-lbl-name" data-en="Dining area · Elegant chandelier" data-vi="Phòng ăn · Đèn chùm thanh lịch">Dining area · Elegant chandelier</span></div>
+    <span class="wm">07</span>
+  </div>
+
+  <!-- GALLERY PANEL 7: Garden Detail - Kitchen View from Outside -->
+  <div class="p pi" style="width:44vw" data-i="7">
+    <img src="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-485-Tuin_Detail-1.jpg" alt="Garden detail - kitchen view from outside" data-full="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-485-Tuin_Detail-1.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">07</span><span class="sec-lbl-name" data-en="Garden · Outdoor connection" data-vi="Vườn · Kết nối ngoại thất">Garden · Outdoor connection</span></div>
+    <span class="wm">08</span>
+  </div>
+
+  <!-- GALLERY PANEL 8: Garden View - Patio with Couch and Green Grill -->
+  <div class="p pi" style="width:52vw" data-i="8">
+    <img src="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-485-Tuin-1.jpg" alt="Garden patio with couch and green grill" data-full="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-485-Tuin-1.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">08</span><span class="sec-lbl-name" data-en="Patio · Outdoor living" data-vi="Sân hiên · Không gian ngoài trời">Patio · Outdoor living</span></div>
+    <span class="wm">09</span>
+  </div>
+
+  <!-- GALLERY PANEL 9: Additional interior - warm atmosphere -->
+  <div class="p pi" style="width:47vw" data-i="9">
+    <img src="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-494-Woonkamer_Detail-1.jpg" alt="Warm interior atmosphere" data-full="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-494-Woonkamer_Detail-1.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">09</span><span class="sec-lbl-name" data-en="Warm ambiance" data-vi="Không gian ấm áp">Warm ambiance</span></div>
+    <span class="wm">10</span>
+  </div>
+
+  <!-- CLOSING / RESULT PANEL: final statement -->
+  <div class="p pi" style="width:86vw" data-i="10">
+    <img class="end-img" src="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-524-Woonkamer-1.jpg" alt="Nieuw Kralingen - exclusive residential living" data-full="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-524-Woonkamer-1.jpg">
+    <div class="end-veil"></div>
+    <div class="end-foot">
+      <p class="end-q" data-en="Through atmospheric images and animation, YuconVR showcases the future of this new Rotterdam district — where contemporary design meets natural warmth, creating homes that inspire and delight." data-vi="Qua những hình ảnh giàu cảm xúc và hoạt cảnh, YuconVR giới thiệu tương lai của khu phố mới này tại Rotterdam — nơi thiết kế đương đại gặp gỡ sự ấm áp tự nhiên, tạo nên những ngôi nhà đầy cảm hứng và niềm vui.">Through atmospheric images and animation, YuconVR showcases the future of this new Rotterdam district — where contemporary design meets natural warmth, creating homes that inspire and delight.</p>
+      <div class="end-meta">
+        <span class="end-tag" data-en="Aan de Groene Laan · Rotterdam" data-vi="Aan de Groene Laan · Rotterdam">Aan de Groene Laan · Rotterdam</span>
+        <p class="end-name">Nieuw Kralingen · YuconVR 2024</p>
+      </div>
+    </div>
+    <span class="wm" style="font-size:clamp(100px,13vw,170px)">11</span>
+  </div>
+</div></div>
+
+<div id="counter">
+  <span id="cnt-cur">01</span>
+  <div class="cnt-track"><div class="cnt-fill" id="cnt-fill"></div></div>
+  <span id="cnt-tot">11</span>
+</div>
+
+<div id="hint">
+  <span data-en="Scroll" data-vi="Cuộn">Scroll</span>
+  <div class="h-line"></div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lb-overlay">
+  <div class="lb-close" id="lbClose">✕</div>
+  <img id="lbImg" class="lb-img" src="" alt="Full size view">
+  <div id="lbCaption" class="lb-caption"></div>
+</div>
+
+<script src="../assets/js/shared.js"></script>
+<script>
+const track = document.getElementById('track'), vp = document.getElementById('vp'), prog = document.getElementById('prog');
+const hint = document.getElementById('hint'), cntCur = document.getElementById('cnt-cur'), cntFill = document.getElementById('cnt-fill');
+let tx=0, cx=0, maxS=0;
+const piEls = Array.from(document.querySelectorAll('.p'));
+const TOTAL = piEls.length;
+document.getElementById('cnt-tot').textContent = String(TOTAL).padStart(2,'0');
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function getMax(){ return track.scrollWidth - vp.offsetWidth; }
+window.addEventListener('wheel', e=>{ e.preventDefault(); maxS=getMax(); tx=clamp(tx+e.deltaY*1.55+e.deltaX,0,maxS); },{passive:false});
+
+// LIGHTBOX FUNCTIONALITY
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbClose = document.getElementById('lbClose');
+const lbCaption = document.getElementById('lbCaption');
+
+function openLightbox(imgElement) {
+  const fullUrl = imgElement.getAttribute('data-full') || imgElement.src;
+  lbImg.src = fullUrl;
+  let captionText = imgElement.alt || '';
+  const parentPanel = imgElement.closest('.p');
+  if(parentPanel){
+    const secLabelSpan = parentPanel.querySelector('.sec-lbl-name');
+    if(secLabelSpan) captionText = secLabelSpan.innerText.trim() + ' · Nieuw Kralingen';
+    else if(parentPanel.classList.contains('pi') && !secLabelSpan){
+      const heroEyebrow = parentPanel.querySelector('.h-eyebrow');
+      if(heroEyebrow) captionText = heroEyebrow.innerText.trim() + ' · Rotterdam';
+    }
+  }
+  lbCaption.textContent = captionText || 'Nieuw Kralingen · Aan de Groene Laan';
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  lightbox.classList.remove('active');
+  setTimeout(()=>{ lbImg.src = ''; }, 200);
+  document.body.style.overflow = '';
+}
+
+// Attach click listeners to all images
+document.querySelectorAll('.pi img, .hero-img, .end-img').forEach(img => {
+  img.style.cursor = 'pointer';
+  img.addEventListener('click', (e) => { e.stopPropagation(); openLightbox(img); });
+});
+lbClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => { if(lightbox.classList.contains('active') && e.key === 'Escape') closeLightbox(); });
+
+// SCROLL LOOP
+(function loop(){
+  cx+=(tx-cx)*.09; if(Math.abs(tx-cx)<0.05) cx=tx;
+  track.style.transform=`translateX(${-cx}px)`;
+  maxS=getMax(); prog.style.width=(maxS>0?(cx/maxS)*100:0)+'%';
+  hint.style.opacity=cx>100?'0':'1';
+  let visIdx=0, bestOverlap=-1;
+  piEls.forEach((p,i)=>{
+    const r=p.getBoundingClientRect();
+    const overlap=Math.min(r.right,window.innerWidth)-Math.max(r.left,0);
+    if(overlap>bestOverlap){bestOverlap=overlap;visIdx=i;}
+  });
+  cntCur.textContent=String(visIdx+1).padStart(2,'0');
+  cntFill.style.width=((visIdx+1)/TOTAL*100)+'%';
+  requestAnimationFrame(loop);
+})();
+
+// Language toggle (shared.js compatible fallback)
+function toggleLang() {
+  const btn = document.getElementById('lang-btn');
+  if(btn.textContent === 'EN') btn.textContent = 'VI';
+  else btn.textContent = 'EN';
+}
+</script>
+</body>
+</html>

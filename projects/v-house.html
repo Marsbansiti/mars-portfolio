@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>V House | Neoclassical Sanctuary · Saigon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300;1,9..144,400&family=Syne:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/shared.css">
+<style>
+*{ margin:0; padding:0; box-sizing:border-box; }
+:root{ --panel-gap: 6px; }
+body{ height:100vh; overflow:hidden; background:var(--bg); }
+
+/* REMOVE ALL SCROLLBARS */
+html, body { overflow-x: hidden; }
+nav { overflow-x: hidden; width: 100%; }
+#vp::-webkit-scrollbar { display: none; }
+#vp{ -ms-overflow-style: none; scrollbar-width: none; overflow-x: auto; overflow-y: hidden; }
+
+nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative; z-index:500; width:100%; overflow-x: hidden; }
+.nav-links { display: flex; flex-wrap: nowrap; }
+.nav-mid { white-space: nowrap; }
+
+#prog-wrap{ position:fixed; top:58px; left:0; right:0; height:1.5px; background:var(--border); z-index:600; }
+#prog{ height:100%; width:0%; background:var(--gold); transition:width .04s linear; }
+#counter{ position:fixed; bottom:22px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:14px; z-index:600; background:rgba(12,10,7,.4); backdrop-filter:blur(4px); padding:6px 14px; border-radius:40px; }
+#cnt-cur{ font-family:var(--serif); font-style:italic; font-size:14px; font-weight:200; color:var(--gold); min-width:24px; text-align:right; }
+.cnt-track{ width:48px; height:1px; background:var(--border); position:relative; overflow:hidden; }
+.cnt-fill{ position:absolute; top:0; left:0; height:100%; background:var(--gold); transition:width .4s ease; }
+#cnt-tot{ font-family:var(--serif); font-style:italic; font-size:14px; font-weight:200; color:var(--text-dim); min-width:24px; }
+#hint{ position:fixed; bottom:22px; right:44px; z-index:600; display:flex; align-items:center; gap:10px; transition:opacity .7s; background:rgba(12,10,7,.3); padding:5px 12px; border-radius:40px; backdrop-filter:blur(4px); }
+#hint span{ font-size:9px; font-weight:400; letter-spacing:.25em; text-transform:uppercase; color:var(--text-dim); }
+.h-line{ width:32px; height:1px; background:var(--gold); position:relative; overflow:hidden; }
+.h-line::after{ content:'';position:absolute; top:0; left:-100%; width:100%; height:100%; background:var(--text); animation:slide 2s ease-in-out infinite; }
+@keyframes slide{ 0%{left:-100%} 50%{left:100%} 100%{left:100%} }
+#vp{ position:fixed; inset:0; top:59.5px; overflow-x:auto; overflow-y:hidden; scroll-behavior:smooth; scrollbar-width: none; }
+#track{ display:flex; flex-direction:row; height:calc(100vh - 59.5px); will-change:transform; gap: var(--panel-gap); padding-right: var(--panel-gap); }
+.p{ flex-shrink:0; height:100%; position:relative; overflow:hidden; }
+.pi img{ width:100%; height:100%; object-fit:cover; display:block; transition:filter .5s; cursor:pointer; }
+.pi img:hover{ filter:brightness(1.02) contrast(1.02); }
+.hero-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+.hero-veil{ position:absolute; inset:0; background: linear-gradient(105deg, rgba(12,10,7,.45) 0%, transparent 48%), linear-gradient(to top, rgba(12,10,7,.72) 0%, transparent 44%); pointer-events:none; }
+.hero-foot{ position:absolute; bottom:0; left:0; right:0; padding:44px 52px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
+.h-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(72px,10vw,128px); line-height:.88; letter-spacing:-.02em; color:var(--text); }
+.h-eyebrow{ font-size:9px; font-weight:500; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:block; }
+.h-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:17px; color:rgba(232,226,213,.7); }
+.info{ background:var(--surface); border-right:1px solid var(--border); border-left:2px solid var(--gold); display:flex; flex-direction:column; justify-content:space-between; padding:52px 46px 46px; overflow-y:auto; scrollbar-width: thin; }
+.info::-webkit-scrollbar{ width:3px; background:var(--border); }
+.info::-webkit-scrollbar-thumb{ background:var(--gold); }
+.i-label{ font-size:9px; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--text-dim); }
+.i-rule{ display:flex; align-items:center; gap:12px; margin:18px 0 22px; }
+.i-rule::before{ content:''; width:20px; height:1px; background:var(--gold); }
+.i-rule::after{ content:''; flex:1; height:1px; background:var(--border); }
+.i-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--text-dim); line-height:1.6; margin-bottom:10px; }
+.i-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(58px,5.5vw,80px); line-height:.9; letter-spacing:-.02em; color:var(--text); margin-bottom:36px; }
+.i-body{ font-size:12.5px; font-weight:300; line-height:1.9; color:var(--text-dim); margin-bottom:40px; }
+.svc-list{ list-style:none; border-top:1px solid var(--border); }
+.svc-item{ display:flex; align-items:center; justify-content:space-between; padding:11px 0; border-bottom:1px solid var(--border); transition:padding-left .3s; position:relative; }
+.svc-item:hover{ padding-left:8px; }
+.svc-item::before{ content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:0; height:1px; background:var(--gold); transition:width .3s; }
+.svc-item:hover::before{ width:6px; }
+.svc-name{ font-size:11.5px; font-weight:400; letter-spacing:.03em; color:var(--text); }
+.svc-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--gold); }
+.area-blk{ margin-top:38px; }
+.area-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:54px; line-height:1; letter-spacing:-.02em; color:var(--text); }
+.area-unit{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:16px; color:var(--gold); display:inline-block; margin-left:5px; }
+.area-label{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--text-dim); margin-top:10px; display:block; }
+.sec-lbl{ position:absolute; bottom:36px; left:28px; z-index:2; display:flex; align-items:center; gap:10px; pointer-events:none; }
+.sec-lbl-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:11px; color:rgba(232,226,213,.5); }
+.sec-lbl-name{ font-size:9px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:rgba(232,226,213,.4); }
+.sec-lbl::before{ content:''; width:18px; height:1px; background:rgba(200,128,60,.4); }
+.wm{ position:absolute; bottom:-10px; right:-8px; font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(130px,16vw,200px); line-height:1; color:rgba(255,255,255,.05); pointer-events:none; z-index:1; letter-spacing:-.04em; user-select:none; }
+.concept{ background:var(--bg2); border-left:1px solid var(--border); border-right:1px solid var(--border); display:flex; flex-direction:column; justify-content:center; padding:64px 44px; position:relative; overflow:hidden; }
+.concept-bg{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(100px,14vw,160px); letter-spacing:-.04em; white-space:nowrap; color:rgba(232,226,213,.04); pointer-events:none; user-select:none; line-height:1; }
+.concept-label{ font-size:9px; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:28px; display:flex; align-items:center; gap:12px; }
+.concept-label::after{ content:''; width:24px; height:1px; background:var(--gold); opacity:.4; }
+.qmark{ font-family:var(--serif); font-weight:200; font-size:64px; line-height:.65; color:var(--gold); opacity:.35; margin-bottom:10px; }
+.qtext{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2vw,22px); line-height:1.65; color:var(--text); margin-bottom:38px; }
+.qtext strong{ font-style:normal; font-weight:300; color:var(--gold); }
+.mat-row{ display:flex; flex-wrap:wrap; gap:6px; margin-top:32px; }
+.mat{ font-size:9px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); padding:5px 12px; border:1px solid var(--border); transition:all .3s; }
+.mat:hover{ background:var(--gold); color:var(--bg); border-color:var(--gold); }
+.end-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+.end-veil{ position:absolute; inset:0; background:linear-gradient(to top, rgba(12,10,7,.82) 0%, rgba(12,10,7,.18) 55%, transparent 100%); pointer-events:none; }
+.end-foot{ position:absolute; bottom:0; left:0; right:0; padding:52px 56px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
+.end-q{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2.4vw,30px); line-height:1.5; color:var(--text); max-width:520px; }
+.end-meta{ text-align:right; }
+.end-tag{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; display:block; }
+.end-name{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:18px; color:rgba(232,226,213,.75); }
+
+/* BACK BUTTON - TOP LEFT CORNER */
+.back-projects-btn {
+  position: fixed;
+  top: 72px;
+  left: 28px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(12, 10, 7, 0.85);
+  backdrop-filter: blur(16px);
+  padding: 8px 20px;
+  border-radius: 40px;
+  border: 1px solid rgba(200, 128, 60, 0.6);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+}
+.back-projects-btn:hover {
+  background: rgba(200, 128, 60, 0.25);
+  border-color: var(--gold);
+  gap: 14px;
+  letter-spacing: 0.24em;
+  color: #fff;
+}
+.back-projects-btn::before {
+  content: "←";
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gold);
+  transition: transform 0.2s;
+}
+.back-projects-btn:hover::before {
+  transform: translateX(-4px);
+}
+
+/* LIGHTBOX STYLES */
+.lb-overlay{ position:fixed; inset:0; background:rgba(8,6,4,.96); backdrop-filter:blur(28px); z-index:2000; display:flex; align-items:center; justify-content:center; visibility:hidden; opacity:0; transition:visibility .25s, opacity .25s; cursor:pointer; }
+.lb-overlay.active{ visibility:visible; opacity:1; }
+.lb-img{ max-width:90vw; max-height:85vh; object-fit:contain; box-shadow:0 25px 45px rgba(0,0,0,.4); border-radius:2px; cursor:default; }
+.lb-close{ position:fixed; top:28px; right:32px; width:44px; height:44px; background:rgba(255,255,255,.05); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:200; color:var(--gold); transition:all .2s; cursor:pointer; backdrop-filter:blur(8px); border:1px solid rgba(232,226,213,.2); }
+.lb-close:hover{ background:rgba(200,128,60,.2); transform:scale(1.02); color:#fff; }
+.lb-caption{ position:fixed; bottom:24px; left:0; right:0; text-align:center; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,226,213,.6); font-weight:300; pointer-events:none; }
+
+@media (max-width:720px){
+  .back-projects-btn{ top: 68px; left: 16px; padding: 6px 16px; font-size: 9px; gap: 8px; }
+  .hero-foot{ padding: 28px 28px; }
+  .info{ padding: 32px 24px; width: 380px; }
+  .lb-close{ top:18px; right:20px; width:38px; height:38px; font-size:26px; }
+  .lb-img{ max-width:95vw; max-height:75vh; }
+  #counter{ bottom: 16px; padding: 4px 12px; }
+  #hint{ bottom: 16px; right: 20px; }
+}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">Mars<span>.</span>Bansiti</a>
+  <div class="nav-mid">
+    <span class="nav-cat" data-en="Selected Works · ArchViz" data-vi="Tác phẩm chọn lọc · Kiến trúc 3D">Selected Works · ArchViz</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="../index.html" data-en="Home" data-vi="Trang chủ">Home</a></li>
+    <li><a href="../projects.html" data-en="Projects" data-vi="Dự án">Projects</a></li>
+    <li><a href="../about.html" data-en="About me" data-vi="Về tôi">About me</a></li>
+    <li><button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button></li>
+  </ul>
+</nav>
+
+<div id="prog-wrap"><div id="prog"></div></div>
+
+<!-- BACK TO PROJECTS BUTTON -->
+<a href="../projects.html" class="back-projects-btn" data-en="← Back to projects" data-vi="← Quay lại dự án">← Back to projects</a>
+
+<div id="vp"><div id="track">
+  <!-- HERO panel - V House main intro -->
+  <div class="p pi" style="width:100vw" data-i="0">
+    <img class="hero-img" src="https://mir-s3-cdn-cf.behance.net/project_modules/source/7ec2c2247058169.69d2bef495875.jpg" alt="V House neoclassical sanctuary hero" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/source/7ec2c2247058169.69d2bef495875.jpg">
+    <div class="hero-veil"></div>
+    <div class="hero-foot">
+      <div>
+        <span class="h-eyebrow" data-en="Ho Chi Minh City · Vietnam" data-vi="TP. Hồ Chí Minh · Việt Nam">Ho Chi Minh City · Vietnam</span>
+        <h1 class="h-title">V<br>House</h1>
+      </div>
+      <div style="text-align:right;padding-bottom:6px">
+        <span class="h-eyebrow" style="text-align:right" data-en="Neoclassical Sanctuary" data-vi="Thánh đường tân cổ điển">Neoclassical Sanctuary</span>
+        <p class="h-sub" data-en="Where symmetry meets contemporary Asian sensibility" data-vi="Nơi sự đối xứng gặp gỡ cảm quan châu Á đương đại">Where symmetry meets contemporary Asian sensibility</p>
+      </div>
+    </div>
+    <span class="wm">01</span>
+  </div>
+
+  <!-- INFO panel: detailed stats, concept, material strategy -->
+  <div class="p info" style="width:440px">
+    <div>
+      <p class="i-label" data-en="Residential · Saigon · 5×22m footprint" data-vi="Nhà ở · Sài Gòn · Diện tích 5×22m">Residential · Saigon · 5×22m footprint</p>
+      <div class="i-rule"></div>
+      <p class="i-sub" data-en="Refined urban sanctuary · Axial planning" data-vi="Thánh đường đô thị tinh tế · Quy hoạch trục">Refined urban sanctuary · Axial planning</p>
+      <h2 class="i-title">V<br>House</h2>
+      <div class="i-body">
+        <p data-en="V House is conceived as a refined urban sanctuary that balances neoclassical symmetry with contemporary Asian sensibility. The spatial narrative is anchored by axial planning — arched thresholds, centered compositions, and layered perspectives — creating a sense of procession from public to private zones. The integration of a dedicated spiritual altar space introduces cultural grounding, while soft neutral tones and controlled daylight establish a calm, almost gallery-like atmosphere. The design avoids ornament excess, instead using proportion, rhythm, and subtle detailing to express elegance." data-vi="V House được hình thành như một thánh đường đô thị tinh tế cân bằng giữa sự đối xứng tân cổ điển với cảm quan châu Á đương đại. Câu chuyện không gian được neo bởi quy hoạch trục — ngưỡng vòm, bố cục trung tâm và phối cảnh phân lớp — tạo ra cảm giác chuyển tiếp từ khu vực công cộng sang riêng tư. Sự tích hợp của không gian thờ cúng tâm linh mang lại nền tảng văn hóa, trong khi tông màu trung tính nhẹ nhàng và ánh sáng ban ngày được kiểm soát tạo ra bầu không khí yên tĩnh, gần như phòng trưng bày. Thiết kế tránh sự thừa thãi của trang trí, thay vào đó sử dụng tỷ lệ, nhịp điệu và chi tiết tinh tế để thể hiện sự thanh lịch.">V House is conceived as a refined urban sanctuary that balances neoclassical symmetry with contemporary Asian sensibility. The spatial narrative is anchored by axial planning — arched thresholds, centered compositions, and layered perspectives — creating a sense of procession from public to private zones. The integration of a dedicated spiritual altar space introduces cultural grounding, while soft neutral tones and controlled daylight establish a calm, almost gallery-like atmosphere. The design avoids ornament excess, instead using proportion, rhythm, and subtle detailing to express elegance.</p>
+      </div>
+      <ul class="svc-list">
+        <li class="svc-item"><span class="svc-name" data-en="Interior Architecture" data-vi="Kiến trúc nội thất">Interior Architecture</span><span class="svc-num">01</span></li>
+        <li class="svc-item"><span class="svc-name" data-en="Spatial Planning" data-vi="Quy hoạch không gian">Spatial Planning</span><span class="svc-num">02</span></li>
+        <li class="svc-item"><span class="svc-name" data-en="Material Curation" data-vi="Tuyển chọn vật liệu">Material Curation</span><span class="svc-num">03</span></li>
+      </ul>
+    </div>
+    <div class="area-blk">
+      <span class="area-num">5×22</span><span class="area-unit">m</span>
+      <span class="area-label" data-en="Compact urban footprint" data-vi="Diện tích đô thị nhỏ gọn">Compact urban footprint</span>
+      <div style="margin-top:12px; border-top:1px solid var(--border); padding-top:14px;">
+        <span class="area-label" style="margin-top:0" data-en="Warm white moldings · Wood veneer · Marble · Brushed metal · Linen & leather" data-vi="Phào chỉ trắng ấm · Ván gỗ · Đá cẩm thạch · Kim loại chải · Lanh & da">Warm white · Wood veneer · Marble · Brushed metal · Linen & leather</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- GALLERY PANEL 1: Living Space / Arched Thresholds -->
+  <div class="p pi" style="width:52vw" data-i="1">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/source/7ec2c2247058169.69d2bef495875.jpg" alt="Living space with arched thresholds and axial planning" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/source/7ec2c2247058169.69d2bef495875.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">01</span><span class="sec-lbl-name" data-en="Living Space · Arched thresholds" data-vi="Không gian sống · Ngưỡng vòm">Living Space · Arched thresholds</span></div>
+    <span class="wm">02</span>
+  </div>
+
+  <!-- GALLERY PANEL 2: Spiritual Altar Space / Wood Veneers -->
+  <div class="p pi" style="width:48vw" data-i="2">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/source/36021a247058169.69d2bef495dec.png" alt="Spiritual altar space with natural wood veneers" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/source/36021a247058169.69d2bef495dec.png">
+    <div class="sec-lbl"><span class="sec-lbl-num">02</span><span class="sec-lbl-name" data-en="Altar Space · Cultural grounding" data-vi="Không gian thờ · Nền tảng văn hóa">Altar Space · Cultural grounding</span></div>
+    <span class="wm">03</span>
+  </div>
+
+  <!-- CONCEPT PANEL -->
+  <div class="p concept" style="width:400px">
+    <div class="concept-bg">Axial</div>
+    <div class="concept-label" data-en="Material Strategy" data-vi="Chiến lược vật liệu">Material Strategy</div>
+    <div class="qmark">"</div>
+    <p class="qtext" data-en="Tactile contrast within a restrained palette. <strong>Warm white moldings, natural wood veneers, herringbone flooring,</strong> marble surfaces, brushed metal accents, and upholstered linen and leather — every material selected for longevity and ease of maintenance within a compact urban footprint." data-vi="Tương phản xúc giác trong một bảng màu hạn chế. <strong>Phào chỉ trắng ấm, ván gỗ tự nhiên, sàn herringbone,</strong> bề mặt đá cẩm thạch, điểm nhấn kim loại chải, và lanh cùng da bọc — mọi vật liệu được chọn vì tuổi thọ và dễ bảo trì trong không gian đô thị nhỏ gọn.">Tactile contrast within a restrained palette. <strong>Warm white moldings, natural wood veneers, herringbone flooring,</strong> marble surfaces, brushed metal accents, and upholstered linen and leather — every material selected for longevity and ease of maintenance within a compact urban footprint.</p>
+    <div class="mat-row">
+      <span class="mat">Warm white</span>
+      <span class="mat">Wood veneer</span>
+      <span class="mat">Marble</span>
+      <span class="mat">Brushed metal</span>
+      <span class="mat">Linen & leather</span>
+    </div>
+  </div>
+
+  <!-- GALLERY PANEL 3: Bedroom / Upholstered Elements -->
+  <div class="p pi" style="width:46vw" data-i="3">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/source/38f8a3247058169.69d2bef4969ac.jpg" alt="Bedroom with upholstered linen and leather elements" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/source/38f8a3247058169.69d2bef4969ac.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">03</span><span class="sec-lbl-name" data-en="Bedroom · Upholstered softness" data-vi="Phòng ngủ · Sự mềm mại bọc nệm">Bedroom · Upholstered softness</span></div>
+    <span class="wm">04</span>
+  </div>
+
+  <!-- GALLERY PANEL 4: Kitchen & Dining Area / Marble Surfaces -->
+  <div class="p pi" style="width:50vw" data-i="4">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/source/ad0ec1247058169.69d2bef496eaf.jpg" alt="Kitchen and dining area with marble surfaces" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/source/ad0ec1247058169.69d2bef496eaf.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">04</span><span class="sec-lbl-name" data-en="Kitchen & Dining · Marble elegance" data-vi="Bếp & ăn · Đá cẩm thạch thanh lịch">Kitchen & Dining · Marble elegance</span></div>
+    <span class="wm">05</span>
+  </div>
+
+  <!-- GALLERY PANEL 5: Interior Details / Custom Millwork -->
+  <div class="p pi" style="width:44vw" data-i="5">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/source/765bae247058169.69d2bef49736b.jpg" alt="Interior details with custom millwork and brushed metal" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/source/765bae247058169.69d2bef49736b.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">05</span><span class="sec-lbl-name" data-en="Custom Millwork · Brushed metal" data-vi="Mộc tùy chỉnh · Kim loại chải">Custom Millwork · Brushed metal</span></div>
+    <span class="wm">06</span>
+  </div>
+
+  <!-- GALLERY PANEL 6: Additional interior - herringbone flooring detail -->
+  <div class="p pi" style="width:49vw" data-i="6">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/source/7ec2c2247058169.69d2bef495875.jpg" alt="Herringbone flooring and layered perspectives" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/source/7ec2c2247058169.69d2bef495875.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">06</span><span class="sec-lbl-name" data-en="Herringbone · Layered perspective" data-vi="Herringbone · Phối cảnh phân lớp">Herringbone · Layered perspective</span></div>
+    <span class="wm">07</span>
+  </div>
+
+  <!-- CLOSING / RESULT PANEL: final statement -->
+  <div class="p pi" style="width:86vw" data-i="7">
+    <img class="end-img" src="https://mir-s3-cdn-cf.behance.net/project_modules/source/7ec2c2247058169.69d2bef495875.jpg" alt="V House - timeless neoclassical living" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/source/7ec2c2247058169.69d2bef495875.jpg">
+    <div class="end-veil"></div>
+    <div class="end-foot">
+      <p class="end-q" data-en="The completed V House achieves a cohesive, high-end residential experience within a narrow townhouse typology. Despite the 5×22m footprint, the design maximizes perceived space through visual continuity, vertical emphasis, and strategic lighting. Each floor transitions seamlessly in function while maintaining a unified design language. The result is a home that feels both timeless and contemporary — delivering comfort, cultural identity, and spatial efficiency — positioning it as a strong benchmark for modern neoclassical living in Ho Chi Minh City." data-vi="V House hoàn thiện đạt được trải nghiệm dân cư cao cấp gắn kết trong loại hình nhà phố hẹp. Bất chấp diện tích 5×22m, thiết kế tối đa hóa không gian cảm nhận thông qua tính liên tục thị giác, nhấn mạnh chiều dọc và ánh sáng chiến lược. Mỗi tầng chuyển tiếp liền mạch về chức năng trong khi vẫn duy trì ngôn ngữ thiết kế thống nhất. Kết quả là một ngôi nhà vừa vượt thời gian vừa đương đại — mang lại sự thoải mái, bản sắc văn hóa và hiệu quả không gian — định vị nó như một chuẩn mực mạnh mẽ cho cuộc sống tân cổ điển hiện đại tại Thành phố Hồ Chí Minh.">The completed V House achieves a cohesive, high-end residential experience within a narrow townhouse typology. Despite the 5×22m footprint, the design maximizes perceived space through visual continuity, vertical emphasis, and strategic lighting. Each floor transitions seamlessly in function while maintaining a unified design language. The result is a home that feels both timeless and contemporary — delivering comfort, cultural identity, and spatial efficiency — positioning it as a strong benchmark for modern neoclassical living in Ho Chi Minh City.</p>
+      <div class="end-meta">
+        <span class="end-tag" data-en="Neoclassical Sanctuary · Saigon" data-vi="Thánh đường tân cổ điển · Sài Gòn">Neoclassical Sanctuary · Saigon</span>
+        <p class="end-name">V House · 5×22m</p>
+      </div>
+    </div>
+    <span class="wm" style="font-size:clamp(100px,13vw,170px)">08</span>
+  </div>
+</div></div>
+
+<div id="counter">
+  <span id="cnt-cur">01</span>
+  <div class="cnt-track"><div class="cnt-fill" id="cnt-fill"></div></div>
+  <span id="cnt-tot">08</span>
+</div>
+
+<div id="hint">
+  <span data-en="Scroll" data-vi="Cuộn">Scroll</span>
+  <div class="h-line"></div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lb-overlay">
+  <div class="lb-close" id="lbClose">✕</div>
+  <img id="lbImg" class="lb-img" src="" alt="Full size view">
+  <div id="lbCaption" class="lb-caption"></div>
+</div>
+
+<script src="../assets/js/shared.js"></script>
+<script>
+const track = document.getElementById('track'), vp = document.getElementById('vp'), prog = document.getElementById('prog');
+const hint = document.getElementById('hint'), cntCur = document.getElementById('cnt-cur'), cntFill = document.getElementById('cnt-fill');
+let tx=0, cx=0, maxS=0;
+const piEls = Array.from(document.querySelectorAll('.p'));
+const TOTAL = piEls.length;
+document.getElementById('cnt-tot').textContent = String(TOTAL).padStart(2,'0');
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function getMax(){ return track.scrollWidth - vp.offsetWidth; }
+window.addEventListener('wheel', e=>{ e.preventDefault(); maxS=getMax(); tx=clamp(tx+e.deltaY*1.55+e.deltaX,0,maxS); },{passive:false});
+
+// LIGHTBOX FUNCTIONALITY
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbClose = document.getElementById('lbClose');
+const lbCaption = document.getElementById('lbCaption');
+
+function openLightbox(imgElement) {
+  const fullUrl = imgElement.getAttribute('data-full') || imgElement.src;
+  lbImg.src = fullUrl;
+  let captionText = imgElement.alt || '';
+  const parentPanel = imgElement.closest('.p');
+  if(parentPanel){
+    const secLabelSpan = parentPanel.querySelector('.sec-lbl-name');
+    if(secLabelSpan) captionText = secLabelSpan.innerText.trim() + ' · V House';
+    else if(parentPanel.classList.contains('pi') && !secLabelSpan){
+      const heroEyebrow = parentPanel.querySelector('.h-eyebrow');
+      if(heroEyebrow) captionText = heroEyebrow.innerText.trim() + ' · Saigon';
+    }
+  }
+  lbCaption.textContent = captionText || 'V House · Neoclassical Sanctuary';
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  lightbox.classList.remove('active');
+  setTimeout(()=>{ lbImg.src = ''; }, 200);
+  document.body.style.overflow = '';
+}
+
+// Attach click listeners to all images
+document.querySelectorAll('.pi img, .hero-img, .end-img').forEach(img => {
+  img.style.cursor = 'pointer';
+  img.addEventListener('click', (e) => { e.stopPropagation(); openLightbox(img); });
+});
+lbClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => { if(lightbox.classList.contains('active') && e.key === 'Escape') closeLightbox(); });
+
+// SCROLL LOOP
+(function loop(){
+  cx+=(tx-cx)*.09; if(Math.abs(tx-cx)<0.05) cx=tx;
+  track.style.transform=`translateX(${-cx}px)`;
+  maxS=getMax(); prog.style.width=(maxS>0?(cx/maxS)*100:0)+'%';
+  hint.style.opacity=cx>100?'0':'1';
+  let visIdx=0, bestOverlap=-1;
+  piEls.forEach((p,i)=>{
+    const r=p.getBoundingClientRect();
+    const overlap=Math.min(r.right,window.innerWidth)-Math.max(r.left,0);
+    if(overlap>bestOverlap){bestOverlap=overlap;visIdx=i;}
+  });
+  cntCur.textContent=String(visIdx+1).padStart(2,'0');
+  cntFill.style.width=((visIdx+1)/TOTAL*100)+'%';
+  requestAnimationFrame(loop);
+})();
+
+// Language toggle (shared.js compatible fallback)
+function toggleLang() {
+  const btn = document.getElementById('lang-btn');
+  if(btn.textContent === 'EN') btn.textContent = 'VI';
+  else btn.textContent = 'EN';
+}
+</script>
+</body>
+</html>

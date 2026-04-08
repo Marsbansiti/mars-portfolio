@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Noho One Lobby | Không gian công cộng · Warsaw · YODEZEEN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300;1,9..144,400&family=Syne:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{ margin:0; padding:0; box-sizing:border-box; }
+:root{ 
+  --panel-gap: 6px; 
+  --bg: #0a0806;
+  --bg2: #0e0c09;
+  --surface: #11100c;
+  --border: #2a241e;
+  --gold: #c09a6b;
+  --text: #e8e2d5;
+  --text-dim: #b7aa99;
+  --serif: 'Fraunces', serif;
+  --sans: 'Syne', sans-serif;
+}
+body{ height:100vh; overflow:hidden; background:var(--bg); font-family: var(--sans); }
+
+/* REMOVE ALL SCROLLBARS */
+html, body { overflow-x: hidden; }
+nav { overflow-x: hidden; width: 100%; }
+#vp::-webkit-scrollbar { display: none; }
+#vp{ -ms-overflow-style: none; scrollbar-width: none; overflow-x: auto; overflow-y: hidden; }
+
+nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative; z-index:500; width:100%; display: flex; align-items: center; justify-content: space-between; padding: 12px 28px; border-bottom: 1px solid rgba(192,154,107,0.2); }
+.nav-logo{ font-family: var(--serif); font-style: italic; font-size: 18px; font-weight: 300; letter-spacing: -0.2px; color: var(--text); text-decoration: none; }
+.nav-logo span{ color: var(--gold); }
+.nav-mid .nav-cat{ font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-dim); }
+.nav-links{ display: flex; gap: 32px; list-style: none; }
+.nav-links li a{ font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+.nav-links li a:hover{ color: var(--gold); }
+.lang-btn{ background: none; border: 1px solid var(--border); padding: 4px 12px; border-radius: 40px; font-size: 10px; font-weight: 600; color: var(--text); cursor: pointer; transition: all 0.2s; }
+.lang-btn:hover{ border-color: var(--gold); color: var(--gold); }
+
+#prog-wrap{ position:fixed; top:58px; left:0; right:0; height:1.5px; background:var(--border); z-index:600; }
+#prog{ height:100%; width:0%; background:var(--gold); transition:width .04s linear; }
+#counter{ position:fixed; bottom:22px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:14px; z-index:600; background:rgba(12,10,7,.4); backdrop-filter:blur(4px); padding:6px 14px; border-radius:40px; }
+#cnt-cur{ font-family:var(--serif); font-style:italic; font-size:14px; font-weight:200; color:var(--gold); min-width:24px; text-align:right; }
+.cnt-track{ width:48px; height:1px; background:var(--border); position:relative; overflow:hidden; }
+.cnt-fill{ position:absolute; top:0; left:0; height:100%; background:var(--gold); transition:width .4s ease; }
+#cnt-tot{ font-family:var(--serif); font-style:italic; font-size:14px; font-weight:200; color:var(--text-dim); min-width:24px; }
+#hint{ position:fixed; bottom:22px; right:44px; z-index:600; display:flex; align-items:center; gap:10px; transition:opacity .7s; background:rgba(12,10,7,.3); padding:5px 12px; border-radius:40px; backdrop-filter:blur(4px); }
+#hint span{ font-size:9px; font-weight:400; letter-spacing:.25em; text-transform:uppercase; color:var(--text-dim); }
+.h-line{ width:32px; height:1px; background:var(--gold); position:relative; overflow:hidden; }
+.h-line::after{ content:'';position:absolute; top:0; left:-100%; width:100%; height:100%; background:var(--text); animation:slide 2s ease-in-out infinite; }
+@keyframes slide{ 0%{left:-100%} 50%{left:100%} 100%{left:100%} }
+#vp{ position:fixed; inset:0; top:59.5px; overflow-x:auto; overflow-y:hidden; scroll-behavior:smooth; scrollbar-width: none; }
+#track{ display:flex; flex-direction:row; height:calc(100vh - 59.5px); will-change:transform; gap: var(--panel-gap); padding-right: var(--panel-gap); }
+.p{ flex-shrink:0; height:100%; position:relative; overflow:hidden; }
+.pi img{ width:100%; height:100%; object-fit:cover; display:block; transition:filter .5s; cursor:pointer; }
+.pi img:hover{ filter:brightness(1.02) contrast(1.02); }
+.hero-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+.hero-veil{ position:absolute; inset:0; background: linear-gradient(105deg, rgba(12,10,7,.45) 0%, transparent 48%), linear-gradient(to top, rgba(12,10,7,.72) 0%, transparent 44%); pointer-events:none; }
+.hero-foot{ position:absolute; bottom:0; left:0; right:0; padding:44px 52px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
+.h-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(72px,10vw,128px); line-height:.88; letter-spacing:-.02em; color:var(--text); }
+.h-eyebrow{ font-size:9px; font-weight:500; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:block; }
+.h-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:17px; color:rgba(232,226,213,.7); }
+.info{ background:var(--surface); border-right:1px solid var(--border); border-left:2px solid var(--gold); display:flex; flex-direction:column; justify-content:space-between; padding:52px 46px 46px; overflow-y:auto; scrollbar-width: thin; }
+.info::-webkit-scrollbar{ width:3px; background:var(--border); }
+.info::-webkit-scrollbar-thumb{ background:var(--gold); }
+.i-label{ font-size:9px; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--text-dim); }
+.i-rule{ display:flex; align-items:center; gap:12px; margin:18px 0 22px; }
+.i-rule::before{ content:''; width:20px; height:1px; background:var(--gold); }
+.i-rule::after{ content:''; flex:1; height:1px; background:var(--border); }
+.i-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--text-dim); line-height:1.6; margin-bottom:10px; }
+.i-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(58px,5.5vw,80px); line-height:.9; letter-spacing:-.02em; color:var(--text); margin-bottom:36px; }
+.i-body{ font-size:12.5px; font-weight:300; line-height:1.9; color:var(--text-dim); margin-bottom:40px; }
+.svc-list{ list-style:none; border-top:1px solid var(--border); }
+.svc-item{ display:flex; align-items:center; justify-content:space-between; padding:11px 0; border-bottom:1px solid var(--border); transition:padding-left .3s; position:relative; }
+.svc-item:hover{ padding-left:8px; }
+.svc-item::before{ content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:0; height:1px; background:var(--gold); transition:width .3s; }
+.svc-item:hover::before{ width:6px; }
+.svc-name{ font-size:11.5px; font-weight:400; letter-spacing:.03em; color:var(--text); }
+.svc-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--gold); }
+.area-blk{ margin-top:38px; }
+.area-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:54px; line-height:1; letter-spacing:-.02em; color:var(--text); }
+.area-unit{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:16px; color:var(--gold); display:inline-block; margin-left:5px; }
+.area-label{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--text-dim); margin-top:10px; display:block; }
+.sec-lbl{ position:absolute; bottom:36px; left:28px; z-index:2; display:flex; align-items:center; gap:10px; pointer-events:none; }
+.sec-lbl-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:11px; color:rgba(232,226,213,.5); }
+.sec-lbl-name{ font-size:9px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:rgba(232,226,213,.4); }
+.sec-lbl::before{ content:''; width:18px; height:1px; background:rgba(200,128,60,.4); }
+.wm{ position:absolute; bottom:-10px; right:-8px; font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(130px,16vw,200px); line-height:1; color:rgba(255,255,255,.05); pointer-events:none; z-index:1; letter-spacing:-.04em; user-select:none; }
+.concept{ background:var(--bg2); border-left:1px solid var(--border); border-right:1px solid var(--border); display:flex; flex-direction:column; justify-content:center; padding:64px 44px; position:relative; overflow:hidden; }
+.concept-bg{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(100px,14vw,160px); letter-spacing:-.04em; white-space:nowrap; color:rgba(232,226,213,.04); pointer-events:none; user-select:none; line-height:1; }
+.concept-label{ font-size:9px; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:28px; display:flex; align-items:center; gap:12px; }
+.concept-label::after{ content:''; width:24px; height:1px; background:var(--gold); opacity:.4; }
+.qmark{ font-family:var(--serif); font-weight:200; font-size:64px; line-height:.65; color:var(--gold); opacity:.35; margin-bottom:10px; }
+.qtext{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2vw,22px); line-height:1.65; color:var(--text); margin-bottom:38px; }
+.qtext strong{ font-style:normal; font-weight:300; color:var(--gold); }
+.mat-row{ display:flex; flex-wrap:wrap; gap:6px; margin-top:32px; }
+.mat{ font-size:9px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); padding:5px 12px; border:1px solid var(--border); transition:all .3s; }
+.mat:hover{ background:var(--gold); color:var(--bg); border-color:var(--gold); }
+.end-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+.end-veil{ position:absolute; inset:0; background:linear-gradient(to top, rgba(12,10,7,.82) 0%, rgba(12,10,7,.18) 55%, transparent 100%); pointer-events:none; }
+.end-foot{ position:absolute; bottom:0; left:0; right:0; padding:52px 56px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
+.end-q{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2.4vw,30px); line-height:1.5; color:var(--text); max-width:520px; }
+.end-meta{ text-align:right; }
+.end-tag{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; display:block; }
+.end-name{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:18px; color:rgba(232,226,213,.75); }
+
+/* BACK BUTTON - TOP LEFT CORNER */
+.back-projects-btn {
+  position: fixed;
+  top: 72px;
+  left: 28px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(12, 10, 7, 0.85);
+  backdrop-filter: blur(16px);
+  padding: 8px 20px;
+  border-radius: 40px;
+  border: 1px solid rgba(200, 128, 60, 0.6);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+}
+.back-projects-btn:hover {
+  background: rgba(200, 128, 60, 0.25);
+  border-color: var(--gold);
+  gap: 14px;
+  letter-spacing: 0.24em;
+  color: #fff;
+}
+.back-projects-btn::before {
+  content: "←";
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gold);
+  transition: transform 0.2s;
+}
+.back-projects-btn:hover::before {
+  transform: translateX(-4px);
+}
+
+/* LIGHTBOX STYLES */
+.lb-overlay{ position:fixed; inset:0; background:rgba(8,6,4,.96); backdrop-filter:blur(28px); z-index:2000; display:flex; align-items:center; justify-content:center; visibility:hidden; opacity:0; transition:visibility .25s, opacity .25s; cursor:pointer; }
+.lb-overlay.active{ visibility:visible; opacity:1; }
+.lb-img{ max-width:90vw; max-height:85vh; object-fit:contain; box-shadow:0 25px 45px rgba(0,0,0,.4); border-radius:2px; cursor:default; }
+.lb-close{ position:fixed; top:28px; right:32px; width:44px; height:44px; background:rgba(255,255,255,.05); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:200; color:var(--gold); transition:all .2s; cursor:pointer; backdrop-filter:blur(8px); border:1px solid rgba(232,226,213,.2); }
+.lb-close:hover{ background:rgba(200,128,60,.2); transform:scale(1.02); color:#fff; }
+.lb-caption{ position:fixed; bottom:24px; left:0; right:0; text-align:center; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,226,213,.6); font-weight:300; pointer-events:none; }
+
+@media (max-width:720px){
+  .back-projects-btn{ top: 68px; left: 16px; padding: 6px 16px; font-size: 9px; gap: 8px; }
+  .hero-foot{ padding: 28px 28px; }
+  .info{ padding: 32px 24px; width: 380px; }
+  .lb-close{ top:18px; right:20px; width:38px; height:38px; font-size:26px; }
+  .lb-img{ max-width:95vw; max-height:75vh; }
+  #counter{ bottom: 16px; padding: 4px 12px; }
+  #hint{ bottom: 16px; right: 20px; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">YODEZEEN<span>.</span>Studio</a>
+  <div class="nav-mid">
+    <span class="nav-cat">Noho One · Warsaw</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="../index.html">Trang chủ</a></li>
+    <li><a href="../projects.html">Dự án</a></li>
+    <li><a href="../about.html">Studio</a></li>
+    <li><button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button></li>
+  </ul>
+</nav>
+
+<div id="prog-wrap"><div id="prog"></div></div>
+
+<!-- BACK TO PROJECTS BUTTON (Vietnamese default) -->
+<a href="../projects.html" class="back-projects-btn" id="backBtn">← Quay lại dự án</a>
+
+<div id="vp"><div id="track">
+  <!-- HERO panel: Noho One Lobby -->
+  <div class="p pi" style="width:100vw" data-i="0">
+    <img class="hero-img" src="https://cdn.yodezeen.com/1_41903c54a7.jpg" alt="Noho One Lobby - Sảnh chính với cây sồi nổi" data-full="https://cdn.yodezeen.com/1_41903c54a7.jpg">
+    <div class="hero-veil"></div>
+    <div class="hero-foot">
+      <div>
+        <span class="h-eyebrow" id="heroAddr">Warsaw · Ba Lan</span>
+        <h1 class="h-title">NOHO ONE</h1>
+      </div>
+      <div style="text-align:right;padding-bottom:6px">
+        <span class="h-eyebrow" style="text-align:right" id="heroComplex">Sảnh chính & Không gian công cộng</span>
+        <p class="h-sub" id="heroSub">270 m² · Hiện đại hữu cơ · YODEZEEN</p>
+      </div>
+    </div>
+    <span class="wm">01</span>
+  </div>
+
+  <!-- INFO panel: project details & philosophy -->
+  <div class="p info" style="width:440px">
+    <div>
+      <p class="i-label" id="infoLabel">Không gian công cộng · Đang thi công</p>
+      <div class="i-rule"></div>
+      <p class="i-sub" id="infoSub">Cây sồi nổi · Quả cầu thủy tinh · Tông xanh dịu · Vật liệu tự nhiên</p>
+      <h2 class="i-title">SẢNH CHÍNH</h2>
+      <div class="i-body" id="infoBody">
+        <p>Điểm nhấn trung tâm của sảnh là một cây sồi nổi được bao bọc trong một quả cầu thủy tinh hình cầu — biểu tượng mạnh mẽ của sự sống, kiên cường và cân bằng. Yếu tố này thể hiện triết lý chánh niệm thấm đượm trong thiết kế, được thể hiện qua tông xanh dịu, vật liệu tự nhiên và ánh sáng ban ngày được tính toán tỉ mỉ. Thách thức cốt lõi là thống nhất nhiều chức năng đa dạng dưới một triết lý thiết kế mạch lạc — tạo ra sự chuyển tiếp liền mạch giữa các không gian, thúc đẩy cả cộng đồng lẫn sự riêng tư. Mục tiêu là mang đến môi trường toàn diện nơi cư dân cảm thấy kết nối với thiên nhiên và với nhau, ngay trong chính ngôi nhà của mình.</p>
+      </div>
+      <ul class="svc-list">
+        <li class="svc-item"><span class="svc-name" id="svc1">Thiết kế kiến trúc</span><span class="svc-num">01</span></li>
+        <li class="svc-item"><span class="svc-name" id="svc2">Không gian công cộng</span><span class="svc-num">02</span></li>
+        <li class="svc-item"><span class="svc-name" id="svc3">Thiết kế chiếu sáng</span><span class="svc-num">03</span></li>
+        <li class="svc-item"><span class="svc-name" id="svc4">Tích hợp thiên nhiên</span><span class="svc-num">04</span></li>
+      </ul>
+    </div>
+    <div class="area-blk">
+      <span class="area-num">2.907</span><span class="area-unit">ft²</span>
+      <span class="area-label" id="areaLabel">270 m² · Warsaw · Ba Lan</span>
+      <div style="margin-top:12px; border-top:1px solid var(--border); padding-top:14px;">
+        <span class="area-label" style="margin-top:0" id="areaTags">Sảnh chính · Phòng Gym · Khu sinh hoạt · Khu vực thư giãn</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN LOBBY & SOCIAL SPACES GALLERY -->
+  <div class="p pi" style="width:52vw" data-i="1"><img src="https://cdn.yodezeen.com/1_41903c54a7.jpg" alt="Sảnh chính với cây sồi nổi trong quả cầu thủy tinh" data-full="https://cdn.yodezeen.com/1_41903c54a7.jpg"><div class="sec-lbl"><span class="sec-lbl-num">01</span><span class="sec-lbl-name" id="cap1">Sảnh chính · Cây sồi nổi · Biểu tượng sự sống</span></div><span class="wm">02</span></div>
+  <div class="p pi" style="width:46vw" data-i="2"><img src="https://cdn.yodezeen.com/2_2_f54122bd1e.jpg" alt="Không gian xã hội rộng mở" data-full="https://cdn.yodezeen.com/2_2_f54122bd1e.jpg"><div class="sec-lbl"><span class="sec-lbl-num">02</span><span class="sec-lbl-name" id="cap2">Khu sinh hoạt · Kết nối cộng đồng</span></div><span class="wm">03</span></div>
+  <div class="p pi" style="width:48vw" data-i="3"><img src="https://cdn.yodezeen.com/3_2_539abbb1f8.jpg" alt="Góc thư giãn và nghỉ ngơi" data-full="https://cdn.yodezeen.com/3_2_539abbb1f8.jpg"><div class="sec-lbl"><span class="sec-lbl-num">03</span><span class="sec-lbl-name" id="cap3">Khu vực nghỉ · Tông xanh dịu</span></div><span class="wm">04</span></div>
+
+  <!-- CONCEPT PANEL: Centerpiece & Philosophy -->
+  <div class="p concept" style="width:400px">
+    <div class="concept-bg">Noho One</div>
+    <div class="concept-label" id="conceptLabel">Tâm điểm & Triết lý</div>
+    <div class="qmark">"</div>
+    <p class="qtext" id="conceptText">Cây sồi nổi trong quả cầu thủy tinh — biểu tượng của sự sống, kiên cường và cân bằng. Thiết kế nhấn mạnh tính lưu chuyển và cởi mở. Cửa sổ toàn cảnh rộng lớn đóng khung cảnh quan xung quanh, xóa mờ ranh giới giữa trong nhà và ngoài trời. Các khu vực chuyển tiếp giữa phòng gym, phòng khách, khu giải trí và không gian riêng tư được bố trí cẩn thận để cư dân dễ dàng chuyển đổi giữa các hoạt động.</p>
+    <div class="mat-row"><span class="mat">Hữu cơ</span><span class="mat">Chánh niệm</span><span class="mat">Tự nhiên</span><span class="mat">Cân bằng</span><span class="mat">Lưu chuyển</span></div>
+  </div>
+
+  <!-- GYM & WELLNESS BUILDING A GALLERY (5 images) -->
+  <div class="p pi" style="width:44vw" data-i="4"><img src="https://cdn.yodezeen.com/7/107/Gym_bulding_A_1_fd648c02d3.jpg" alt="Phòng Gym tòa nhà A - góc nhìn tổng thể" data-full="https://cdn.yodezeen.com/7/107/Gym_bulding_A_1_fd648c02d3.jpg"><div class="sec-lbl"><span class="sec-lbl-num">04</span><span class="sec-lbl-name" id="cap4">Phòng Gym · Kiến trúc thoáng đãng</span></div><span class="wm">05</span></div>
+  <div class="p pi" style="width:48vw" data-i="5"><img src="https://cdn.yodezeen.com/7/107/Gym_bulding_A_9_db8c2c4369.jpg" alt="Khu vực tập luyện với ánh sáng tự nhiên" data-full="https://cdn.yodezeen.com/7/107/Gym_bulding_A_9_db8c2c4369.jpg"><div class="sec-lbl"><span class="sec-lbl-num">05</span><span class="sec-lbl-name" id="cap5">Góc tập luyện · Ánh sáng tự nhiên</span></div><span class="wm">06</span></div>
+  <div class="p pi" style="width:46vw" data-i="6"><img src="https://cdn.yodezeen.com/7/107/Gym_bulding_A_14_143de44d67.jpg" alt="Không gian thư giãn trong khu wellness" data-full="https://cdn.yodezeen.com/7/107/Gym_bulding_A_14_143de44d67.jpg"><div class="sec-lbl"><span class="sec-lbl-num">06</span><span class="sec-lbl-name" id="cap6">Khu Wellness · Thư giãn & Tái tạo</span></div><span class="wm">07</span></div>
+  <div class="p pi" style="width:50vw" data-i="7"><img src="https://cdn.yodezeen.com/7/107/Gym_bulding_A_23_cb8cbd4002.jpg" alt="Chi tiết thiết kế phòng Gym hiện đại" data-full="https://cdn.yodezeen.com/7/107/Gym_bulding_A_23_cb8cbd4002.jpg"><div class="sec-lbl"><span class="sec-lbl-num">07</span><span class="sec-lbl-name" id="cap7">Thiết bị & Vật liệu cao cấp</span></div><span class="wm">08</span></div>
+  <div class="p pi" style="width:44vw" data-i="8"><img src="https://cdn.yodezeen.com/7/107/Gym_bulding_A_27_12a0704ab6.jpg" alt="Toàn cảnh không gian thể thao" data-full="https://cdn.yodezeen.com/7/107/Gym_bulding_A_27_12a0704ab6.jpg"><div class="sec-lbl"><span class="sec-lbl-num">08</span><span class="sec-lbl-name" id="cap8">Phòng Gym · Sự hòa quyện giữa thiên nhiên và vận động</span></div><span class="wm">09</span></div>
+
+  <!-- CLOSING / RESULT PANEL -->
+  <div class="p pi" style="width:86vw" data-i="9">
+    <img class="end-img" src="https://cdn.yodezeen.com/1_41903c54a7.jpg" alt="Noho One Lobby - Tổng thể không gian" data-full="https://cdn.yodezeen.com/1_41903c54a7.jpg">
+    <div class="end-veil"></div>
+    <div class="end-foot">
+      <p class="end-q" id="endQuote">Noho One Lobby tại Warsaw thể hiện tầm nhìn của YODEZEEN về không gian công cộng đương đại — nơi cây sồi nổi trong quả cầu thủy tinh trở thành linh hồn của thiết kế, kết nối con người với thiên nhiên và với nhau. Từ sảnh chính đến khu gym và wellness, mọi chi tiết đều được chăm chút để tạo nên môi trường sống toàn diện, thúc đẩy sự cân bằng, sức khỏe và tinh thần cộng đồng.</p>
+      <div class="end-meta"><span class="end-tag" id="endTag">Noho One · Warsaw · Sảnh chính & Không gian công cộng</span><p class="end-name" id="endName">YODEZEEN · 270 m² · Hiện đại hữu cơ</p></div>
+    </div>
+    <span class="wm" style="font-size:clamp(100px,13vw,170px)">10</span>
+  </div>
+</div></div>
+
+<div id="counter"><span id="cnt-cur">01</span><div class="cnt-track"><div class="cnt-fill" id="cnt-fill"></div></div><span id="cnt-tot">10</span></div>
+<div id="hint"><span>Cuộn</span><div class="h-line"></div></div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lb-overlay"><div class="lb-close" id="lbClose">✕</div><img id="lbImg" class="lb-img" src="" alt="Xem toàn màn hình"><div id="lbCaption" class="lb-caption"></div></div>
+
+<script>
+// Horizontal scroll + lightbox logic
+const track = document.getElementById('track'), vp = document.getElementById('vp'), prog = document.getElementById('prog');
+const hint = document.getElementById('hint'), cntCur = document.getElementById('cnt-cur'), cntFill = document.getElementById('cnt-fill');
+let tx=0, cx=0, maxS=0;
+const piEls = Array.from(document.querySelectorAll('.p'));
+const TOTAL = piEls.length;
+document.getElementById('cnt-tot').textContent = String(TOTAL).padStart(2,'0');
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function getMax(){ return track.scrollWidth - vp.offsetWidth; }
+window.addEventListener('wheel', e=>{ e.preventDefault(); maxS=getMax(); tx=clamp(tx+e.deltaY*1.6+e.deltaX,0,maxS); },{passive:false});
+
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbClose = document.getElementById('lbClose');
+const lbCaption = document.getElementById('lbCaption');
+
+function openLightbox(imgElement) {
+  const fullUrl = imgElement.getAttribute('data-full') || imgElement.src;
+  lbImg.src = fullUrl;
+  let captionText = imgElement.alt || 'Noho One Lobby · Warsaw';
+  const parentPanel = imgElement.closest('.p');
+  if(parentPanel){
+    const secLabelSpan = parentPanel.querySelector('.sec-lbl-name');
+    if(secLabelSpan) captionText = secLabelSpan.innerText.trim() + ' · Noho One';
+  }
+  lbCaption.textContent = captionText;
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  lightbox.classList.remove('active');
+  setTimeout(()=>{ lbImg.src = ''; }, 200);
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.pi img, .hero-img, .end-img').forEach(img => {
+  img.style.cursor = 'pointer';
+  img.addEventListener('click', (e) => { e.stopPropagation(); openLightbox(img); });
+});
+lbClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => { if(lightbox.classList.contains('active') && e.key === 'Escape') closeLightbox(); });
+
+(function loop(){
+  cx+=(tx-cx)*.09; if(Math.abs(tx-cx)<0.05) cx=tx;
+  track.style.transform=`translateX(${-cx}px)`;
+  maxS=getMax(); prog.style.width=(maxS>0?(cx/maxS)*100:0)+'%';
+  hint.style.opacity=cx>100?'0':'1';
+  let visIdx=0, bestOverlap=-1;
+  piEls.forEach((p,i)=>{
+    const r=p.getBoundingClientRect();
+    const overlap=Math.min(r.right,window.innerWidth)-Math.max(r.left,0);
+    if(overlap>bestOverlap){bestOverlap=overlap;visIdx=i;}
+  });
+  cntCur.textContent=String(visIdx+1).padStart(2,'0');
+  cntFill.style.width=((visIdx+1)/TOTAL*100)+'%';
+  requestAnimationFrame(loop);
+})();
+
+// Bilingual Dictionary (Vietnamese default, English toggle)
+let lang = 'vi';
+const translations = {
+  vi: {
+    backBtn: '← Quay lại dự án', heroAddr: 'Warsaw · Ba Lan', heroComplex: 'Sảnh chính & Không gian công cộng', heroSub: '270 m² · Hiện đại hữu cơ · YODEZEEN',
+    infoLabel: 'Không gian công cộng · Đang thi công', infoSub: 'Cây sồi nổi · Quả cầu thủy tinh · Tông xanh dịu · Vật liệu tự nhiên',
+    infoBody: 'Điểm nhấn trung tâm của sảnh là một cây sồi nổi được bao bọc trong một quả cầu thủy tinh hình cầu — biểu tượng mạnh mẽ của sự sống, kiên cường và cân bằng. Yếu tố này thể hiện triết lý chánh niệm thấm đượm trong thiết kế, được thể hiện qua tông xanh dịu, vật liệu tự nhiên và ánh sáng ban ngày được tính toán tỉ mỉ. Thách thức cốt lõi là thống nhất nhiều chức năng đa dạng dưới một triết lý thiết kế mạch lạc — tạo ra sự chuyển tiếp liền mạch giữa các không gian, thúc đẩy cả cộng đồng lẫn sự riêng tư. Mục tiêu là mang đến môi trường toàn diện nơi cư dân cảm thấy kết nối với thiên nhiên và với nhau, ngay trong chính ngôi nhà của mình.',
+    svc1: 'Thiết kế kiến trúc', svc2: 'Không gian công cộng', svc3: 'Thiết kế chiếu sáng', svc4: 'Tích hợp thiên nhiên',
+    areaLabel: '270 m² · Warsaw · Ba Lan', areaTags: 'Sảnh chính · Phòng Gym · Khu sinh hoạt · Khu vực thư giãn',
+    conceptLabel: 'Tâm điểm & Triết lý', conceptText: 'Cây sồi nổi trong quả cầu thủy tinh — biểu tượng của sự sống, kiên cường và cân bằng. Thiết kế nhấn mạnh tính lưu chuyển và cởi mở. Cửa sổ toàn cảnh rộng lớn đóng khung cảnh quan xung quanh, xóa mờ ranh giới giữa trong nhà và ngoài trời. Các khu vực chuyển tiếp giữa phòng gym, phòng khách, khu giải trí và không gian riêng tư được bố trí cẩn thận để cư dân dễ dàng chuyển đổi giữa các hoạt động.',
+    endQuote: 'Noho One Lobby tại Warsaw thể hiện tầm nhìn của YODEZEEN về không gian công cộng đương đại — nơi cây sồi nổi trong quả cầu thủy tinh trở thành linh hồn của thiết kế, kết nối con người với thiên nhiên và với nhau. Từ sảnh chính đến khu gym và wellness, mọi chi tiết đều được chăm chút để tạo nên môi trường sống toàn diện, thúc đẩy sự cân bằng, sức khỏe và tinh thần cộng đồng.',
+    endTag: 'Noho One · Warsaw · Sảnh chính & Không gian công cộng', endName: 'YODEZEEN · 270 m² · Hiện đại hữu cơ',
+    hintText: 'Cuộn', langBtn: 'EN',
+    captions: {
+      cap1: 'Sảnh chính · Cây sồi nổi · Biểu tượng sự sống', cap2: 'Khu sinh hoạt · Kết nối cộng đồng', cap3: 'Khu vực nghỉ · Tông xanh dịu',
+      cap4: 'Phòng Gym · Kiến trúc thoáng đãng', cap5: 'Góc tập luyện · Ánh sáng tự nhiên', cap6: 'Khu Wellness · Thư giãn & Tái tạo',
+      cap7: 'Thiết bị & Vật liệu cao cấp', cap8: 'Phòng Gym · Sự hòa quyện giữa thiên nhiên và vận động'
+    }
+  },
+  en: {
+    backBtn: '← Back to projects', heroAddr: 'Warsaw · Poland', heroComplex: 'Main Lobby & Public Spaces', heroSub: '2,907 ft² · Modern Organic · YODEZEEN',
+    infoLabel: 'Public Spaces · In progress', infoSub: 'Floating oak tree · Spherical glass capsule · Muted green tones · Natural materials',
+    infoBody: 'The centerpiece of the lobby is a floating oak tree enclosed in a spherical glass capsule — a powerful symbol of life, resilience, and balance. This element embodies the mindfulness ethos permeating the design, echoed through muted green tones, natural materials, and carefully calibrated daylighting. The core challenge was to unify a wide variety of functions under a single, coherent design philosophy — creating seamless transitions between diverse spaces that foster both community and privacy. The goal was to deliver not just interiors, but holistic environments where residents feel connected to nature and each other, without ever leaving their home.',
+    svc1: 'Architectural Design', svc2: 'Public Spaces', svc3: 'Lighting Design', svc4: 'Nature Integration',
+    areaLabel: '2,907 ft² · Warsaw · Poland', areaTags: 'Main Lobby · Gym · Lounge · Recreational Areas',
+    conceptLabel: 'Centerpiece & Philosophy', conceptText: 'Floating oak tree enclosed in a spherical glass capsule — symbol of life, resilience, and balance. The design emphasizes fluidity and openness. Expansive panoramic windows frame the surrounding landscape, intentionally blurring boundaries between interior and exterior. Transition zones between gym, lounge, recreational, and private areas are carefully composed to allow residents to effortlessly shift between activities.',
+    endQuote: 'Noho One Lobby in Warsaw embodies YODEZEEN\'s vision of contemporary public spaces — where the floating oak tree within a glass sphere becomes the soul of the design, connecting people with nature and each other. From the main lobby to the gym and wellness areas, every detail is crafted to create a holistic living environment that promotes balance, health, and community spirit.',
+    endTag: 'Noho One · Warsaw · Main Lobby & Public Spaces', endName: 'YODEZEEN · 2,907 ft² · Modern Organic',
+    hintText: 'Scroll', langBtn: 'VI',
+    captions: {
+      cap1: 'Main Lobby · Floating oak tree · Symbol of life', cap2: 'Social Lounge · Community connection', cap3: 'Relaxation area · Muted green tones',
+      cap4: 'Gym · Open architecture', cap5: 'Workout zone · Natural daylight', cap6: 'Wellness area · Relaxation & Renewal',
+      cap7: 'Premium equipment & materials', cap8: 'Gym · Where nature meets movement'
+    }
+  }
+};
+
+function toggleLang() {
+  const newLang = lang === 'vi' ? 'en' : 'vi';
+  lang = newLang;
+  const t = translations[lang];
+  document.getElementById('backBtn').innerText = t.backBtn;
+  document.getElementById('heroAddr').innerText = t.heroAddr;
+  document.getElementById('heroComplex').innerText = t.heroComplex;
+  document.getElementById('heroSub').innerText = t.heroSub;
+  document.getElementById('infoLabel').innerText = t.infoLabel;
+  document.getElementById('infoSub').innerText = t.infoSub;
+  document.getElementById('infoBody').innerHTML = `<p>${t.infoBody}</p>`;
+  document.getElementById('svc1').innerText = t.svc1;
+  document.getElementById('svc2').innerText = t.svc2;
+  document.getElementById('svc3').innerText = t.svc3;
+  document.getElementById('svc4').innerText = t.svc4;
+  document.getElementById('areaLabel').innerText = t.areaLabel;
+  document.getElementById('areaTags').innerText = t.areaTags;
+  document.getElementById('conceptLabel').innerText = t.conceptLabel;
+  document.getElementById('conceptText').innerHTML = t.conceptText.replace(/<strong>(.*?)<\/strong>/g, '<strong>$1</strong>');
+  document.getElementById('endQuote').innerText = t.endQuote;
+  document.getElementById('endTag').innerText = t.endTag;
+  document.getElementById('endName').innerText = t.endName;
+  document.querySelector('#hint span').innerText = t.hintText;
+  document.getElementById('lang-btn').innerText = t.langBtn;
+  // update all captions
+  for(let i=1;i<=8;i++) {
+    const el = document.getElementById(`cap${i}`);
+    if(el && t.captions[`cap${i}`]) el.innerText = t.captions[`cap${i}`];
+  }
+}
+window.toggleLang = toggleLang;
+</script>
+</body>
+</html>

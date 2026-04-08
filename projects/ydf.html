@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>YDF Showroom | Modern Luxury · London</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300;1,9..144,400&family=Syne:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/shared.css">
+<style>
+*{ margin:0; padding:0; box-sizing:border-box; }
+:root{ --panel-gap: 6px; }
+body{ height:100vh; overflow:hidden; background:var(--bg); }
+
+/* REMOVE ALL SCROLLBARS - including navigation */
+html, body { overflow-x: hidden; }
+nav { overflow-x: hidden; width: 100%; }
+
+/* COMPLETE SCROLLBAR REMOVAL FOR VIEWPORT */
+#vp::-webkit-scrollbar { display: none; }
+#vp{ -ms-overflow-style: none; scrollbar-width: none; overflow-x: auto; overflow-y: hidden; }
+
+nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative; z-index:500; width:100%; overflow-x: hidden; }
+.nav-links { display: flex; flex-wrap: nowrap; }
+.nav-mid { white-space: nowrap; }
+
+#prog-wrap{ position:fixed; top:58px; left:0; right:0; height:1.5px; background:var(--border); z-index:600; }
+#prog{ height:100%; width:0%; background:var(--gold); transition:width .04s linear; }
+#counter{ position:fixed; bottom:22px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:14px; z-index:600; background:rgba(12,10,7,.4); backdrop-filter:blur(4px); padding:6px 14px; border-radius:40px; }
+#cnt-cur{ font-family:var(--serif); font-style:italic; font-size:14px; font-weight:200; color:var(--gold); min-width:24px; text-align:right; }
+.cnt-track{ width:48px; height:1px; background:var(--border); position:relative; overflow:hidden; }
+.cnt-fill{ position:absolute; top:0; left:0; height:100%; background:var(--gold); transition:width .4s ease; }
+#cnt-tot{ font-family:var(--serif); font-style:italic; font-size:14px; font-weight:200; color:var(--text-dim); min-width:24px; }
+#hint{ position:fixed; bottom:22px; right:44px; z-index:600; display:flex; align-items:center; gap:10px; transition:opacity .7s; background:rgba(12,10,7,.3); padding:5px 12px; border-radius:40px; backdrop-filter:blur(4px); }
+#hint span{ font-size:9px; font-weight:400; letter-spacing:.25em; text-transform:uppercase; color:var(--text-dim); }
+.h-line{ width:32px; height:1px; background:var(--gold); position:relative; overflow:hidden; }
+.h-line::after{ content:'';position:absolute; top:0; left:-100%; width:100%; height:100%; background:var(--text); animation:slide 2s ease-in-out infinite; }
+@keyframes slide{ 0%{left:-100%} 50%{left:100%} 100%{left:100%} }
+#vp{ position:fixed; inset:0; top:59.5px; overflow-x:auto; overflow-y:hidden; scroll-behavior:smooth; scrollbar-width: none; }
+#track{ display:flex; flex-direction:row; height:calc(100vh - 59.5px); will-change:transform; gap: var(--panel-gap); padding-right: var(--panel-gap); }
+.p{ flex-shrink:0; height:100%; position:relative; overflow:hidden; }
+.pi img{ width:100%; height:100%; object-fit:cover; display:block; transition:filter .5s; cursor:pointer; }
+.pi img:hover{ filter:brightness(1.02) contrast(1.02); }
+.hero-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+.hero-veil{ position:absolute; inset:0; background: linear-gradient(105deg, rgba(12,10,7,.45) 0%, transparent 48%), linear-gradient(to top, rgba(12,10,7,.72) 0%, transparent 44%); pointer-events:none; }
+.hero-foot{ position:absolute; bottom:0; left:0; right:0; padding:44px 52px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
+.h-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(72px,10vw,128px); line-height:.88; letter-spacing:-.02em; color:var(--text); }
+.h-eyebrow{ font-size:9px; font-weight:500; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:block; }
+.h-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:17px; color:rgba(232,226,213,.7); }
+.info{ background:var(--surface); border-right:1px solid var(--border); border-left:2px solid var(--gold); display:flex; flex-direction:column; justify-content:space-between; padding:52px 46px 46px; overflow-y:auto; scrollbar-width: thin; }
+.info::-webkit-scrollbar{ width:3px; background:var(--border); }
+.info::-webkit-scrollbar-thumb{ background:var(--gold); }
+.i-label{ font-size:9px; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--text-dim); }
+.i-rule{ display:flex; align-items:center; gap:12px; margin:18px 0 22px; }
+.i-rule::before{ content:''; width:20px; height:1px; background:var(--gold); }
+.i-rule::after{ content:''; flex:1; height:1px; background:var(--border); }
+.i-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--text-dim); line-height:1.6; margin-bottom:10px; }
+.i-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(58px,5.5vw,80px); line-height:.9; letter-spacing:-.02em; color:var(--text); margin-bottom:36px; }
+.i-body{ font-size:12.5px; font-weight:300; line-height:1.9; color:var(--text-dim); margin-bottom:40px; }
+.svc-list{ list-style:none; border-top:1px solid var(--border); }
+.svc-item{ display:flex; align-items:center; justify-content:space-between; padding:11px 0; border-bottom:1px solid var(--border); transition:padding-left .3s; position:relative; }
+.svc-item:hover{ padding-left:8px; }
+.svc-item::before{ content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:0; height:1px; background:var(--gold); transition:width .3s; }
+.svc-item:hover::before{ width:6px; }
+.svc-name{ font-size:11.5px; font-weight:400; letter-spacing:.03em; color:var(--text); }
+.svc-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--gold); }
+.area-blk{ margin-top:38px; }
+.area-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:54px; line-height:1; letter-spacing:-.02em; color:var(--text); }
+.area-unit{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:16px; color:var(--gold); display:inline-block; margin-left:5px; }
+.area-label{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--text-dim); margin-top:10px; display:block; }
+.sec-lbl{ position:absolute; bottom:36px; left:28px; z-index:2; display:flex; align-items:center; gap:10px; pointer-events:none; }
+.sec-lbl-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:11px; color:rgba(232,226,213,.5); }
+.sec-lbl-name{ font-size:9px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:rgba(232,226,213,.4); }
+.sec-lbl::before{ content:''; width:18px; height:1px; background:rgba(200,128,60,.4); }
+.wm{ position:absolute; bottom:-10px; right:-8px; font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(130px,16vw,200px); line-height:1; color:rgba(255,255,255,.05); pointer-events:none; z-index:1; letter-spacing:-.04em; user-select:none; }
+.end-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+.end-veil{ position:absolute; inset:0; background:linear-gradient(to top, rgba(12,10,7,.82) 0%, rgba(12,10,7,.18) 55%, transparent 100%); pointer-events:none; }
+.end-foot{ position:absolute; bottom:0; left:0; right:0; padding:52px 56px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
+.end-q{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2.4vw,30px); line-height:1.5; color:var(--text); max-width:520px; }
+.end-meta{ text-align:right; }
+.end-tag{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; display:block; }
+.end-name{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:18px; color:rgba(232,226,213,.75); }
+
+/* BACK BUTTON - TOP LEFT CORNER, CONSISTENT, VISIBLE */
+.back-projects-btn {
+  position: fixed;
+  top: 72px;
+  left: 28px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(12, 10, 7, 0.85);
+  backdrop-filter: blur(16px);
+  padding: 8px 20px;
+  border-radius: 40px;
+  border: 1px solid rgba(200, 128, 60, 0.6);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+}
+.back-projects-btn:hover {
+  background: rgba(200, 128, 60, 0.25);
+  border-color: var(--gold);
+  gap: 14px;
+  letter-spacing: 0.24em;
+  color: #fff;
+}
+.back-projects-btn::before {
+  content: "←";
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gold);
+  transition: transform 0.2s;
+}
+.back-projects-btn:hover::before {
+  transform: translateX(-4px);
+}
+
+/* LIGHTBOX STYLES */
+.lb-overlay{ position:fixed; inset:0; background:rgba(8,6,4,.96); backdrop-filter:blur(28px); z-index:2000; display:flex; align-items:center; justify-content:center; visibility:hidden; opacity:0; transition:visibility .25s, opacity .25s; cursor:pointer; }
+.lb-overlay.active{ visibility:visible; opacity:1; }
+.lb-img{ max-width:90vw; max-height:85vh; object-fit:contain; box-shadow:0 25px 45px rgba(0,0,0,.4); border-radius:2px; cursor:default; }
+.lb-close{ position:fixed; top:28px; right:32px; width:44px; height:44px; background:rgba(255,255,255,.05); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:200; color:var(--gold); transition:all .2s; cursor:pointer; backdrop-filter:blur(8px); border:1px solid rgba(232,226,213,.2); }
+.lb-close:hover{ background:rgba(200,128,60,.2); transform:scale(1.02); color:#fff; }
+.lb-caption{ position:fixed; bottom:24px; left:0; right:0; text-align:center; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,226,213,.6); font-weight:300; pointer-events:none; }
+
+@media (max-width:720px){
+  .back-projects-btn{ top: 68px; left: 16px; padding: 6px 16px; font-size: 9px; gap: 8px; }
+  .hero-foot{ padding: 28px 28px; }
+  .info{ padding: 32px 24px; }
+  .lb-close{ top:18px; right:20px; width:38px; height:38px; font-size:26px; }
+  .lb-img{ max-width:95vw; max-height:75vh; }
+  #counter{ bottom: 16px; padding: 4px 12px; }
+  #hint{ bottom: 16px; right: 20px; }
+}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">Mars<span>.</span>Bansiti</a>
+  <div class="nav-mid">
+    <span class="nav-cat" data-en="Selected Works · ArchViz" data-vi="Tác phẩm chọn lọc · Kiến trúc 3D">Selected Works · ArchViz</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="../index.html" data-en="Home" data-vi="Trang chủ">Home</a></li>
+    <li><a href="../projects.html" data-en="Projects" data-vi="Dự án">Projects</a></li>
+    <li><a href="../about.html" data-en="About me" data-vi="Về tôi">About me</a></li>
+    <li><button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button></li>
+  </ul>
+</nav>
+
+<div id="prog-wrap"><div id="prog"></div></div>
+
+<!-- BACK TO PROJECTS BUTTON - TOP LEFT CORNER -->
+<a href="../projects.html" class="back-projects-btn" data-en="← Back to projects" data-vi="← Quay lại dự án">← Back to projects</a>
+
+<div id="vp"><div id="track">
+  <!-- HERO panel - YDF Showroom main intro -->
+  <div class="p pi" style="width:100vw" data-i="0">
+    <img class="hero-img" src="https://cdn.yodezeen.com/image_ce3fce5b74.jpg" alt="YDF Showroom London main view" data-full="https://cdn.yodezeen.com/image_ce3fce5b74.jpg">
+    <div class="hero-veil"></div>
+    <div class="hero-foot">
+      <div>
+        <span class="h-eyebrow" data-en="London · UK · Completed 2024" data-vi="London · UK · Hoàn thành 2024">London · UK · Completed 2024</span>
+        <h1 class="h-title">YDF<br>Showroom</h1>
+      </div>
+      <div style="text-align:right;padding-bottom:6px">
+        <span class="h-eyebrow" style="text-align:right" data-en="Modern Luxury" data-vi="Sang trọng hiện đại">Modern Luxury</span>
+        <p class="h-sub" data-en="A stage for design" data-vi="Sân khấu cho thiết kế">A stage for design</p>
+      </div>
+    </div>
+    <span class="wm">01</span>
+  </div>
+
+  <!-- INFO panel: detailed stats, concept, awards -->
+  <div class="p info" style="width:480px">
+    <div>
+      <p class="i-label" data-en="Commercial · London · 2024 · Award-winning" data-vi="Thương mại · London · 2024 · Đoạt giải">Commercial · London · 2024 · Award-winning</p>
+      <div class="i-rule"></div>
+      <p class="i-sub" data-en="A multifunctional platform redefining design experience" data-vi="Nền tảng đa chức năng tái định nghĩa trải nghiệm thiết kế">A multifunctional platform redefining design experience</p>
+      <h2 class="i-title">YDF<br>Showroom</h2>
+      <div class="i-body">
+        <p data-en="YODEZEEN undertook the design of YDF as a multifunctional platform aimed at redefining the experience of architectural and interior design. The challenge was to create a dynamic environment that integrates multiple design disciplines — architecture, interior styling, custom furniture, and brand curation — into a single cohesive narrative that inspires professionals and clients alike. We envisioned YDF not simply as a showroom, but as a creative ecosystem where every element interacts harmoniously. The team emphasized tactile engagement and fluid spatial organization to foster discovery and inspire thoughtful design decisions." data-vi="YODEZEEN đảm nhận thiết kế YDF như một nền tảng đa chức năng nhằm tái định nghĩa trải nghiệm thiết kế kiến trúc và nội thất. Thử thách là tạo ra một môi trường năng động tích hợp nhiều lĩnh vực thiết kế — kiến trúc, phong cách nội thất, đồ nội thất tùy chỉnh và quản lý thương hiệu — thành một câu chuyện gắn kết duy nhất, truyền cảm hứng cho các chuyên gia và khách hàng. YDF không chỉ là showroom mà còn là một hệ sinh thái sáng tạo, nơi mọi yếu tố tương tác hài hòa.">YODEZEEN undertook the design of YDF as a multifunctional platform aimed at redefining the experience of architectural and interior design. The challenge was to create a dynamic environment that integrates multiple design disciplines — architecture, interior styling, custom furniture, and brand curation — into a single cohesive narrative that inspires professionals and clients alike. We envisioned YDF not simply as a showroom, but as a creative ecosystem where every element interacts harmoniously. The team emphasized tactile engagement and fluid spatial organization to foster discovery and inspire thoughtful design decisions.</p>
+        <div style="margin: 24px 0 16px; padding: 14px 0 0; border-top: 1px solid var(--border);">
+          <span class="i-label" style="font-size:8px;">🏆 Awards & Recognition</span>
+          <p style="font-size:11px; margin-top:8px; line-height:1.6; color:var(--gold);">Global Future Design Awards 2024 — Gold Winner (Retail Interior)<br>SBID International Design Awards 2024 — Finalist</p>
+        </div>
+      </div>
+      <ul class="svc-list">
+        <li class="svc-item"><span class="svc-name" data-en="Interior Visualization" data-vi="Hình ảnh nội thất">Interior Visualization</span><span class="svc-num">01</span></li>
+        <li class="svc-item"><span class="svc-name" data-en="Lighting Design" data-vi="Thiết kế ánh sáng">Lighting Design</span><span class="svc-num">02</span></li>
+        <li class="svc-item"><span class="svc-name" data-en="Custom Furniture & Curation" data-vi="Nội thất tùy chỉnh & Quản lý">Custom Furniture & Curation</span><span class="svc-num">03</span></li>
+      </ul>
+    </div>
+    <div class="area-blk">
+      <span class="area-num">1,100</span><span class="area-unit">m²</span>
+      <span class="area-label" data-en="Total Showroom Area · 11,840 ft²" data-vi="Tổng diện tích showroom">Total Showroom Area · 11,840 ft²</span>
+      <div style="margin-top:12px; border-top:1px solid var(--border); padding-top:14px;">
+        <span class="area-label" style="margin-top:0" data-en="Holistic detailing · Creative ecosystem" data-vi="Chi tiết toàn diện · Hệ sinh thái sáng tạo">Holistic detailing · Creative ecosystem</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- GALLERY PANEL 1: Main gallery space -->
+  <div class="p pi" style="width:62vw" data-i="1">
+    <img src="https://cdn.yodezeen.com/9/143/image_116_iz_136_2_52bf567ccb.jpg" alt="YDF main gallery spatial flow" data-full="https://cdn.yodezeen.com/9/143/image_116_iz_136_2_52bf567ccb.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">01</span><span class="sec-lbl-name" data-en="Main Gallery · Fluid spatial organization" data-vi="Phòng trưng bày chính · Tổ chức không gian linh hoạt">Main Gallery · Fluid spatial organization</span></div>
+    <span class="wm">02</span>
+  </div>
+
+  <!-- GALLERY PANEL 2: Bespoke furniture & tactile richness -->
+  <div class="p pi" style="width:58vw" data-i="2">
+    <img src="https://cdn.yodezeen.com/9/143/image_121_iz_136_2_d0975cf589.jpg" alt="Bespoke furniture and tactile engagement" data-full="https://cdn.yodezeen.com/9/143/image_121_iz_136_2_d0975cf589.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">02</span><span class="sec-lbl-name" data-en="Bespoke pieces · Art objects" data-vi="Tác phẩm độc bản · Đồ vật nghệ thuật">Bespoke pieces · Art objects</span></div>
+    <span class="wm">03</span>
+  </div>
+
+  <!-- GALLERY PANEL 3: Intimate consultation zone -->
+  <div class="p pi" style="width:55vw" data-i="3">
+    <img src="https://cdn.yodezeen.com/9/143/image_69_iz_129_kopiya_04b0ec3760.jpg" alt="Thoughtful zoning for consultation" data-full="https://cdn.yodezeen.com/9/143/image_69_iz_129_kopiya_04b0ec3760.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">03</span><span class="sec-lbl-name" data-en="Intimate consultation areas" data-vi="Khu vực tư vấn riêng tư">Intimate consultation areas</span></div>
+    <span class="wm">04</span>
+  </div>
+
+  <!-- GALLERY PANEL 4: Material & finish curation -->
+  <div class="p pi" style="width:66vw" data-i="4">
+    <img src="https://cdn.yodezeen.com/9/143/Foto_30_10_24_19_44_51_5_c336cde031.jpg" alt="Curated finishes and natural textures" data-full="https://cdn.yodezeen.com/9/143/Foto_30_10_24_19_44_51_5_c336cde031.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">04</span><span class="sec-lbl-name" data-en="Curated finishes · Natural textures" data-vi="Hoàn thiện tuyển chọn · Kết cấu tự nhiên">Curated finishes · Natural textures</span></div>
+    <span class="wm">05</span>
+  </div>
+
+  <!-- GALLERY PANEL 5: Lighting design interplay -->
+  <div class="p pi" style="width:60vw" data-i="5">
+    <img src="https://cdn.yodezeen.com/9/143/Foto_30_10_24_19_44_51_6_163505d681.jpg" alt="Innovative lighting design" data-full="https://cdn.yodezeen.com/9/143/Foto_30_10_24_19_44_51_6_163505d681.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">05</span><span class="sec-lbl-name" data-en="Lighting · Atmospheric layering" data-vi="Ánh sáng · Phân lớp không khí">Lighting · Atmospheric layering</span></div>
+    <span class="wm">06</span>
+  </div>
+
+  <!-- GALLERY PANEL 6: Expansive display + dynamic environment -->
+  <div class="p pi" style="width:64vw" data-i="6">
+    <img src="https://cdn.yodezeen.com/image_28_iz_136_1_4101abffc3.jpg" alt="Expansive displays and dynamic environment" data-full="https://cdn.yodezeen.com/image_28_iz_136_1_4101abffc3.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">06</span><span class="sec-lbl-name" data-en="Expansive displays · Versatile platform" data-vi="Trưng bày rộng rãi · Nền tảng linh hoạt">Expansive displays · Versatile platform</span></div>
+    <span class="wm">07</span>
+  </div>
+
+  <!-- GALLERY PANEL 7: Holistic design narrative -->
+  <div class="p pi" style="width:54vw" data-i="7">
+    <img src="https://cdn.yodezeen.com/image_21_iz_136_d317de2374.jpg" alt="Cohesive narrative of design disciplines" data-full="https://cdn.yodezeen.com/image_21_iz_136_d317de2374.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">07</span><span class="sec-lbl-name" data-en="Cohesive narrative · Creative ecosystem" data-vi="Câu chuyện gắn kết · Hệ sinh thái sáng tạo">Cohesive narrative · Creative ecosystem</span></div>
+    <span class="wm">08</span>
+  </div>
+
+  <!-- GALLERY PANEL 8: Tactile richness and craftsmanship -->
+  <div class="p pi" style="width:59vw" data-i="8">
+    <img src="https://cdn.yodezeen.com/Foto_30_10_24_19_44_51_4_54e30740da.jpg" alt="Tactile richness and impeccable craftsmanship" data-full="https://cdn.yodezeen.com/Foto_30_10_24_19_44_51_4_54e30740da.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">08</span><span class="sec-lbl-name" data-en="Craftsmanship · Sensory richness" data-vi="Tay nghề thủ công · Giàu cảm giác">Craftsmanship · Sensory richness</span></div>
+    <span class="wm">09</span>
+  </div>
+
+  <!-- GALLERY PANEL 9: Fluid transition zones -->
+  <div class="p pi" style="width:57vw" data-i="9">
+    <img src="https://cdn.yodezeen.com/Foto_30_10_24_19_44_50_0a62091127.jpg" alt="Fluid transition and spatial flow" data-full="https://cdn.yodezeen.com/Foto_30_10_24_19_44_50_0a62091127.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">09</span><span class="sec-lbl-name" data-en="Fluid transitions · Spatial flow" data-vi="Chuyển tiếp mềm mại · Dòng chảy không gian">Fluid transitions · Spatial flow</span></div>
+    <span class="wm">10</span>
+  </div>
+
+  <!-- GALLERY PANEL 10: Hero atmosphere / creative hub -->
+  <div class="p pi" style="width:70vw" data-i="10">
+    <img src="https://cdn.yodezeen.com/9/143/Hero_image_2_ca1b231a68.jpg" alt="YDF creative ecosystem atmosphere" data-full="https://cdn.yodezeen.com/9/143/Hero_image_2_ca1b231a68.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">10</span><span class="sec-lbl-name" data-en="Creative ecosystem · Transformative experience" data-vi="Hệ sinh thái sáng tạo · Trải nghiệm biến đổi">Creative ecosystem · Transformative experience</span></div>
+    <span class="wm">11</span>
+  </div>
+
+  <!-- GALLERY PANEL 11: Award-winning retail interior -->
+  <div class="p pi" style="width:63vw" data-i="11">
+    <img src="https://cdn.yodezeen.com/9/143/Foto_30_10_24_19_44_51_8_f46771ce99.jpg" alt="Award-winning retail interior design" data-full="https://cdn.yodezeen.com/9/143/Foto_30_10_24_19_44_51_8_f46771ce99.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">11</span><span class="sec-lbl-name" data-en="Gold Winner · Retail Interior" data-vi="Giải Vàng · Nội thất bán lẻ">Gold Winner · Retail Interior</span></div>
+    <span class="wm">12</span>
+  </div>
+
+  <!-- CLOSING / RESULT PANEL: final statement + timeless versatility -->
+  <div class="p pi" style="width:88vw" data-i="12">
+    <img class="end-img" src="https://cdn.yodezeen.com/9/143/Hero_image_3_8c125fe8fb.jpg" alt="YDF Showroom timeless versatile platform" data-full="https://cdn.yodezeen.com/9/143/Hero_image_3_8c125fe8fb.jpg">
+    <div class="end-veil"></div>
+    <div class="end-foot">
+      <p class="end-q" data-en="Every element reflects unwavering dedication to quality and innovation. Thoughtful zoning, natural textures, and innovative design solutions result in a timeless, versatile platform — supporting both inspiration and practical decision-making for design professionals and their clients. YDF is not just a showroom but a transformative experience." data-vi="Mọi yếu tố đều phản ánh sự cống hiến không ngừng cho chất lượng và sự đổi mới. Phân vùng chu đáo, kết cấu tự nhiên và các giải pháp thiết kế sáng tạo tạo ra một nền tảng linh hoạt vượt thời gian — hỗ trợ cảm hứng và ra quyết định thực tế cho các chuyên gia thiết kế và khách hàng. YDF không chỉ là showroom mà còn là một trải nghiệm biến đổi.">Every element reflects unwavering dedication to quality and innovation. Thoughtful zoning, natural textures, and innovative design solutions result in a timeless, versatile platform — supporting both inspiration and practical decision-making for design professionals and their clients. YDF is not just a showroom but a transformative experience.</p>
+      <div class="end-meta">
+        <span class="end-tag" data-en="Modern Luxury · Award-winning" data-vi="Sang trọng hiện đại · Đoạt giải">Modern Luxury · Award-winning</span>
+        <p class="end-name">YDF Showroom · London · 1,100 m²</p>
+      </div>
+    </div>
+    <span class="wm" style="font-size:clamp(100px,13vw,170px)">13</span>
+  </div>
+</div></div>
+
+<div id="counter">
+  <span id="cnt-cur">01</span>
+  <div class="cnt-track"><div class="cnt-fill" id="cnt-fill"></div></div>
+  <span id="cnt-tot">13</span>
+</div>
+
+<div id="hint">
+  <span data-en="Scroll" data-vi="Cuộn">Scroll</span>
+  <div class="h-line"></div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lb-overlay">
+  <div class="lb-close" id="lbClose">✕</div>
+  <img id="lbImg" class="lb-img" src="" alt="Full size view">
+  <div id="lbCaption" class="lb-caption"></div>
+</div>
+
+<script src="../assets/js/shared.js"></script>
+<script>
+const track = document.getElementById('track'), vp = document.getElementById('vp'), prog = document.getElementById('prog');
+const hint = document.getElementById('hint'), cntCur = document.getElementById('cnt-cur'), cntFill = document.getElementById('cnt-fill');
+let tx=0, cx=0, maxS=0;
+const piEls = Array.from(document.querySelectorAll('.p'));
+const TOTAL = piEls.length;
+document.getElementById('cnt-tot').textContent = String(TOTAL).padStart(2,'0');
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function getMax(){ return track.scrollWidth - vp.offsetWidth; }
+window.addEventListener('wheel', e=>{ e.preventDefault(); maxS=getMax(); tx=clamp(tx+e.deltaY*1.55+e.deltaX,0,maxS); },{passive:false});
+
+// LIGHTBOX FUNCTIONALITY
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbClose = document.getElementById('lbClose');
+const lbCaption = document.getElementById('lbCaption');
+
+function openLightbox(imgElement) {
+  const fullUrl = imgElement.getAttribute('data-full') || imgElement.src;
+  lbImg.src = fullUrl;
+  let captionText = imgElement.alt || '';
+  const parentPanel = imgElement.closest('.p');
+  if(parentPanel){
+    const secLabelSpan = parentPanel.querySelector('.sec-lbl-name');
+    if(secLabelSpan) captionText = secLabelSpan.innerText.trim() + ' · YDF Showroom';
+    else if(parentPanel.classList.contains('pi') && !secLabelSpan){
+      const heroEyebrow = parentPanel.querySelector('.h-eyebrow');
+      if(heroEyebrow) captionText = heroEyebrow.innerText.trim() + ' · London';
+    }
+  }
+  lbCaption.textContent = captionText || 'YDF Showroom · Architectural design';
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  lightbox.classList.remove('active');
+  setTimeout(()=>{ lbImg.src = ''; }, 200);
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.pi img, .hero-img, .end-img').forEach(img => {
+  img.style.cursor = 'pointer';
+  img.addEventListener('click', (e) => { e.stopPropagation(); openLightbox(img); });
+});
+lbClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => { if(lightbox.classList.contains('active') && e.key === 'Escape') closeLightbox(); });
+
+// SCROLL LOOP
+(function loop(){
+  cx+=(tx-cx)*.09; if(Math.abs(tx-cx)<0.05) cx=tx;
+  track.style.transform=`translateX(${-cx}px)`;
+  maxS=getMax(); prog.style.width=(maxS>0?(cx/maxS)*100:0)+'%';
+  hint.style.opacity=cx>100?'0':'1';
+  let visIdx=0, bestOverlap=-1;
+  piEls.forEach((p,i)=>{
+    const r=p.getBoundingClientRect();
+    const overlap=Math.min(r.right,window.innerWidth)-Math.max(r.left,0);
+    if(overlap>bestOverlap){bestOverlap=overlap;visIdx=i;}
+  });
+  cntCur.textContent=String(visIdx+1).padStart(2,'0');
+  cntFill.style.width=((visIdx+1)/TOTAL*100)+'%';
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
