@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mars Bansiti — Dự Án</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,200;0,300;0,400;0,600;1,200;1,300;1,400;1,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+/* ── SHARED DESIGN TOKENS ── */
+:root {
+  --display: 'Bebas Neue', sans-serif;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --mono: 'Space Mono', monospace;
+  --ease: cubic-bezier(.25,.46,.45,.94);
+
+  --bg:       #08080A;
+  --bg2:      #0D0D0F;
+  --surface:  #111114;
+  --border:   rgba(237,232,223,.07);
+  --text:     #EDE8DF;
+  --text-dim: rgba(237,232,223,.52);
+  --text-muted: rgba(237,232,223,.28);
+  --gold:     #C8A96E;
+  --gold2:    rgba(200,169,110,.45);
+}
+
+/* ── RESET ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:16px;-webkit-font-smoothing:antialiased;}
+body{background:var(--bg);color:var(--text);font-family:var(--serif);overflow:hidden;}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+button{border:none;background:none;color:inherit;font:inherit;cursor:pointer;}
+
+/* ── CUSTOM CURSOR ── */
+#cur,#cur-ring{position:fixed;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:opacity .3s;}
+#cur{width:8px;height:8px;background:var(--gold);top:0;left:0;}
+#cur-ring{width:36px;height:36px;border:1px solid rgba(200,169,110,.5);top:0;left:0;transition:width .25s,height .25s,border-color .25s,transform .08s;}
+body{cursor:none;}
+a,button,[style*="cursor:pointer"]{cursor:none;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 52px;height:64px;border-bottom:1px solid var(--border);background:rgba(8,8,10,.82);backdrop-filter:blur(14px);}
+.nav-logo{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--text);}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none;}
+.nav-links a{font-family:var(--mono);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--text-muted);transition:color .22s;}
+.nav-links a:hover{color:var(--gold);}
+.lang-btn{font-family:var(--mono);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border);padding:5px 11px;transition:all .22s;}
+.lang-btn:hover{color:var(--gold);border-color:var(--gold2);}
+
+/* ── PAGE WRAPPER ── */
+.page{position:fixed;top:64px;left:0;right:0;bottom:0;overflow-y:auto;overflow-x:hidden;}
+</style>
+<style>
+/* Page-specific styles */
+#page-projects{overflow-y:auto;overflow-x:hidden;background:var(--bg);}
+.prj-hero{position:relative;height:52vh;min-height:300px;display:flex;flex-direction:column;justify-content:flex-end;padding:0 52px 50px;overflow:hidden;border-bottom:1px solid var(--border);}
+.prj-hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#08080A 0%,rgba(8,8,10,.7) 55%,#08080A 100%);}
+.prj-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(200,169,110,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(200,169,110,.035) 1px,transparent 1px);background-size:72px 72px;}
+.prj-hero-ghost{position:absolute;right:44px;top:50%;transform:translateY(-50%);font-family:var(--display);font-size:clamp(110px,16vw,228px);color:transparent;-webkit-text-stroke:1px rgba(200,169,110,.07);letter-spacing:-.02em;line-height:1;pointer-events:none;user-select:none;}
+.prj-hero-eye{position:relative;z-index:2;font-family:var(--mono);font-size:9px;letter-spacing:.36em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:14px;margin-bottom:16px;opacity:0;animation:fadeUp .7s .2s var(--ease) forwards;}
+.prj-hero-eye::before{content:'';width:26px;height:1px;background:var(--gold);}
+.prj-hero-h{position:relative;z-index:2;font-family:var(--display);font-size:clamp(70px,13vw,178px);letter-spacing:-.01em;line-height:.87;text-transform:uppercase;color:var(--text);margin-left:-.01em;opacity:0;animation:fadeUp .9s .35s var(--ease) forwards;}
+.prj-hero-sub{position:relative;z-index:2;font-family:var(--serif);font-style:italic;font-size:clamp(14px,1.6vw,21px);font-weight:200;color:rgba(237,232,223,.42);margin-top:11px;display:block;opacity:0;animation:fadeUp .7s .55s var(--ease) forwards;}
+.prj-hero-line{position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(to right,var(--gold) 0%,transparent 55%);opacity:.35;}
+.prj-filter{display:flex;align-items:center;gap:3px;padding:0 52px;height:50px;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;}
+.prj-filter::-webkit-scrollbar{display:none;}
+.pf-btn{font-family:var(--mono);font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);background:transparent;border:1px solid transparent;padding:5px 13px;cursor:pointer;transition:all .22s;white-space:nowrap;}
+.pf-btn:hover,.pf-btn.act{color:var(--gold);border-color:rgba(200,169,110,.3);}
+.pf-btn.act{background:rgba(200,169,110,.07);}
+.pf-sep{width:1px;height:13px;background:var(--border);margin:0 4px;flex-shrink:0;}
+.prj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:2px;background:rgba(255,255,255,.04);}
+.pt{position:relative;background:var(--surface);overflow:hidden;cursor:pointer;opacity:0;transform:translateY(14px);animation:ptIn .55s var(--ease) forwards;}
+@keyframes ptIn{to{opacity:1;transform:none;}}
+.pt-img{position:relative;aspect-ratio:4/3;overflow:hidden;}
+.pt-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .65s var(--ease),filter .4s;filter:brightness(.85) saturate(.88);}
+.pt:hover .pt-img img{transform:scale(1.07);filter:brightness(.96) saturate(1.02);}
+.pt-ov{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(8,8,10,.86) 0%,rgba(8,8,10,.04) 55%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;padding:18px 20px;opacity:0;transition:opacity .32s;}
+.pt:hover .pt-ov{opacity:1;}
+.pt-ov-cat{font-family:var(--mono);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding:3px 10px;border:1px solid rgba(200,169,110,.38);margin-bottom:7px;}
+.pt-ov-cta{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text);}
+.pt-meta{display:flex;align-items:center;gap:11px;padding:13px 16px;border-top:1px solid var(--border);background:var(--surface);}
+.pt-n{font-family:var(--display);font-size:20px;color:rgba(200,169,110,.2);letter-spacing:.02em;line-height:1;flex-shrink:0;min-width:28px;}
+.pt-info{flex:1;min-width:0;}
+.pt-title{font-family:var(--serif);font-size:13px;font-weight:300;color:var(--text);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pt-loc{font-family:var(--mono);font-size:7.5px;letter-spacing:.1em;color:var(--text-dim);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pt-tag{font-family:var(--mono);font-size:7px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);text-align:right;flex-shrink:0;max-width:80px;line-height:1.4;}
+.prj-foot{padding:42px 52px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.prj-foot span{font-family:var(--mono);font-size:8px;letter-spacing:.13em;color:var(--text-muted);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@media(max-width:900px){.prj-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.prj-grid{grid-template-columns:1fr;}.prj-filter,.prj-hero{padding-left:22px;padding-right:22px;}}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Mars<span>.</span>Bansiti</a>
+  <ul class="nav-links">
+    <li><a href="index.html" data-en="Home" data-vi="Trang chủ">Trang chủ</a></li>
+    <li><a href="projects.html" data-en="Projects" data-vi="Dự án">Dự án</a></li>
+    <li><a href="about.html" data-en="About me" data-vi="Về tôi">Về tôi</a></li>
+    <li><button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button></li>
+  </ul>
+</nav>
+
+<div class="page" id="page-projects">
+  <div class="prj-hero">
+    <div class="prj-hero-bg"></div>
+    <div class="prj-hero-grid"></div>
+    <div class="prj-hero-ghost">22</div>
+    <div class="prj-hero-eye" data-en="Selected Works · 2021–2026" data-vi="Tác Phẩm Chọn Lọc · 2021–2026">Tác Phẩm Chọn Lọc · 2021–2026</div>
+    <div class="prj-hero-h">Projects</div>
+    <span class="prj-hero-sub" data-en="Architectural Visualization · Mars Bansiti" data-vi="Trực Quan Hóa Kiến Trúc · Mars Bansiti">Trực Quan Hóa Kiến Trúc · Mars Bansiti</span>
+    <div class="prj-hero-line"></div>
+  </div>
+
+  <div class="prj-filter">
+    <button class="pf-btn act" onclick="pfFilter(this,'all')" data-en="All Projects" data-vi="Tất Cả">Tất Cả</button>
+    <div class="pf-sep"></div>
+    <button class="pf-btn" onclick="pfFilter(this,'Residential')" data-en="Residential" data-vi="Nhà Ở">Nhà Ở</button>
+    <button class="pf-btn" onclick="pfFilter(this,'Commercial')" data-en="Commercial" data-vi="Thương Mại">Thương Mại</button>
+    <button class="pf-btn" onclick="pfFilter(this,'Villa')" data-en="Villa" data-vi="Biệt Thự">Biệt Thự</button>
+  </div>
+
+  <div class="prj-grid">
+    <!-- Project Card 01 -->
+    <a href="projects/corine.html" class="pt" data-cat="Residential">
+      <div class="pt-img"><img src="https://cdn.yodezeen.com/44/129/DIAMOND_10ss_d64232d637.jpg" alt="Corine"></div>
+      <div class="pt-meta">
+        <span class="pt-n">01</span>
+        <div class="pt-info">
+          <div class="pt-title">Corine</div>
+          <div class="pt-loc">Kyiv · Ukraine · 2021</div>
+        </div>
+        <span class="pt-tag">Contemporary Minimalism</span>
+      </div>
+    </a>
+    <!-- Project Card 02 -->
+    <a href="projects/dn49-nyvky.html" class="pt" data-cat="Residential">
+      <div class="pt-img"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-05-min.png" alt="DN49"></div>
+      <div class="pt-meta">
+        <span class="pt-n">02</span>
+        <div class="pt-info">
+          <div class="pt-title">DN49 — Nyvky-Park</div>
+          <div class="pt-loc">Kyiv · Ukraine · 2024</div>
+        </div>
+        <span class="pt-tag">Apartment Design</span>
+      </div>
+    </a>
+    <!-- Project Card 03 -->
+    <a href="projects/dn49-jd03.html" class="pt" data-cat="Residential">
+      <div class="pt-img"><img src="https://lemon-interior.com.ua/wp-content/uploads/2021/11/kitchen_main.jpg" alt="DN49 / JD03"></div>
+      <div class="pt-meta">
+        <span class="pt-n">03</span>
+        <div class="pt-info">
+          <div class="pt-title">DN49 / JD03</div>
+          <div class="pt-loc">Kyiv · Ukraine · 2024</div>
+        </div>
+        <span class="pt-tag">Apartment Design</span>
+      </div>
+    </a>
+    <!-- Project Card 04 -->
+    <a href="projects/du52-unit.html" class="pt" data-cat="Residential">
+      <div class="pt-img"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/04/unit-lr_01.jpg" alt="DU52"></div>
+      <div class="pt-meta">
+        <span class="pt-n">04</span>
+        <div class="pt-info">
+          <div class="pt-title">DU52 — Unit Home</div>
+          <div class="pt-loc">Kyiv · Ukraine · 2024</div>
+        </div>
+        <span class="pt-tag">Apartment Design</span>
+      </div>
+    </a>
+    <!-- Project Card 05 -->
+    <a href="projects/charlotte.html" class="pt" data-cat="Residential">
+      <div class="pt-img"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/source/4ee212236250335.69067cfd2e62f.jpg" alt="Charlotte"></div>
+      <div class="pt-meta">
+        <span class="pt-n">05</span>
+        <div class="pt-info">
+          <div class="pt-title">House in Charlotte</div>
+          <div class="pt-loc">Charlotte · USA · 2024</div>
+        </div>
+        <span class="pt-tag">Architectural Visualization</span>
+      </div>
+    </a>
+    <!-- Project Card 06 -->
+    <a href="projects/lanen.html" class="pt" data-cat="Residential">
+      <div class="pt-img"><img src="https://yuconvr.com/wp-content/uploads/2025/11/251111_458-12-NKR-MOP_detail-blok-P3.jpg" alt="In de Lanen I"></div>
+      <div class="pt-meta">
+        <span class="pt-n">06</span>
+        <div class="pt-info">
+          <div class="pt-title">In de Lanen I</div>
+          <div class="pt-loc">Rotterdam · Netherlands · 2025</div>
+        </div>
+        <span class="pt-tag">New Construction</span>
+      </div>
+    </a>
+    <!-- Project Card 07 -->
+    <a href="projects/indochine.html" class="pt" data-cat="Villa">
+      <div class="pt-img"><img src="https://kientruckienphong.vn/wp-content/uploads/2024/03/cancel3-2.jpg" alt="Indochine Villa"></div>
+      <div class="pt-meta">
+        <span class="pt-n">07</span>
+        <div class="pt-info">
+          <div class="pt-title">Indochine Villa</div>
+          <div class="pt-loc">Saigon · Vietnam · 2024</div>
+        </div>
+        <span class="pt-tag">Indochine Style</span>
+      </div>
+    </a>
+    <!-- Project Card 08 -->
+    <a href="projects/jd03.html" class="pt" data-cat="Residential">
+      <div class="pt-img"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/04/doc32-5k-living.jpg" alt="JD03"></div>
+      <div class="pt-meta">
+        <span class="pt-n">08</span>
+        <div class="pt-info">
+          <div class="pt-title">JD03 — DOCK32</div>
+          <div class="pt-loc">Kyiv · Ukraine · 2024</div>
+        </div>
+        <span class="pt-tag">Apartment Design</span>
+      </div>
+    </a>
+    <!-- Project Card 09 -->
+    <a href="projects/jd27.html" class="pt" data-cat="Residential">
+      <div class="pt-img"><img src="https://lemon-interior.com.ua/wp-content/uploads/2025/01/doc32-01-livingroom_01-min.jpg" alt="JD27"></div>
+      <div class="pt-meta">
+        <span class="pt-n">09</span>
+        <div class="pt-info">
+          <div class="pt-title">JD27 — DOCK32</div>
+          <div class="pt-loc">Kyiv · Ukraine · 2025</div>
+        </div>
+        <span class="pt-tag">Apartment Design</span>
+      </div>
+    </a>
+    <!-- Project Card 10 -->
+    <a href="projects/noho.html" class="pt" data-cat="Commercial">
+      <div class="pt-img"><img src="https://cdn.yodezeen.com/1_41903c54a7.jpg" alt="Noho One"></div>
+      <div class="pt-meta">
+        <span class="pt-n">10</span>
+        <div class="pt-info">
+          <div class="pt-title">Noho One Lobby</div>
+          <div class="pt-loc">Warsaw · Poland · 2024</div>
+        </div>
+        <span class="pt-tag">Public Interiors</span>
+      </div>
+    </a>
+    <!-- Project Card 11 -->
+    <a href="projects/raffles.html" class="pt" data-cat="Residential">
+      <div class="pt-img"><img src="https://cdn.yodezeen.com/grand_salon_View12_C_Shading_Light_Mix_View170100_a6a79db739.jpg" alt="Raffles"></div>
+      <div class="pt-meta">
+        <span class="pt-n">11</span>
+        <div class="pt-info">
+          <div class="pt-title">Raffles Super Penthouse</div>
+          <div class="pt-loc">Dubai · UAE · 2024</div>
+        </div>
+        <span class="pt-tag">Ultra-Premium</span>
+      </div>
+    </a>
+    <!-- Project Card 12 -->
+    <a href="projects/arbour.html" class="pt" data-cat="Residential">
+      <div class="pt-img"><img src="https://cdn.yodezeen.com/94/126/ELA_hotel_View06_Interactive_Light_Mix_View240000_52676ee9c2.jpg" alt="The Arbour"></div>
+      <div class="pt-meta">
+        <span class="pt-n">12</span>
+        <div class="pt-info">
+          <div class="pt-title">The Arbour</div>
+          <div class="pt-loc">Surrey Hills · UK · 2024</div>
+        </div>
+        <span class="pt-tag">Luxury Residence</span>
+      </div>
+    </a>
+    <!-- Project Card 13 -->
+    <a href="projects/mercator.html" class="pt" data-cat="Residential">
+      <div class="pt-img"><img src="https://yuconvr.com/wp-content/uploads/2025/06/42910_Bnr-12-min.jpg" alt="Mercator"></div>
+      <div class="pt-meta">
+        <span class="pt-n">13</span>
+        <div class="pt-info">
+          <div class="pt-title">Wonen in Mercator</div>
+          <div class="pt-loc">Netherlands · 2025</div>
+        </div>
+        <span class="pt-tag">New Construction</span>
+      </div>
+    </a>
+    <!-- Project Card 14 -->
+    <a href="projects/vn-house.html" class="pt" data-cat="Residential">
+      <div class="pt-img"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/2f4a54247070047.69d3347363b0f.jpg" alt="VN House"></div>
+      <div class="pt-meta">
+        <span class="pt-n">14</span>
+        <div class="pt-info">
+          <div class="pt-title">VN House</div>
+          <div class="pt-loc">Vietnam · 2025</div>
+        </div>
+        <span class="pt-tag">Modern Residence</span>
+      </div>
+    </a>
+    <!-- Project Card 15 -->
+    <a href="projects/v-house.html" class="pt" data-cat="Residential">
+      <div class="pt-img"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/7ec2c2247058169.69d2bef495875.jpg" alt="V House"></div>
+      <div class="pt-meta">
+        <span class="pt-n">15</span>
+        <div class="pt-info">
+          <div class="pt-title">V House</div>
+          <div class="pt-loc">Urban Sanctuary · 2025</div>
+        </div>
+        <span class="pt-tag">Neoclassical</span>
+      </div>
+    </a>
+    <!-- Project Card 16 -->
+    <a href="projects/viet-house.html" class="pt" data-cat="Residential">
+      <div class="pt-img"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/e1aeee247069231.69d32d95c07d3.jpg" alt="Viet House"></div>
+      <div class="pt-meta">
+        <span class="pt-n">16</span>
+        <div class="pt-info">
+          <div class="pt-title">Viet House</div>
+          <div class="pt-loc">Ho Chi Minh City · Vietnam · 2026</div>
+        </div>
+        <span class="pt-tag">Neoclassical</span>
+      </div>
+    </a>
+    <!-- Project Card 17 -->
+    <a href="projects/ydf.html" class="pt" data-cat="Commercial">
+      <div class="pt-img"><img src="https://cdn.yodezeen.com/image_ce3fce5b74.jpg" alt="YDF Showroom"></div>
+      <div class="pt-meta">
+        <span class="pt-n">17</span>
+        <div class="pt-info">
+          <div class="pt-title">YDF Showroom</div>
+          <div class="pt-loc">London · UK · 2024</div>
+        </div>
+        <span class="pt-tag">Interior Showroom</span>
+      </div>
+    </a>
+    <!-- Project Card 18 -->
+    <a href="projects/ypsilon.html" class="pt" data-cat="Residential">
+      <div class="pt-img"><img src="https://yuconvr.com/wp-content/uploads/2026/01/50410_Type-P1-copy.jpg" alt="Ypsilon Park"></div>
+      <div class="pt-meta">
+        <span class="pt-n">18</span>
+        <div class="pt-info">
+          <div class="pt-title">Ypsilon Park</div>
+          <div class="pt-loc">Huurlingsedam · Netherlands · 2026</div>
+        </div>
+        <span class="pt-tag">New Construction</span>
+      </div>
+    </a>
+    <!-- Project Card 19: Nieuw Kralingen -->
+    <a href="projects/aan-de-groene-laan.html" class="pt" data-cat="Residential">
+      <div class="pt-img"><img src="https://yuconvr.com/wp-content/uploads/2025/02/10058_Bnr-524-Woonkamer-1.jpg" alt="Nieuw Kralingen"></div>
+      <div class="pt-meta">
+        <span class="pt-n">19</span>
+        <div class="pt-info">
+          <div class="pt-title">Nieuw Kralingen</div>
+          <div class="pt-loc">Rotterdam · Netherlands · 2024</div>
+        </div>
+        <span class="pt-tag">Aan de Groene Laan</span>
+      </div>
+    </a>
+    <!-- Project Card 20: Duynpoort -->
+    <a href="projects/duynpoort.html" class="pt" data-cat="Residential">
+      <div class="pt-img"><img src="https://yuconvr.com/wp-content/uploads/2025/05/Type-A1.jpg" alt="Duynpoort"></div>
+      <div class="pt-ov">
+        <span class="pt-ov-cat">Residential</span>
+        <span class="pt-ov-cta">View Project →</span>
+      </div>
+      <div class="pt-meta">
+        <span class="pt-n">20</span>
+        <div class="pt-info">
+          <div class="pt-title">Duynpoort</div>
+          <div class="pt-loc">The Netherlands · 2025</div>
+        </div>
+        <span class="pt-tag">Coastal Living</span>
+      </div>
+    </a>
+    <!-- Project Card 21: The Bostuin · Bosch & Duin -->
+    <a href="projects/the-bostuin.html" class="pt" data-cat="Villa">
+      <div class="pt-img"><img src="https://yuconvr.com/wp-content/uploads/2025/07/39720_Int-1-1.jpg" alt="The Bostuin · Bosch &amp; Duin"></div>
+      <div class="pt-ov">
+        <span class="pt-ov-cat">Villa</span>
+        <span class="pt-ov-cta">View Project →</span>
+      </div>
+      <div class="pt-meta">
+        <span class="pt-n">21</span>
+        <div class="pt-info">
+          <div class="pt-title">The Bostuin · Bosch &amp; Duin</div>
+          <div class="pt-loc">Bosch &amp; Duin · Netherlands · 2025</div>
+        </div>
+        <span class="pt-tag">Exclusive Villa</span>
+      </div>
+    </a>
+    <!-- Project Card 22: De Groene Zoom -->
+    <a href="projects/de-groene-zoom.html" class="pt" data-cat="Residential">
+      <div class="pt-img"><img src="https://yuconvr.com/wp-content/uploads/2025/04/10068_Int-Bnr-558-Woonkamer.jpg" alt="De Groene Zoom"></div>
+      <div class="pt-ov">
+        <span class="pt-ov-cat">Residential</span>
+        <span class="pt-ov-cta">View Project →</span>
+      </div>
+      <div class="pt-meta">
+        <span class="pt-n">22</span>
+        <div class="pt-info">
+          <div class="pt-title">De Groene Zoom I</div>
+          <div class="pt-loc">Rotterdam · Netherlands · 2025</div>
+        </div>
+        <span class="pt-tag">Nieuw Kralingen</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="prj-foot">
+    <span data-en="Mars Bansiti · Architectural Visualization · 2021–2026" data-vi="Mars Bansiti · Trực Quan Hóa Kiến Trúc · 2021–2026">Mars Bansiti · Trực Quan Hóa Kiến Trúc · 2021–2026</span>
+    <span data-en="22 Projects · 8 Countries" data-vi="22 Dự Án · 8 Quốc Gia">22 Dự Án · 8 Quốc Gia</span>
+  </div>
+</div>
+
+<script>
+/* ── Cursor ── */
+(function(){
+  const c=document.getElementById('cur'),r=document.getElementById('cur-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;c.style.left=mx+'px';c.style.top=my+'px';});
+  (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;r.style.left=rx+'px';r.style.top=ry+'px';requestAnimationFrame(loop);})();
+})();
+
+/* ── Language toggle ── */
+let lang='vi';
+function toggleLang(){
+  lang=lang==='vi'?'en':'vi';
+  document.getElementById('lang-btn').textContent=lang==='vi'?'EN':'VI';
+  document.querySelectorAll('[data-en]').forEach(el=>{
+    el.innerHTML=lang==='en'?el.dataset.en:el.dataset.vi;
+  });
+}
+</script>
+<script>
+function pfFilter(btn, cat) {
+  document.querySelectorAll('.pf-btn').forEach(b => b.classList.remove('act'));
+  btn.classList.add('act');
+  document.querySelectorAll('.pt').forEach(el => {
+    const c = el.getAttribute('data-cat') || '';
+    el.style.display = (cat === 'all' || c === cat) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>

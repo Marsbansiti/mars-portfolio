@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mars Bansiti — Giới Thiệu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,200;0,300;0,400;0,600;1,200;1,300;1,400;1,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/shared.css">
+<style>
+/* Page-specific styles */
+.ab-hero{height:100vh;min-height:600px;position:relative;overflow:hidden;display:grid;grid-template-columns:52% 48%;}
+.ab-portrait-panel{position:relative;overflow:hidden;}
+.ab-portrait-panel img{width:100%;height:100%;object-fit:cover;object-position:center 12%;display:block;filter:grayscale(.08) brightness(.82) contrast(1.06) saturate(1.1);transition:transform 14s ease-in-out;}
+.ab-portrait-panel:hover img{transform:scale(1.04)}
+.ab-portrait-panel::before{content:'';position:absolute;top:28px;left:28px;width:50px;height:50px;border-top:1px solid rgba(200,169,110,.55);border-left:1px solid rgba(200,169,110,.55);z-index:2;pointer-events:none;}
+.ab-portrait-panel::after{content:'';position:absolute;bottom:28px;right:28px;width:50px;height:50px;border-bottom:1px solid rgba(200,169,110,.55);border-right:1px solid rgba(200,169,110,.55);z-index:2;pointer-events:none;}
+.ab-portrait-fade{position:absolute;inset:0;background:linear-gradient(to right, transparent 62%, rgba(8,8,10,.92) 100%);z-index:1;pointer-events:none;}
+.ab-portrait-fade::after{content:'';position:absolute;bottom:0;left:0;right:0;height:35%;background:linear-gradient(to top, rgba(8,8,10,.7) 0%, transparent 100%);}
+.ab-portrait-label{position:absolute;bottom:44px;left:36px;z-index:3;}
+.ab-portrait-label-tag{font-family:var(--mono);font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:rgba(200,169,110,.75);margin-bottom:8px;}
+.ab-portrait-label-num{font-family:var(--display);font-size:clamp(52px,7vw,96px);letter-spacing:.02em;line-height:1;color:rgba(237,232,223,.08);}
+.ab-hero-content{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;padding:52px 56px 60px 52px;background:var(--bg);border-left:1px solid var(--border);}
+.ab-hero-content::before{content:'';position:absolute;top:0;bottom:0;left:0;width:1px;background:linear-gradient(to bottom, transparent, rgba(200,169,110,.2) 50%, transparent);}
+/* Custom cursor */
+*{cursor:none!important}
+#cur{position:fixed;width:8px;height:8px;background:rgba(200,169,110,1);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;will-change:transform}
+#cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(200,169,110,.5);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s,opacity .3s;will-change:transform}
+#cur.cur-hover{width:12px;height:12px;background:rgba(200,169,110,.9)}
+#cur-ring.cur-hover{width:52px;height:52px;border-color:rgba(200,169,110,.8)}
+
+.ab-pre{font-family:var(--mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;display:flex;align-items:center;gap:16px}
+.ab-pre::before{content:'';width:24px;height:1px;background:var(--gold)}
+.ab-name{font-family:var(--display);font-size:clamp(62px,9vw,138px);letter-spacing:.03em;line-height:.86;text-transform:uppercase}
+.ab-name-sub{font-family:var(--serif);font-style:italic;font-size:clamp(28px,3.8vw,58px);font-weight:200;color:var(--gold);display:block;line-height:1.05;margin-top:4px}
+.ab-tagline{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);margin-top:24px;display:flex;align-items:center;gap:14px}
+.ab-tagline::before{content:'';width:24px;height:1px;background:var(--border)}
+.ab-stats-row{display:flex;gap:0;margin-top:36px;padding-top:28px;border-top:1px solid var(--border)}
+.ab-stat{flex:1;padding-right:20px;border-right:1px solid var(--border)}
+.ab-stat:last-child{border-right:none;padding-right:0}
+.ab-stat-n{font-family:var(--display);font-size:clamp(28px,3.8vw,52px);letter-spacing:.02em;color:var(--text);line-height:1}
+.ab-stat-l{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--text-muted);margin-top:5px}
+.ab-cols{display:grid;grid-template-columns:1.35fr 1fr .9fr;border-top:1px solid var(--border)}
+.ab-col{padding:64px 52px;border-right:1px solid var(--border)}
+.ab-col:last-child{border-right:none}
+.ab-col-lbl{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:36px;display:flex;align-items:center;gap:12px}
+.ab-col-lbl::before{content:'';width:18px;height:1px;background:var(--gold)}
+.ab-bio{font-size:clamp(16px,1.6vw,21px);font-weight:200;line-height:1.84;color:var(--text-dim)}
+.ab-bio strong{color:var(--text);font-weight:300}
+.ab-bio em{color:var(--gold);font-style:italic}
+.ab-quote{margin-top:48px;padding-left:22px;border-left:2px solid var(--gold2);font-family:var(--serif);font-size:clamp(17px,1.9vw,26px);font-style:italic;font-weight:200;line-height:1.52;color:rgba(237,232,223,.65)}
+.ab-cbar{margin-top:52px;padding-top:34px;border-top:1px solid var(--border)}
+.ab-clbl{font-family:var(--mono);font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px}
+.ab-email{font-family:var(--serif);font-size:clamp(16px,2vw,26px);font-weight:300;color:var(--text)}
+.ab-elink{display:inline-flex;align-items:center;gap:12px;margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--gold2);padding-bottom:4px;transition:gap .3s,border-color .3s;text-decoration:none}
+.ab-elink:hover{gap:18px;border-color:var(--gold)}
+.ab-elink::after{content:'→';font-size:13px}
+.tl-item{padding:20px 0;border-bottom:1px solid var(--border)}
+.tl-item:last-child{border-bottom:none}
+.tl-per{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--gold);margin-bottom:7px}
+.tl-studio{font-family:var(--serif);font-size:20px;font-weight:300;color:var(--text);line-height:1.3}
+.tl-role{font-family:var(--serif);font-size:15px;font-weight:300;font-style:italic;color:var(--text-dim);margin-top:3px}
+.tl-loc{font-family:var(--mono);font-size:11px;color:var(--text-muted);letter-spacing:.12em;margin-top:5px}
+.sk-blk{margin-bottom:34px}
+.sk-lbl{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px}
+.sk-tags{display:flex;flex-wrap:wrap;gap:6px}
+.sk-tag{font-family:var(--mono);font-size:10px;padding:5px 12px;border:1px solid var(--border);color:var(--text-dim);letter-spacing:.1em;transition:border-color .25s,color .25s}
+.sk-tag:hover{border-color:var(--gold);color:var(--text)}
+.edu-item{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.edu-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.edu-nm{font-family:var(--serif);font-size:17px;font-weight:300;color:var(--text)}
+.edu-dt{font-family:var(--mono);font-size:11px;color:var(--text-muted);letter-spacing:.12em;margin-top:3px}
+.ab-foot{padding:26px 52px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.ab-foot-copy{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--text-muted)}
+.ab-foot-tools{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--text-muted)}
+.page{position:fixed;inset:0;overflow-y:auto;overflow-x:hidden;opacity:1;pointer-events:all}
+@media(max-width:1100px){.ab-cols{grid-template-columns:1fr 1fr}.ab-col:nth-child(3){grid-column:1/-1;border-right:none;border-top:1px solid var(--border)}.ab-hero{grid-template-columns:48% 52%}}
+@media(max-width:768px){.ab-hero{grid-template-columns:1fr;grid-template-rows:55vh auto;height:auto}.ab-portrait-panel{height:55vh}.ab-hero-content{padding:36px 24px 44px;border-left:none;border-top:1px solid var(--border)}.ab-cols{grid-template-columns:1fr}.ab-col{padding:48px 24px;border-right:none;border-bottom:1px solid var(--border)}.ab-foot{padding:22px 24px;flex-direction:column;gap:10px;text-align:center}}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Mars<span>.</span>Bansiti</a>
+  <ul class="nav-links">
+    <li><a href="index.html" data-en="Home" data-vi="Trang chủ">Trang chủ</a></li>
+    <li><a href="projects.html" data-en="Projects" data-vi="Dự án">Dự án</a></li>
+    <li><a href="about.html" data-en="About me" data-vi="Về tôi">Về tôi</a></li>
+    <li><button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button></li>
+  </ul>
+</nav>
+
+<div class="page" id="page-about">
+  <div class="ab-hero">
+    <div class="ab-portrait-panel">
+      <img src="https://iili.io/qbsfxqu.jpg" alt="Mars Bansiti">
+      <div class="ab-portrait-fade"></div>
+      <div class="ab-portrait-label">
+        <div class="ab-portrait-label-tag" data-en="Interior Designer · ArchViz Artist" data-vi="Nhà Thiết Kế Nội Thất · ArchViz Artist">Nhà Thiết Kế Nội Thất · ArchViz Artist</div>
+        <div class="ab-portrait-label-num">MB</div>
+      </div>
+    </div>
+    <div class="ab-hero-content">
+      <div class="ab-pre" data-en="Interior Designer / ArchViz Artist" data-vi="Nhà Thiết Kế Nội Thất / ArchViz Artist">Nhà Thiết Kế Nội Thất / ArchViz Artist</div>
+      <div class="ab-name">Mars<span class="ab-name-sub">Bansiti</span></div>
+      <div class="ab-tagline" data-en="5+ Years · India · Vietnam · Germany · Netherlands · UAE · Poland · Russia" data-vi="5+ Năm · Ấn Độ · Việt Nam · Đức · Hà Lan · UAE · Ba Lan · Nga">5+ Năm · Ấn Độ · Việt Nam · Đức · Hà Lan · UAE · Ba Lan · Nga</div>
+      <div class="ab-stats-row">
+        <div class="ab-stat"><div class="ab-stat-n">5+</div><div class="ab-stat-l" data-en="Years Intl." data-vi="Năm Qt.">Năm Qt.</div></div>
+        <div class="ab-stat"><div class="ab-stat-n">19</div><div class="ab-stat-l" data-en="Projects" data-vi="Dự Án">Dự Án</div></div>
+        <div class="ab-stat"><div class="ab-stat-n">8</div><div class="ab-stat-l" data-en="Countries" data-vi="Quốc Gia">Quốc Gia</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ab-cols">
+    <div class="ab-col">
+      <div class="ab-col-lbl" data-en="Career Objective" data-vi="Mục Tiêu Nghề Nghiệp">Mục Tiêu Nghề Nghiệp</div>
+      <p class="ab-bio" data-en="I am Mars Bansiti, with <strong>over 5 years of experience</strong> as an Interior Designer and <em>3D Interior Artist</em> at international studios. I can take on and excel at assigned tasks including interior concept development, <em>photorealistic 3D visualization</em>, cinematic lighting and refined material coordination.<br><br>With my current experience, I am confident in working efficiently, meeting deadlines and delivering <strong>aesthetically refined living space solutions</strong>, directly contributing to the company's growth." data-vi="Tôi là <strong>Mars Bansiti</strong>, đã có hơn <strong>5 năm kinh nghiệm</strong> làm việc ở vị trí Nhà thiết kế Nội thất và <em>3D Interior Artist</em> tại các studio quốc tế. Tôi có thể tiếp nhận và hoàn thành xuất sắc các công việc được giao như: lên concept không gian nội thất, <em>diễn họa 3D photorealistic</em>, xử lý ánh sáng điện ảnh và phối hợp vật liệu tinh tế.<br><br>Với những kinh nghiệm hiện có, tôi tự tin có thể làm việc hiệu quả, đáp ứng tiến độ và mang lại những <strong>giải pháp không gian sống thẩm mỹ</strong>, đóng góp trực tiếp vào sự phát triển của công ty.">Tôi là <strong>Mars Bansiti</strong>, đã có hơn <strong>5 năm kinh nghiệm</strong> làm việc ở vị trí Nhà thiết kế Nội thất và <em>3D Interior Artist</em> tại các studio quốc tế. Tôi có thể tiếp nhận và hoàn thành xuất sắc các công việc được giao như: lên concept không gian nội thất, <em>diễn họa 3D photorealistic</em>, xử lý ánh sáng điện ảnh và phối hợp vật liệu tinh tế.<br><br>Với những kinh nghiệm hiện có, tôi tự tin có thể làm việc hiệu quả, đáp ứng tiến độ và mang lại những <strong>giải pháp không gian sống thẩm mỹ</strong>, đóng góp trực tiếp vào sự phát triển của công ty.</p>
+      <blockquote class="ab-quote" data-en='"Every render is a decision about what to feel — not just what to see."' data-vi='"Mỗi render là một quyết định về điều gì cần cảm nhận — không chỉ là điều gì cần nhìn thấy."'>"Mỗi render là một quyết định về điều gì cần cảm nhận — không chỉ là điều gì cần nhìn thấy."</blockquote>
+      <div class="ab-cbar">
+        <div class="ab-clbl" data-en="Contact" data-vi="Liên Hệ">Liên Hệ</div>
+        <div class="ab-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2d404c5f5e034f4c435e4459446d4c5f4e455b4457034e4240">[email&#160;protected]</a></div>
+        <a class="ab-elink" href="#" data-en="Send a message" data-vi="Gửi tin nhắn">Gửi tin nhắn</a>
+      </div>
+    </div>
+
+    <div class="ab-col">
+      <div class="ab-col-lbl" data-en="Work Experience" data-vi="Kinh Nghiệm Làm Việc">Kinh Nghiệm Làm Việc</div>
+      <div class="tl-item"><div class="tl-per">12/2024 – 02/2026</div><div class="tl-studio">Fjord Arkitekter Studio</div><div class="tl-role" data-en="Interior Designer / 3D Artist" data-vi="Nhà Thiết Kế Nội Thất / 3D Artist">Nhà Thiết Kế Nội Thất / 3D Artist</div><div class="tl-loc">Netherlands</div></div>
+      <div class="tl-item"><div class="tl-per">04/2023 – 09/2024</div><div class="tl-studio">Nordic Civic Architects</div><div class="tl-role" data-en="Interior Designer / 3D Artist" data-vi="Nhà Thiết Kế Nội Thất / 3D Artist">Nhà Thiết Kế Nội Thất / 3D Artist</div><div class="tl-loc">Denmark</div></div>
+      <div class="tl-item"><div class="tl-per">11/2021 – 03/2023</div><div class="tl-studio">Gardern Studio</div><div class="tl-role" data-en="Interior Designer / 3D Artist" data-vi="Nhà Thiết Kế Nội Thất / 3D Artist">Nhà Thiết Kế Nội Thất / 3D Artist</div><div class="tl-loc">Hà Nội, Việt Nam</div></div>
+      <div class="tl-item"><div class="tl-per">11/2020 – 03/2022</div><div class="tl-studio">Nhà Xinh Design Studio</div><div class="tl-role" data-en="Interior Designer / 3D Artist" data-vi="Nhà Thiết Kế Nội Thất / 3D Artist">Nhà Thiết Kế Nội Thất / 3D Artist</div><div class="tl-loc">TP.HCM, Việt Nam</div></div>
+      <div class="tl-item"><div class="tl-per">11/2019 – 08/2020</div><div class="tl-studio">YuconVR Studio</div><div class="tl-role" data-en="Interior Designer / 3D Artist" data-vi="Thiết Kế Nội Thất / 3D Artist">Thiết Kế Nội Thất / 3D Artist</div><div class="tl-loc">TP.HCM, Việt Nam</div></div>
+    </div>
+
+    <div class="ab-col">
+      <div class="ab-col-lbl" data-en="Skills & Education" data-vi="Kỹ Năng & Học Vấn">Kỹ Năng & Học Vấn</div>
+      <div class="sk-blk">
+        <div class="sk-lbl" data-en="Software" data-vi="Phần Mềm">Phần Mềm</div>
+        <div class="sk-tags"><span class="sk-tag">3ds Max</span><span class="sk-tag">SketchUp</span><span class="sk-tag">AutoCAD</span><span class="sk-tag">Corona Renderer</span><span class="sk-tag">V-Ray</span><span class="sk-tag">Photoshop</span></div>
+      </div>
+      <div class="sk-blk">
+        <div class="sk-lbl" data-en="Expertise" data-vi="Chuyên Môn">Chuyên Môn</div>
+        <div class="sk-tags"><span class="sk-tag" data-en="Composition & Lighting" data-vi="Bố Cục & Ánh Sáng">Bố Cục & Ánh Sáng</span><span class="sk-tag" data-en="Material Creation" data-vi="Tạo Vật Liệu">Tạo Vật Liệu</span><span class="sk-tag" data-en="Retouching" data-vi="Hậu Kỳ">Hậu Kỳ</span></div>
+      </div>
+      <div class="sk-blk">
+        <div class="sk-lbl" data-en="Education" data-vi="Học Vấn">Học Vấn</div>
+        <div class="edu-item"><div class="edu-nm">CEPT University</div><div class="edu-dt">B.Arch, 2017</div></div>
+        <div class="edu-item"><div class="edu-nm">SOA Academy</div><div class="edu-dt" data-en="Masterclass in ArchViz" data-vi="Lớp Thạc Sĩ ArchViz">Lớp Thạc Sĩ ArchViz</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ab-foot">
+    <div class="ab-foot-copy" data-en="© 2025 Mars Bansiti. All rights reserved." data-vi="© 2025 Mars Bansiti. Bảo lưu mọi quyền.">© 2025 Mars Bansiti. Bảo lưu mọi quyền.</div>
+    <div class="ab-foot-tools">3ds Max · Corona Renderer · V-Ray · Photoshop</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var cur = document.getElementById('cur');
+  var ring = document.getElementById('cur-ring');
+  var mx = window.innerWidth/2, my = window.innerHeight/2;
+  var rx = mx, ry = my;
+
+  document.addEventListener('mousemove', function(e){
+    mx = e.clientX; my = e.clientY;
+    cur.style.left = mx + 'px';
+    cur.style.top  = my + 'px';
+  });
+
+  (function lerp(){
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(lerp);
+  })();
+
+  var hoverEls = document.querySelectorAll('a, button, .sk-tag, .ab-portrait-panel');
+  hoverEls.forEach(function(el){
+    el.addEventListener('mouseenter', function(){
+      cur.classList.add('cur-hover');
+      ring.classList.add('cur-hover');
+    });
+    el.addEventListener('mouseleave', function(){
+      cur.classList.remove('cur-hover');
+      ring.classList.remove('cur-hover');
+    });
+  });
+})();
+</script></body>
+</html>
