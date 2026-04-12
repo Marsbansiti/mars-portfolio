@@ -6,18 +6,16 @@
 <title>V House | Neoclassical Sanctuary · Saigon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300;1,9..144,400&family=Syne:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,200;0,300;0,400;0,600;1,200;1,300;1,400;1,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/shared.css">
 <style>
 *{ margin:0; padding:0; box-sizing:border-box; }
 :root{ --panel-gap: 6px; }
 body{ height:100vh; overflow:hidden; background:var(--bg); }
 
-/* REMOVE ALL SCROLLBARS */
+/* REMOVE ALL SCROLLBARS - navigation and viewport */
 html, body { overflow-x: hidden; }
 nav { overflow-x: hidden; width: 100%; }
-#vp::-webkit-scrollbar { display: none; }
-#vp{ -ms-overflow-style: none; scrollbar-width: none; overflow-x: auto; overflow-y: hidden; }
 
 nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative; z-index:500; width:100%; overflow-x: hidden; }
 .nav-links { display: flex; flex-wrap: nowrap; }
@@ -31,63 +29,68 @@ nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative
 .cnt-fill{ position:absolute; top:0; left:0; height:100%; background:var(--gold); transition:width .4s ease; }
 #cnt-tot{ font-family:var(--serif); font-style:italic; font-size:14px; font-weight:200; color:var(--text-dim); min-width:24px; }
 #hint{ position:fixed; bottom:22px; right:44px; z-index:600; display:flex; align-items:center; gap:10px; transition:opacity .7s; background:rgba(12,10,7,.3); padding:5px 12px; border-radius:40px; backdrop-filter:blur(4px); }
-#hint span{ font-size:9px; font-weight:400; letter-spacing:.25em; text-transform:uppercase; color:var(--text-dim); }
+#hint span{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.25em; text-transform:uppercase; color:var(--text-dim); }
 .h-line{ width:32px; height:1px; background:var(--gold); position:relative; overflow:hidden; }
 .h-line::after{ content:'';position:absolute; top:0; left:-100%; width:100%; height:100%; background:var(--text); animation:slide 2s ease-in-out infinite; }
 @keyframes slide{ 0%{left:-100%} 50%{left:100%} 100%{left:100%} }
-#vp{ position:fixed; inset:0; top:59.5px; overflow-x:auto; overflow-y:hidden; scroll-behavior:smooth; scrollbar-width: none; }
+#vp {
+  position: fixed;
+  inset: 0;
+  top: 59.5px;
+  overflow: hidden;
+}
 #track{ display:flex; flex-direction:row; height:calc(100vh - 59.5px); will-change:transform; gap: var(--panel-gap); padding-right: var(--panel-gap); }
 .p{ flex-shrink:0; height:100%; position:relative; overflow:hidden; }
-.pi img{ width:100%; height:100%; object-fit:cover; display:block; transition:filter .5s; cursor:pointer; }
+.pi img{ width:100%; height:100%; object-fit:cover; display:block; transition:filter .5s; cursor:none; }
 .pi img:hover{ filter:brightness(1.02) contrast(1.02); }
-.hero-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+.hero-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:none; }
 .hero-veil{ position:absolute; inset:0; background: linear-gradient(105deg, rgba(12,10,7,.45) 0%, transparent 48%), linear-gradient(to top, rgba(12,10,7,.72) 0%, transparent 44%); pointer-events:none; }
 .hero-foot{ position:absolute; bottom:0; left:0; right:0; padding:44px 52px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
 .h-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(72px,10vw,128px); line-height:.88; letter-spacing:-.02em; color:var(--text); }
-.h-eyebrow{ font-size:9px; font-weight:500; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:block; }
+.h-eyebrow{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:block; }
 .h-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:17px; color:rgba(232,226,213,.7); }
 .info{ background:var(--surface); border-right:1px solid var(--border); border-left:2px solid var(--gold); display:flex; flex-direction:column; justify-content:space-between; padding:52px 46px 46px; overflow-y:auto; scrollbar-width: thin; }
 .info::-webkit-scrollbar{ width:3px; background:var(--border); }
 .info::-webkit-scrollbar-thumb{ background:var(--gold); }
-.i-label{ font-size:9px; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--text-dim); }
+.i-label{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.28em; text-transform:uppercase; color:var(--text-dim); }
 .i-rule{ display:flex; align-items:center; gap:12px; margin:18px 0 22px; }
 .i-rule::before{ content:''; width:20px; height:1px; background:var(--gold); }
 .i-rule::after{ content:''; flex:1; height:1px; background:var(--border); }
 .i-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--text-dim); line-height:1.6; margin-bottom:10px; }
 .i-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(58px,5.5vw,80px); line-height:.9; letter-spacing:-.02em; color:var(--text); margin-bottom:36px; }
-.i-body{ font-size:12.5px; font-weight:300; line-height:1.9; color:var(--text-dim); margin-bottom:40px; }
+.i-body{ font-family:var(--serif); font-size:14px; font-weight:300; line-height:1.9; color:var(--text-dim); margin-bottom:40px; }
 .svc-list{ list-style:none; border-top:1px solid var(--border); }
 .svc-item{ display:flex; align-items:center; justify-content:space-between; padding:11px 0; border-bottom:1px solid var(--border); transition:padding-left .3s; position:relative; }
 .svc-item:hover{ padding-left:8px; }
 .svc-item::before{ content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:0; height:1px; background:var(--gold); transition:width .3s; }
 .svc-item:hover::before{ width:6px; }
-.svc-name{ font-size:11.5px; font-weight:400; letter-spacing:.03em; color:var(--text); }
+.svc-name{ font-family:var(--mono); font-size:11.5px; font-weight:400; letter-spacing:.03em; color:var(--text); }
 .svc-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--gold); }
 .area-blk{ margin-top:38px; }
 .area-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:54px; line-height:1; letter-spacing:-.02em; color:var(--text); }
 .area-unit{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:16px; color:var(--gold); display:inline-block; margin-left:5px; }
-.area-label{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--text-dim); margin-top:10px; display:block; }
+.area-label{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.24em; text-transform:uppercase; color:var(--text-dim); margin-top:10px; display:block; }
 .sec-lbl{ position:absolute; bottom:36px; left:28px; z-index:2; display:flex; align-items:center; gap:10px; pointer-events:none; }
 .sec-lbl-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:11px; color:rgba(232,226,213,.5); }
-.sec-lbl-name{ font-size:9px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:rgba(232,226,213,.4); }
+.sec-lbl-name{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.22em; text-transform:uppercase; color:rgba(232,226,213,.4); }
 .sec-lbl::before{ content:''; width:18px; height:1px; background:rgba(200,128,60,.4); }
 .wm{ position:absolute; bottom:-10px; right:-8px; font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(130px,16vw,200px); line-height:1; color:rgba(255,255,255,.05); pointer-events:none; z-index:1; letter-spacing:-.04em; user-select:none; }
 .concept{ background:var(--bg2); border-left:1px solid var(--border); border-right:1px solid var(--border); display:flex; flex-direction:column; justify-content:center; padding:64px 44px; position:relative; overflow:hidden; }
 .concept-bg{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(100px,14vw,160px); letter-spacing:-.04em; white-space:nowrap; color:rgba(232,226,213,.04); pointer-events:none; user-select:none; line-height:1; }
-.concept-label{ font-size:9px; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:28px; display:flex; align-items:center; gap:12px; }
+.concept-label{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:28px; display:flex; align-items:center; gap:12px; }
 .concept-label::after{ content:''; width:24px; height:1px; background:var(--gold); opacity:.4; }
 .qmark{ font-family:var(--serif); font-weight:200; font-size:64px; line-height:.65; color:var(--gold); opacity:.35; margin-bottom:10px; }
 .qtext{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2vw,22px); line-height:1.65; color:var(--text); margin-bottom:38px; }
 .qtext strong{ font-style:normal; font-weight:300; color:var(--gold); }
 .mat-row{ display:flex; flex-wrap:wrap; gap:6px; margin-top:32px; }
-.mat{ font-size:9px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); padding:5px 12px; border:1px solid var(--border); transition:all .3s; }
+.mat{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); padding:5px 12px; border:1px solid var(--border); transition:all .3s; }
 .mat:hover{ background:var(--gold); color:var(--bg); border-color:var(--gold); }
-.end-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+.end-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:none; }
 .end-veil{ position:absolute; inset:0; background:linear-gradient(to top, rgba(12,10,7,.82) 0%, rgba(12,10,7,.18) 55%, transparent 100%); pointer-events:none; }
 .end-foot{ position:absolute; bottom:0; left:0; right:0; padding:52px 56px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
 .end-q{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2.4vw,30px); line-height:1.5; color:var(--text); max-width:520px; }
 .end-meta{ text-align:right; }
-.end-tag{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; display:block; }
+.end-tag{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; display:block; }
 .end-name{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:18px; color:rgba(232,226,213,.75); }
 
 /* BACK BUTTON - TOP LEFT CORNER */
@@ -105,9 +108,9 @@ nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative
   border-radius: 40px;
   border: 1px solid rgba(200, 128, 60, 0.6);
   transition: all 0.3s ease;
-  cursor: pointer;
+  cursor: none;
   text-decoration: none;
-  font-family: 'Syne', sans-serif;
+  font-family: var(--mono);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.2em;
@@ -134,12 +137,12 @@ nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative
 }
 
 /* LIGHTBOX STYLES */
-.lb-overlay{ position:fixed; inset:0; background:rgba(8,6,4,.96); backdrop-filter:blur(28px); z-index:2000; display:flex; align-items:center; justify-content:center; visibility:hidden; opacity:0; transition:visibility .25s, opacity .25s; cursor:pointer; }
+.lb-overlay{ position:fixed; inset:0; background:rgba(8,6,4,.96); backdrop-filter:blur(28px); z-index:2000; display:flex; align-items:center; justify-content:center; visibility:hidden; opacity:0; transition:visibility .25s, opacity .25s; cursor:none; }
 .lb-overlay.active{ visibility:visible; opacity:1; }
-.lb-img{ max-width:90vw; max-height:85vh; object-fit:contain; box-shadow:0 25px 45px rgba(0,0,0,.4); border-radius:2px; cursor:default; }
-.lb-close{ position:fixed; top:28px; right:32px; width:44px; height:44px; background:rgba(255,255,255,.05); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:200; color:var(--gold); transition:all .2s; cursor:pointer; backdrop-filter:blur(8px); border:1px solid rgba(232,226,213,.2); }
+.lb-img{ max-width:90vw; max-height:85vh; object-fit:contain; box-shadow:0 25px 45px rgba(0,0,0,.4); border-radius:2px; cursor:none; }
+.lb-close{ position:fixed; top:28px; right:32px; width:44px; height:44px; background:rgba(255,255,255,.05); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:200; color:var(--gold); transition:all .2s; cursor:none; backdrop-filter:blur(8px); border:1px solid rgba(232,226,213,.2); }
 .lb-close:hover{ background:rgba(200,128,60,.2); transform:scale(1.02); color:#fff; }
-.lb-caption{ position:fixed; bottom:24px; left:0; right:0; text-align:center; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,226,213,.6); font-weight:300; pointer-events:none; }
+.lb-caption{ position:fixed; bottom:24px; left:0; right:0; text-align:center; font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,226,213,.6); font-weight:400; pointer-events:none; }
 
 @media (max-width:720px){
   .back-projects-btn{ top: 68px; left: 16px; padding: 6px 16px; font-size: 9px; gap: 8px; }
@@ -212,7 +215,7 @@ nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative
       <span class="area-num">5×22</span><span class="area-unit">m</span>
       <span class="area-label" data-en="Compact urban footprint" data-vi="Diện tích đô thị nhỏ gọn">Compact urban footprint</span>
       <div style="margin-top:12px; border-top:1px solid var(--border); padding-top:14px;">
-        <span class="area-label" style="margin-top:0" data-en="Warm white moldings · Wood veneer · Marble · Brushed metal · Linen & leather" data-vi="Phào chỉ trắng ấm · Ván gỗ · Đá cẩm thạch · Kim loại chải · Lanh & da">Warm white · Wood veneer · Marble · Brushed metal · Linen & leather</span>
+        <span class="area-label" style="margin-top:0" data-en="Warm white · Wood veneer · Marble · Brushed metal · Linen & leather" data-vi="Trắng ấm · Ván gỗ · Đá cẩm thạch · Kim loại chải · Lanh & da">Warm white · Wood veneer · Marble · Brushed metal · Linen & leather</span>
       </div>
     </div>
   </div>
@@ -238,11 +241,11 @@ nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative
     <div class="qmark">"</div>
     <p class="qtext" data-en="Tactile contrast within a restrained palette. <strong>Warm white moldings, natural wood veneers, herringbone flooring,</strong> marble surfaces, brushed metal accents, and upholstered linen and leather — every material selected for longevity and ease of maintenance within a compact urban footprint." data-vi="Tương phản xúc giác trong một bảng màu hạn chế. <strong>Phào chỉ trắng ấm, ván gỗ tự nhiên, sàn herringbone,</strong> bề mặt đá cẩm thạch, điểm nhấn kim loại chải, và lanh cùng da bọc — mọi vật liệu được chọn vì tuổi thọ và dễ bảo trì trong không gian đô thị nhỏ gọn.">Tactile contrast within a restrained palette. <strong>Warm white moldings, natural wood veneers, herringbone flooring,</strong> marble surfaces, brushed metal accents, and upholstered linen and leather — every material selected for longevity and ease of maintenance within a compact urban footprint.</p>
     <div class="mat-row">
-      <span class="mat">Warm white</span>
-      <span class="mat">Wood veneer</span>
-      <span class="mat">Marble</span>
-      <span class="mat">Brushed metal</span>
-      <span class="mat">Linen & leather</span>
+      <span class="mat" data-en="Warm white" data-vi="Trắng ấm">Warm white</span>
+      <span class="mat" data-en="Wood veneer" data-vi="Ván gỗ">Wood veneer</span>
+      <span class="mat" data-en="Marble" data-vi="Đá cẩm thạch">Marble</span>
+      <span class="mat" data-en="Brushed metal" data-vi="Kim loại chải">Brushed metal</span>
+      <span class="mat" data-en="Linen & leather" data-vi="Lanh & da">Linen & leather</span>
     </div>
   </div>
 
@@ -309,6 +312,37 @@ nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative
 
 <script src="../assets/js/shared.js"></script>
 <script>
+/* ── Language system: Vietnamese default, EN toggle ── */
+(function(){
+  var STORAGE_KEY = 'mb_lang';
+  var lang = localStorage.getItem(STORAGE_KEY) || 'vi';
+
+  function applyLang(l){
+    lang = l;
+    localStorage.setItem(STORAGE_KEY, l);
+    document.documentElement.lang = l;
+
+    // Update all [data-en] / [data-vi] elements
+    document.querySelectorAll('[data-en]').forEach(function(el){
+      var val = l === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-vi');
+      if(val !== null) el.innerHTML = val;
+    });
+
+    // Button shows the language you can switch TO
+    var btn = document.getElementById('lang-btn');
+    if(btn) btn.textContent = l === 'vi' ? 'EN' : 'VI';
+  }
+
+  // Override any toggleLang defined in shared.js
+  window.toggleLang = function(){
+    applyLang(lang === 'vi' ? 'en' : 'vi');
+  };
+
+  // Boot with stored or default (vi)
+  applyLang(lang);
+})();
+</script>
+<script>
 const track = document.getElementById('track'), vp = document.getElementById('vp'), prog = document.getElementById('prog');
 const hint = document.getElementById('hint'), cntCur = document.getElementById('cnt-cur'), cntFill = document.getElementById('cnt-fill');
 let tx=0, cx=0, maxS=0;
@@ -347,10 +381,7 @@ function closeLightbox() {
   setTimeout(()=>{ lbImg.src = ''; }, 200);
   document.body.style.overflow = '';
 }
-
-// Attach click listeners to all images
 document.querySelectorAll('.pi img, .hero-img, .end-img').forEach(img => {
-  img.style.cursor = 'pointer';
   img.addEventListener('click', (e) => { e.stopPropagation(); openLightbox(img); });
 });
 lbClose.addEventListener('click', closeLightbox);
@@ -373,13 +404,6 @@ document.addEventListener('keydown', (e) => { if(lightbox.classList.contains('ac
   cntFill.style.width=((visIdx+1)/TOTAL*100)+'%';
   requestAnimationFrame(loop);
 })();
-
-// Language toggle (shared.js compatible fallback)
-function toggleLang() {
-  const btn = document.getElementById('lang-btn');
-  if(btn.textContent === 'EN') btn.textContent = 'VI';
-  else btn.textContent = 'EN';
-}
 </script>
 </body>
 </html>
