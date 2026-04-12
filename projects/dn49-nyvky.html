@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>DN49 | Nyvky-Park · Nội thất hiện đại · Kyiv</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300;1,9..144,400&family=Syne:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{ margin:0; padding:0; box-sizing:border-box; }
+:root{ --bg: #0c0a07; --bg2: #11100c; --surface: #12100c; --text: #e8e2d5; --text-dim: #b9b2a3; --gold: #c8803c; --border: #2a251f; --panel-gap: 6px; }
+body{ height:100vh; overflow:hidden; background:var(--bg); font-family:'Syne',sans-serif; }
+html, body { overflow-x: hidden; }
+#vp::-webkit-scrollbar { display: none; }
+#vp{ -ms-overflow-style: none; scrollbar-width: none; overflow-x: auto; overflow-y: hidden; }
+nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative; z-index:500; width:100%; display:flex; justify-content:space-between; align-items:center; padding:0 36px; height:60px; border-bottom:1px solid var(--border); }
+.nav-logo{ font-family:'Syne',sans-serif; font-weight:500; font-size:18px; letter-spacing:-0.02em; color:var(--text); text-decoration:none; cursor:pointer; transition:opacity 0.2s; }
+.nav-logo:hover{ opacity:0.8; }
+.nav-logo span{ color:var(--gold); }
+.nav-mid{ white-space: nowrap; }
+.nav-cat{ font-size:9px; letter-spacing:.28em; text-transform:uppercase; color:var(--text-dim); font-weight:400; }
+.nav-links{ display:flex; gap:32px; list-style:none; align-items:center; }
+.nav-links li a{ font-size:11px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); text-decoration:none; transition:color .2s; cursor:pointer; }
+.nav-links li a:hover{ color:var(--gold); }
+.lang-btn{ background:transparent; border:1px solid var(--border); color:var(--text); padding:4px 12px; border-radius:30px; font-size:10px; cursor:pointer; font-weight:500; transition:all .2s; font-family:'Syne',sans-serif; }
+.lang-btn:hover{ border-color:var(--gold); color:var(--gold); }
+#prog-wrap{ position:fixed; top:60px; left:0; right:0; height:1.5px; background:var(--border); z-index:600; }
+#prog{ height:100%; width:0%; background:var(--gold); transition:width .04s linear; }
+#counter{ position:fixed; bottom:22px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:14px; z-index:600; background:rgba(12,10,7,.4); backdrop-filter:blur(4px); padding:6px 14px; border-radius:40px; }
+#cnt-cur{ font-family:'Fraunces',serif; font-style:italic; font-size:14px; font-weight:200; color:var(--gold); min-width:24px; text-align:right; }
+.cnt-track{ width:48px; height:1px; background:var(--border); position:relative; overflow:hidden; }
+.cnt-fill{ position:absolute; top:0; left:0; height:100%; background:var(--gold); transition:width .4s ease; }
+#cnt-tot{ font-family:'Fraunces',serif; font-style:italic; font-size:14px; font-weight:200; color:var(--text-dim); min-width:24px; }
+#hint{ position:fixed; bottom:22px; right:44px; z-index:600; display:flex; align-items:center; gap:10px; transition:opacity .7s; background:rgba(12,10,7,.3); padding:5px 12px; border-radius:40px; backdrop-filter:blur(4px); }
+#hint span{ font-size:9px; font-weight:400; letter-spacing:.25em; text-transform:uppercase; color:var(--text-dim); }
+.h-line{ width:32px; height:1px; background:var(--gold); position:relative; overflow:hidden; }
+.h-line::after{ content:'';position:absolute; top:0; left:-100%; width:100%; height:100%; background:var(--text); animation:slide 2s ease-in-out infinite; }
+@keyframes slide{ 0%{left:-100%} 50%{left:100%} 100%{left:100%} }
+#vp{ position:fixed; inset:0; top:61.5px; overflow-x:auto; overflow-y:hidden; scroll-behavior:smooth; scrollbar-width: none; }
+#track{ display:flex; flex-direction:row; height:calc(100vh - 61.5px); will-change:transform; gap: var(--panel-gap); padding-right: var(--panel-gap); }
+.p{ flex-shrink:0; height:100%; position:relative; overflow:hidden; }
+.pi img{ width:100%; height:100%; object-fit:cover; display:block; transition:filter .5s; cursor:pointer; }
+.pi img:hover{ filter:brightness(1.02) contrast(1.02); }
+.hero-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+.hero-veil{ position:absolute; inset:0; background: linear-gradient(105deg, rgba(12,10,7,.45) 0%, transparent 48%), linear-gradient(to top, rgba(12,10,7,.72) 0%, transparent 44%); pointer-events:none; }
+.hero-foot{ position:absolute; bottom:0; left:0; right:0; padding:44px 52px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
+.h-title{ font-family:'Fraunces',serif; font-style:italic; font-weight:200; font-size:clamp(72px,10vw,128px); line-height:.88; letter-spacing:-.02em; color:var(--text); }
+.h-eyebrow{ font-size:9px; font-weight:500; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:block; }
+.h-sub{ font-family:'Fraunces',serif; font-style:italic; font-weight:200; font-size:17px; color:rgba(232,226,213,.7); }
+.info{ background:var(--surface); border-right:1px solid var(--border); border-left:2px solid var(--gold); display:flex; flex-direction:column; justify-content:space-between; padding:52px 46px 46px; overflow-y:auto; scrollbar-width: thin; }
+.info::-webkit-scrollbar{ width:3px; background:var(--border); }
+.info::-webkit-scrollbar-thumb{ background:var(--gold); }
+.i-label{ font-size:9px; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--text-dim); }
+.i-rule{ display:flex; align-items:center; gap:12px; margin:18px 0 22px; }
+.i-rule::before{ content:''; width:20px; height:1px; background:var(--gold); }
+.i-rule::after{ content:''; flex:1; height:1px; background:var(--border); }
+.i-sub{ font-family:'Fraunces',serif; font-style:italic; font-weight:200; font-size:13px; color:var(--text-dim); line-height:1.6; margin-bottom:10px; }
+.i-title{ font-family:'Fraunces',serif; font-style:italic; font-weight:200; font-size:clamp(58px,5.5vw,80px); line-height:.9; letter-spacing:-.02em; color:var(--text); margin-bottom:36px; }
+.i-body{ font-size:12.5px; font-weight:300; line-height:1.9; color:var(--text-dim); margin-bottom:40px; }
+.svc-list{ list-style:none; border-top:1px solid var(--border); }
+.svc-item{ display:flex; align-items:center; justify-content:space-between; padding:11px 0; border-bottom:1px solid var(--border); transition:padding-left .3s; position:relative; }
+.svc-item:hover{ padding-left:8px; }
+.svc-item::before{ content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:0; height:1px; background:var(--gold); transition:width .3s; }
+.svc-item:hover::before{ width:6px; }
+.svc-name{ font-size:11.5px; font-weight:400; letter-spacing:.03em; color:var(--text); }
+.svc-num{ font-family:'Fraunces',serif; font-style:italic; font-weight:200; font-size:13px; color:var(--gold); }
+.area-blk{ margin-top:38px; }
+.area-num{ font-family:'Fraunces',serif; font-style:italic; font-weight:200; font-size:54px; line-height:1; letter-spacing:-.02em; color:var(--text); }
+.area-unit{ font-family:'Fraunces',serif; font-style:italic; font-weight:200; font-size:16px; color:var(--gold); display:inline-block; margin-left:5px; }
+.area-label{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--text-dim); margin-top:10px; display:block; }
+.sec-lbl{ position:absolute; bottom:36px; left:28px; z-index:2; display:flex; align-items:center; gap:10px; pointer-events:none; }
+.sec-lbl-num{ font-family:'Fraunces',serif; font-style:italic; font-weight:200; font-size:11px; color:rgba(232,226,213,.5); }
+.sec-lbl-name{ font-size:9px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:rgba(232,226,213,.4); }
+.sec-lbl::before{ content:''; width:18px; height:1px; background:rgba(200,128,60,.4); }
+.wm{ position:absolute; bottom:-10px; right:-8px; font-family:'Fraunces',serif; font-style:italic; font-weight:200; font-size:clamp(130px,16vw,200px); line-height:1; color:rgba(255,255,255,.05); pointer-events:none; z-index:1; letter-spacing:-.04em; user-select:none; }
+.concept{ background:var(--bg2); border-left:1px solid var(--border); border-right:1px solid var(--border); display:flex; flex-direction:column; justify-content:center; padding:64px 44px; position:relative; overflow:hidden; }
+.concept-bg{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:'Fraunces',serif; font-style:italic; font-weight:200; font-size:clamp(100px,14vw,160px); letter-spacing:-.04em; white-space:nowrap; color:rgba(232,226,213,.04); pointer-events:none; user-select:none; line-height:1; }
+.concept-label{ font-size:9px; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:28px; display:flex; align-items:center; gap:12px; }
+.concept-label::after{ content:''; width:24px; height:1px; background:var(--gold); opacity:.4; }
+.qmark{ font-family:'Fraunces',serif; font-weight:200; font-size:64px; line-height:.65; color:var(--gold); opacity:.35; margin-bottom:10px; }
+.qtext{ font-family:'Fraunces',serif; font-style:italic; font-weight:200; font-size:clamp(18px,2vw,22px); line-height:1.65; color:var(--text); margin-bottom:38px; }
+.qtext strong{ font-style:normal; font-weight:300; color:var(--gold); }
+.mat-row{ display:flex; flex-wrap:wrap; gap:6px; margin-top:32px; }
+.mat{ font-size:9px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); padding:5px 12px; border:1px solid var(--border); transition:all .3s; cursor:default; background:transparent; }
+.mat:hover{ background:var(--gold); color:var(--bg); border-color:var(--gold); }
+.end-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+.end-veil{ position:absolute; inset:0; background:linear-gradient(to top, rgba(12,10,7,.82) 0%, rgba(12,10,7,.18) 55%, transparent 100%); pointer-events:none; }
+.end-foot{ position:absolute; bottom:0; left:0; right:0; padding:52px 56px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
+.end-q{ font-family:'Fraunces',serif; font-style:italic; font-weight:200; font-size:clamp(18px,2.4vw,30px); line-height:1.5; color:var(--text); max-width:520px; }
+.end-meta{ text-align:right; }
+.end-tag{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; display:block; }
+.end-name{ font-family:'Fraunces',serif; font-style:italic; font-weight:200; font-size:18px; color:rgba(232,226,213,.75); }
+.back-projects-btn {
+  position: fixed;
+  top: 72px;
+  left: 28px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(12, 10, 7, 0.85);
+  backdrop-filter: blur(16px);
+  padding: 8px 20px;
+  border-radius: 40px;
+  border: 1px solid rgba(200, 128, 60, 0.6);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+}
+.back-projects-btn:hover {
+  background: rgba(200, 128, 60, 0.25);
+  border-color: var(--gold);
+  gap: 14px;
+  letter-spacing: 0.24em;
+  color: #fff;
+}
+.back-projects-btn::before {
+  content: "←";
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gold);
+  transition: transform 0.2s;
+}
+.back-projects-btn:hover::before {
+  transform: translateX(-4px);
+}
+.lb-overlay{ position:fixed; inset:0; background:rgba(8,6,4,.96); backdrop-filter:blur(28px); z-index:2000; display:flex; align-items:center; justify-content:center; visibility:hidden; opacity:0; transition:visibility .25s, opacity .25s; cursor:pointer; }
+.lb-overlay.active{ visibility:visible; opacity:1; }
+.lb-img{ max-width:90vw; max-height:85vh; object-fit:contain; box-shadow:0 25px 45px rgba(0,0,0,.4); border-radius:2px; cursor:default; }
+.lb-close{ position:fixed; top:28px; right:32px; width:44px; height:44px; background:rgba(255,255,255,.05); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:200; color:var(--gold); transition:all .2s; cursor:pointer; backdrop-filter:blur(8px); border:1px solid rgba(232,226,213,.2); }
+.lb-close:hover{ background:rgba(200,128,60,.2); transform:scale(1.02); color:#fff; }
+.lb-caption{ position:fixed; bottom:24px; left:0; right:0; text-align:center; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,226,213,.6); font-weight:300; pointer-events:none; }
+@media (max-width:720px){
+  .back-projects-btn{ top: 68px; left: 16px; padding: 6px 16px; font-size: 9px; gap: 8px; }
+  .hero-foot{ padding: 28px 28px; }
+  .info{ padding: 32px 24px; width: 380px; }
+  .lb-close{ top:18px; right:20px; width:38px; height:38px; font-size:26px; }
+  .lb-img{ max-width:95vw; max-height:75vh; }
+  #counter{ bottom: 16px; padding: 4px 12px; }
+  #hint{ bottom: 16px; right: 20px; }
+  nav{ padding:0 16px; }
+  .nav-links{ gap:16px; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo" id="logo-home">Mars<span>.</span>Bansiti</a>
+  <div class="nav-mid">
+    <span class="nav-cat" data-en="LEMON Interior Design · Kyiv" data-vi="LEMON Interior Design · Kyiv">LEMON Interior Design · Kyiv</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="../index.html" id="nav-home" data-en="Home" data-vi="Trang chủ">Trang chủ</a></li>
+    <li><a href="../projects.html" id="nav-projects" data-en="Projects" data-vi="Dự án">Dự án</a></li>
+    <li><a href="../about.html" id="nav-about" data-en="About me" data-vi="Về tôi">Về tôi</a></li>
+    <li><button class="lang-btn" id="lang-btn">EN</button></li>
+  </ul>
+</nav>
+<div id="prog-wrap"><div id="prog"></div></div>
+<a href="../projects.html" id="backToProjectsBtn" class="back-projects-btn" data-en="← Back to projects" data-vi="← Quay lại dự án">← Quay lại dự án</a>
+<div id="vp"><div id="track">
+  <!-- HERO panel -->
+  <div class="p pi" style="width:100vw" data-i="0">
+    <img class="hero-img" src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-06-min.png" alt="DN49 Nyvky-Park Kyiv hero view" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-06-min.png">
+    <div class="hero-veil"></div>
+    <div class="hero-foot">
+      <div>
+        <span class="h-eyebrow" data-en="Kyiv · Beresteiskyi Ave, 67" data-vi="Kyiv · Đại lộ Beresteiskyi, 67">Kyiv · Đại lộ Beresteiskyi, 67</span>
+        <h1 class="h-title">DN49</h1>
+      </div>
+      <div style="text-align:right;padding-bottom:6px">
+        <span class="h-eyebrow" style="text-align:right" data-en="RC Nyvky-Park" data-vi="Khu phức hợp Nyvky-Park">Khu phức hợp Nyvky-Park</span>
+        <p class="h-sub" data-en="Modern interior · Turnkey renovation · 114 m²" data-vi="Nội thất hiện đại · Cải tạo chìa khóa trao tay · 114 m²">Nội thất hiện đại · Cải tạo chìa khóa trao tay · 114 m²</p>
+      </div>
+    </div>
+    <span class="wm">01</span>
+  </div>
+  <!-- INFO panel -->
+  <div class="p info" style="width:440px">
+    <div>
+      <p class="i-label" data-en="LEMON Interior Design · Turnkey renovation" data-vi="LEMON Interior Design · Cải tạo chìa khóa trao tay">LEMON Interior Design · Cải tạo chìa khóa trao tay</p>
+      <div class="i-rule"></div>
+      <p class="i-sub" data-en="114 m² · Open-plan kitchen & living · 2 bedrooms · Wardrobe · Bathrooms" data-vi="114 m² · Bếp & phòng khách mở · 2 phòng ngủ · Phòng thay đồ · Phòng tắm">114 m² · Bếp & phòng khách mở · 2 phòng ngủ · Phòng thay đồ · Phòng tắm</p>
+      <h2 class="i-title">DN49</h2>
+      <div class="i-body">
+        <p data-en="Exclusive designer renovation of apartments and commercial real estate! The full complex of works, from the development of drawings to the selection of materials. The DN49 project is a modern interior design execution located in the 'Nyvky-Park' residential complex (ЖК Нивки-Парк) in Kyiv, Ukraine. The apartment spans a total area of 114 square meters. The project showcases LEMON Interior Design's comprehensive turnkey renovation and design capabilities — a large kitchen and living area, primary suite, secondary bedroom, dedicated wardrobe, and multiple bathrooms." data-vi="Cải tạo thiết kế độc quyền căn hộ và bất động sản thương mại! Toàn bộ quy trình công việc, từ phát triển bản vẽ đến lựa chọn vật liệu. Dự án DN49 là một thiết kế nội thất hiện đại được thực hiện tại khu dân cư 'Nyvky-Park' (ЖК Нивки-Парк) ở Kyiv, Ukraine. Căn hộ có tổng diện tích 114 mét vuông. Dự án thể hiện năng lực cải tạo chìa khóa trao tay và thiết kế toàn diện của LEMON Interior Design — khu vực bếp và phòng khách rộng rãi, phòng master, phòng ngủ phụ, phòng thay đồ riêng và nhiều phòng tắm.">Cải tạo thiết kế độc quyền căn hộ và bất động sản thương mại! Toàn bộ quy trình công việc, từ phát triển bản vẽ đến lựa chọn vật liệu. Dự án DN49 là một thiết kế nội thất hiện đại được thực hiện tại khu dân cư 'Nyvky-Park' (ЖК Нивки-Парк) ở Kyiv, Ukraine. Căn hộ có tổng diện tích 114 mét vuông. Dự án thể hiện năng lực cải tạo chìa khóa trao tay và thiết kế toàn diện của LEMON Interior Design — khu vực bếp và phòng khách rộng rãi, phòng master, phòng ngủ phụ, phòng thay đồ riêng và nhiều phòng tắm.</p>
+      </div>
+      <ul class="svc-list">
+        <li class="svc-item"><span class="svc-name" data-en="Interior Design" data-vi="Thiết kế nội thất">Thiết kế nội thất</span><span class="svc-num">01</span></li>
+        <li class="svc-item"><span class="svc-name" data-en="Turnkey Renovation" data-vi="Cải tạo chìa khóa trao tay">Cải tạo chìa khóa trao tay</span><span class="svc-num">02</span></li>
+        <li class="svc-item"><span class="svc-name" data-en="Space Zoning" data-vi="Phân vùng không gian">Phân vùng không gian</span><span class="svc-num">03</span></li>
+      </ul>
+    </div>
+    <div class="area-blk">
+      <span class="area-num">114</span><span class="area-unit">m²</span>
+      <span class="area-label" data-en="Spacious apartment layout" data-vi="Bố trí căn hộ rộng rãi">Bố trí căn hộ rộng rãi</span>
+      <div style="margin-top:12px; border-top:1px solid var(--border); padding-top:14px;">
+        <span class="area-label" style="margin-top:0" data-en="Kitchen · Living · Primary bedroom · Secondary bedroom · Wardrobe · Bathrooms · WC" data-vi="Bếp · Phòng khách · Phòng ngủ master · Phòng ngủ phụ · Phòng thay đồ · Phòng tắm · WC">Bếp · Phòng khách · Phòng ngủ master · Phòng ngủ phụ · Phòng thay đồ · Phòng tắm · WC</span>
+      </div>
+    </div>
+  </div>
+  <!-- GALLERY: all 22 high-res images from DN49 -->
+  <div class="p pi" style="width:52vw" data-i="1"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-05-min.png" alt="Living area open concept" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-05-min.png"><div class="sec-lbl"><span class="sec-lbl-num">02</span><span class="sec-lbl-name" data-en="Living room · Spacious layout" data-vi="Phòng khách · Bố trí rộng rãi">Phòng khách · Bố trí rộng rãi</span></div><span class="wm">02</span></div>
+  <div class="p pi" style="width:48vw" data-i="2"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-07-min.png" alt="Kitchen and dining zone" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-07-min.png"><div class="sec-lbl"><span class="sec-lbl-num">03</span><span class="sec-lbl-name" data-en="Kitchen · Sleek cabinetry" data-vi="Bếp · Tủ bếp sang trọng">Bếp · Tủ bếp sang trọng</span></div><span class="wm">03</span></div>
+  <div class="p pi" style="width:46vw" data-i="3"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-08-min.png" alt="Dining area with modern table" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-08-min.png"><div class="sec-lbl"><span class="sec-lbl-num">04</span><span class="sec-lbl-name" data-en="Dining · Elegant setting" data-vi="Phòng ăn · Không gian thanh lịch">Phòng ăn · Không gian thanh lịch</span></div><span class="wm">04</span></div>
+  <div class="p pi" style="width:44vw" data-i="4"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-09-min.png" alt="Living room corner with natural light" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-09-min.png"><div class="sec-lbl"><span class="sec-lbl-num">05</span><span class="sec-lbl-name" data-en="Living · Cozy textures" data-vi="Phòng khách · Kết cấu ấm cúng">Phòng khách · Kết cấu ấm cúng</span></div><span class="wm">05</span></div>
+  <div class="p pi" style="width:50vw" data-i="5"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-10-min.png" alt="Kitchen island and modern finishes" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-10-min.png"><div class="sec-lbl"><span class="sec-lbl-num">06</span><span class="sec-lbl-name" data-en="Kitchen · Functional elegance" data-vi="Bếp · Tiện nghi thanh lịch">Bếp · Tiện nghi thanh lịch</span></div><span class="wm">06</span></div>
+  <div class="p pi" style="width:42vw" data-i="6"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-11-min.png" alt="Living room panoramic view" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-11-min.png"><div class="sec-lbl"><span class="sec-lbl-num">07</span><span class="sec-lbl-name" data-en="Living · Warm ambiance" data-vi="Phòng khách · Không gian ấm áp">Phòng khách · Không gian ấm áp</span></div><span class="wm">07</span></div>
+  <div class="p pi" style="width:48vw" data-i="7"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-12-min.png" alt="Primary bedroom serene" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-12-min.png"><div class="sec-lbl"><span class="sec-lbl-num">08</span><span class="sec-lbl-name" data-en="Primary Bedroom · Retreat" data-vi="Phòng ngủ master · Nơi nghỉ dưỡng">Phòng ngủ master · Nơi nghỉ dưỡng</span></div><span class="wm">08</span></div>
+  <div class="p pi" style="width:44vw" data-i="8"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-13-min-1.png" alt="Bedroom with soft neutrals" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-13-min-1.png"><div class="sec-lbl"><span class="sec-lbl-num">09</span><span class="sec-lbl-name" data-en="Bedroom · Calm atmosphere" data-vi="Phòng ngủ · Bầu không khí yên bình">Phòng ngủ · Bầu không khí yên bình</span></div><span class="wm">09</span></div>
+  <div class="p pi" style="width:46vw" data-i="9"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-14-min.png" alt="Primary bedroom details" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-14-min.png"><div class="sec-lbl"><span class="sec-lbl-num">10</span><span class="sec-lbl-name" data-en="Bedroom · Textured wall" data-vi="Phòng ngủ · Tường họa tiết">Phòng ngủ · Tường họa tiết</span></div><span class="wm">10</span></div>
+  <div class="p pi" style="width:42vw" data-i="10"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-15-min.png" alt="Secondary bedroom cozy" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-15-min.png"><div class="sec-lbl"><span class="sec-lbl-num">11</span><span class="sec-lbl-name" data-en="Guest Bedroom · Cozy comfort" data-vi="Phòng khách · Tiện nghi ấm cúng">Phòng khách · Tiện nghi ấm cúng</span></div><span class="wm">11</span></div>
+  <div class="p pi" style="width:48vw" data-i="11"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-16-min.png" alt="Wardrobe walk-in storage" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-16-min.png"><div class="sec-lbl"><span class="sec-lbl-num">12</span><span class="sec-lbl-name" data-en="Walk-in Wardrobe" data-vi="Phòng thay đồ">Phòng thay đồ</span></div><span class="wm">12</span></div>
+  <div class="p pi" style="width:44vw" data-i="12"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-17-min.png" alt="Bathroom modern luxury" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-17-min.png"><div class="sec-lbl"><span class="sec-lbl-num">13</span><span class="sec-lbl-name" data-en="Bathroom · Stone finishes" data-vi="Phòng tắm · Hoàn thiện đá tự nhiên">Phòng tắm · Hoàn thiện đá tự nhiên</span></div><span class="wm">13</span></div>
+  <div class="p pi" style="width:46vw" data-i="13"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-18-min.png" alt="Bathroom elegant details" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-18-min.png"><div class="sec-lbl"><span class="sec-lbl-num">14</span><span class="sec-lbl-name" data-en="Bathroom · Refined design" data-vi="Phòng tắm · Thiết kế tinh tế">Phòng tắm · Thiết kế tinh tế</span></div><span class="wm">14</span></div>
+  <div class="p pi" style="width:42vw" data-i="14"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-19-min.png" alt="WC minimalist" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-19-min.png"><div class="sec-lbl"><span class="sec-lbl-num">15</span><span class="sec-lbl-name" data-en="WC · Minimalist" data-vi="WC · Tối giản">WC · Tối giản</span></div><span class="wm">15</span></div>
+  <div class="p pi" style="width:48vw" data-i="15"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-21-min.png" alt="Second bathroom view" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-21-min.png"><div class="sec-lbl"><span class="sec-lbl-num">16</span><span class="sec-lbl-name" data-en="Bathroom · Clean lines" data-vi="Phòng tắm · Đường nét tinh gọn">Phòng tắm · Đường nét tinh gọn</span></div><span class="wm">16</span></div>
+  <div class="p pi" style="width:44vw" data-i="16"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-22-min.png" alt="Kitchen corner detail" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-22-min.png"><div class="sec-lbl"><span class="sec-lbl-num">17</span><span class="sec-lbl-name" data-en="Kitchen · Contemporary" data-vi="Bếp · Đương đại">Bếp · Đương đại</span></div><span class="wm">17</span></div>
+  <div class="p pi" style="width:46vw" data-i="17"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-23-min-1.png" alt="Living room decorative elements" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-23-min-1.png"><div class="sec-lbl"><span class="sec-lbl-num">18</span><span class="sec-lbl-name" data-en="Living · Details" data-vi="Phòng khách · Chi tiết">Phòng khách · Chi tiết</span></div><span class="wm">18</span></div>
+  <div class="p pi" style="width:42vw" data-i="18"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-24-min-2.png" alt="Bedroom accent wall" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-24-min-2.png"><div class="sec-lbl"><span class="sec-lbl-num">19</span><span class="sec-lbl-name" data-en="Bedroom · Warm neutrals" data-vi="Phòng ngủ · Trung tính ấm áp">Phòng ngủ · Trung tính ấm áp</span></div><span class="wm">19</span></div>
+  <div class="p pi" style="width:48vw" data-i="19"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-25-min-1.png" alt="Dressing room organized" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-25-min-1.png"><div class="sec-lbl"><span class="sec-lbl-num">20</span><span class="sec-lbl-name" data-en="Dressing Room · Elegant storage" data-vi="Phòng thay đồ · Lưu trữ thanh lịch">Phòng thay đồ · Lưu trữ thanh lịch</span></div><span class="wm">20</span></div>
+  <div class="p pi" style="width:44vw" data-i="20"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-26-min.png" alt="Second bedroom view" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-26-min.png"><div class="sec-lbl"><span class="sec-lbl-num">21</span><span class="sec-lbl-name" data-en="Guest Room · Soft tones" data-vi="Phòng khách · Tông màu nhẹ nhàng">Phòng khách · Tông màu nhẹ nhàng</span></div><span class="wm">21</span></div>
+  <div class="p pi" style="width:46vw" data-i="21"><img src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-20-min.png" alt="Final living space overview" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-20-min.png"><div class="sec-lbl"><span class="sec-lbl-num">22</span><span class="sec-lbl-name" data-en="Living · Full panorama" data-vi="Phòng khách · Toàn cảnh">Phòng khách · Toàn cảnh</span></div><span class="wm">22</span></div>
+  <!-- CONCEPT PANEL -->
+  <div class="p concept" style="width:400px">
+    <div class="concept-bg">Nyvky-Park</div>
+    <div class="concept-label" data-en="Design Philosophy" data-vi="Triết lý thiết kế">Triết lý thiết kế</div>
+    <div class="qmark">"</div>
+    <p class="qtext" data-en="Turnkey renovation showcasing <strong>comprehensive space zoning</strong> — a large kitchen and living area, primary suite, secondary bedroom, dedicated wardrobe, and multiple bathrooms, all within 114 square meters at RC Nyvky-Park." data-vi="Cải tạo chìa khóa trao tay thể hiện <strong>phân vùng không gian toàn diện</strong> — khu vực bếp và phòng khách rộng rãi, phòng master, phòng ngủ phụ, phòng thay đồ riêng và nhiều phòng tắm, tất cả trong 114 mét vuông tại khu phức hợp Nyvky-Park.">Cải tạo chìa khóa trao tay thể hiện <strong>phân vùng không gian toàn diện</strong> — khu vực bếp và phòng khách rộng rãi, phòng master, phòng ngủ phụ, phòng thay đồ riêng và nhiều phòng tắm, tất cả trong 114 mét vuông tại khu phức hợp Nyvky-Park.</p>
+    <div class="mat-row"><span class="mat" data-en="Modern" data-vi="Hiện đại">Hiện đại</span><span class="mat" data-en="Sophisticated" data-vi="Tinh tế">Tinh tế</span><span class="mat" data-en="Functional" data-vi="Tiện dụng">Tiện dụng</span><span class="mat" data-en="Elegant" data-vi="Thanh lịch">Thanh lịch</span></div>
+  </div>
+  <!-- CLOSING PANEL -->
+  <div class="p pi" style="width:86vw" data-i="22">
+    <img class="end-img" src="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-06-min.png" alt="DN49 - modern interior final view" data-full="https://lemon-interior.com.ua/wp-content/uploads/2024/01/pissarro-06-min.png">
+    <div class="end-veil"></div>
+    <div class="end-foot">
+      <p class="end-q" data-en="The DN49 project at RC Nyvky-Park (Beresteiskyi Ave, 67, Kyiv) embodies LEMON Interior Design's turnkey renovation expertise — a spacious 114 m² apartment with open-plan living, primary suite, guest bedroom, wardrobe, and refined bathrooms, captured through premium visualizations." data-vi="Dự án DN49 tại khu phức hợp Nyvky-Park (Đại lộ Beresteiskyi 67, Kyiv) thể hiện chuyên môn cải tạo chìa khóa trao tay của LEMON Interior Design — căn hộ rộng 114 m² với không gian sống mở, phòng master, phòng khách, phòng thay đồ và phòng tắm tinh tế, được ghi lại qua các hình ảnh trực quan cao cấp.">Dự án DN49 tại khu phức hợp Nyvky-Park (Đại lộ Beresteiskyi 67, Kyiv) thể hiện chuyên môn cải tạo chìa khóa trao tay của LEMON Interior Design — căn hộ rộng 114 m² với không gian sống mở, phòng master, phòng khách, phòng thay đồ và phòng tắm tinh tế, được ghi lại qua các hình ảnh trực quan cao cấp.</p>
+      <div class="end-meta"><span class="end-tag" data-en="DN49 · Nyvky-Park · Kyiv" data-vi="DN49 · Nyvky-Park · Kyiv">DN49 · Nyvky-Park · Kyiv</span><p class="end-name" data-en="LEMON Interior Design · 114 m²" data-vi="LEMON Interior Design · 114 m²">LEMON Interior Design · 114 m²</p></div>
+    </div>
+    <span class="wm" style="font-size:clamp(100px,13vw,170px)">23</span>
+  </div>
+</div></div>
+<div id="counter"><span id="cnt-cur">01</span><div class="cnt-track"><div class="cnt-fill" id="cnt-fill"></div></div><span id="cnt-tot">23</span></div>
+<div id="hint"><span data-en="Scroll" data-vi="Cuộn">Cuộn</span><div class="h-line"></div></div>
+<div id="lightbox" class="lb-overlay"><div class="lb-close" id="lbClose">✕</div><img id="lbImg" class="lb-img" src="" alt="Full size view"><div id="lbCaption" class="lb-caption"></div></div>
+<script>
+// Navigation helper - simulate page navigation
+function navigateTo(page) {
+  const urls = { home: '../index.html', projects: '../projects.html', about: '../about.html' };
+  if (urls[page]) window.location.href = urls[page];
+}
+
+// Bilingual engine
+let currentLang = 'vi';
+function updateLanguage() {
+  const elements = document.querySelectorAll('[data-en][data-vi]');
+  elements.forEach(el => {
+    if (currentLang === 'vi') {
+      el.textContent = el.getAttribute('data-vi');
+    } else {
+      el.textContent = el.getAttribute('data-en');
+    }
+  });
+  const btn = document.getElementById('lang-btn');
+  if (btn) btn.textContent = currentLang === 'vi' ? 'EN' : 'VI';
+}
+function toggleLang() {
+  currentLang = currentLang === 'vi' ? 'en' : 'vi';
+  updateLanguage();
+}
+
+// Smooth scroll horizontal + progress bar
+const track = document.getElementById('track'), vp = document.getElementById('vp'), prog = document.getElementById('prog');
+const hint = document.getElementById('hint'), cntCur = document.getElementById('cnt-cur'), cntFill = document.getElementById('cnt-fill');
+let tx=0, cx=0, maxS=0;
+const piEls = Array.from(document.querySelectorAll('.p'));
+const TOTAL = piEls.length;
+document.getElementById('cnt-tot').textContent = String(TOTAL).padStart(2,'0');
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function getMax(){ return track.scrollWidth - vp.offsetWidth; }
+window.addEventListener('wheel', e=>{ e.preventDefault(); maxS=getMax(); tx=clamp(tx+e.deltaY*1.55+e.deltaX,0,maxS); },{passive:false});
+
+// Lightbox
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbClose = document.getElementById('lbClose');
+const lbCaption = document.getElementById('lbCaption');
+function openLightbox(imgElement) {
+  const fullUrl = imgElement.getAttribute('data-full') || imgElement.src;
+  lbImg.src = fullUrl;
+  let captionText = imgElement.alt || '';
+  const parentPanel = imgElement.closest('.p');
+  if(parentPanel){
+    const secLabelSpan = parentPanel.querySelector('.sec-lbl-name');
+    if(secLabelSpan) captionText = (currentLang === 'vi' ? secLabelSpan.getAttribute('data-vi') : secLabelSpan.getAttribute('data-en')) || secLabelSpan.innerText;
+    else if(parentPanel.classList.contains('pi') && !secLabelSpan){
+      const heroEyebrow = parentPanel.querySelector('.h-eyebrow');
+      if(heroEyebrow) captionText = (currentLang === 'vi' ? heroEyebrow.getAttribute('data-vi') : heroEyebrow.getAttribute('data-en')) || heroEyebrow.innerText;
+    }
+  }
+  lbCaption.textContent = captionText + ' · DN49';
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  lightbox.classList.remove('active');
+  setTimeout(()=>{ lbImg.src = ''; }, 200);
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.pi img, .hero-img, .end-img').forEach(img => {
+  img.style.cursor = 'pointer';
+  img.addEventListener('click', (e) => { e.stopPropagation(); openLightbox(img); });
+});
+lbClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => { if(lightbox.classList.contains('active') && e.key === 'Escape') closeLightbox(); });
+
+// Animation loop
+(function loop(){
+  cx+=(tx-cx)*.09; if(Math.abs(tx-cx)<0.05) cx=tx;
+  track.style.transform=`translateX(${-cx}px)`;
+  maxS=getMax(); prog.style.width=(maxS>0?(cx/maxS)*100:0)+'%';
+  hint.style.opacity=cx>100?'0':'1';
+  let visIdx=0, bestOverlap=-1;
+  piEls.forEach((p,i)=>{
+    const r=p.getBoundingClientRect();
+    const overlap=Math.min(r.right,window.innerWidth)-Math.max(r.left,0);
+    if(overlap>bestOverlap){bestOverlap=overlap;visIdx=i;}
+  });
+  cntCur.textContent=String(visIdx+1).padStart(2,'0');
+  cntFill.style.width=((visIdx+1)/TOTAL*100)+'%';
+  requestAnimationFrame(loop);
+})();
+
+// ----- BUTTON EVENT HANDLERS -----
+// Back to Projects button
+const backBtn = document.getElementById('backToProjectsBtn');
+backBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  navigateTo('projects');
+});
+
+// Navigation links
+document.getElementById('nav-home').addEventListener('click', (e) => {
+  e.preventDefault();
+  navigateTo('home');
+});
+document.getElementById('nav-projects').addEventListener('click', (e) => {
+  e.preventDefault();
+  navigateTo('projects');
+});
+document.getElementById('nav-about').addEventListener('click', (e) => {
+  e.preventDefault();
+  navigateTo('about');
+});
+document.getElementById('logo-home').addEventListener('click', (e) => {
+  e.preventDefault();
+  navigateTo('home');
+});
+
+// Language toggle
+document.getElementById('lang-btn').addEventListener('click', toggleLang);
+updateLanguage();
+</script>
+</body>
+</html>
