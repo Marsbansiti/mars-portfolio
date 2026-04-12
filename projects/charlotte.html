@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>House in Charlotte | Photorealistic ArchViz · Nowak Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300;1,9..144,400&family=Syne:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,200;0,300;0,400;0,600;1,200;1,300;1,400;1,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/shared.css">
 <style>
 *{ margin:0; padding:0; box-sizing:border-box; }
@@ -31,7 +31,7 @@ nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative
 .cnt-fill{ position:absolute; top:0; left:0; height:100%; background:var(--gold); transition:width .4s ease; }
 #cnt-tot{ font-family:var(--serif); font-style:italic; font-size:14px; font-weight:200; color:var(--text-dim); min-width:24px; }
 #hint{ position:fixed; bottom:22px; right:44px; z-index:600; display:flex; align-items:center; gap:10px; transition:opacity .7s; background:rgba(12,10,7,.3); padding:5px 12px; border-radius:40px; backdrop-filter:blur(4px); }
-#hint span{ font-size:9px; font-weight:400; letter-spacing:.25em; text-transform:uppercase; color:var(--text-dim); }
+#hint span{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.25em; text-transform:uppercase; color:var(--text-dim); }
 .h-line{ width:32px; height:1px; background:var(--gold); position:relative; overflow:hidden; }
 .h-line::after{ content:'';position:absolute; top:0; left:-100%; width:100%; height:100%; background:var(--text); animation:slide 2s ease-in-out infinite; }
 @keyframes slide{ 0%{left:-100%} 50%{left:100%} 100%{left:100%} }
@@ -44,12 +44,12 @@ nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative
 .hero-veil{ position:absolute; inset:0; background: linear-gradient(105deg, rgba(12,10,7,.45) 0%, transparent 48%), linear-gradient(to top, rgba(12,10,7,.72) 0%, transparent 44%); pointer-events:none; }
 .hero-foot{ position:absolute; bottom:0; left:0; right:0; padding:44px 52px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
 .h-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(72px,10vw,128px); line-height:.88; letter-spacing:-.02em; color:var(--text); }
-.h-eyebrow{ font-size:9px; font-weight:500; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:block; }
+.h-eyebrow{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:block; }
 .h-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:17px; color:rgba(232,226,213,.7); }
 .info{ background:var(--surface); border-right:1px solid var(--border); border-left:2px solid var(--gold); display:flex; flex-direction:column; justify-content:space-between; padding:52px 46px 46px; overflow-y:auto; scrollbar-width: thin; }
 .info::-webkit-scrollbar{ width:3px; background:var(--border); }
 .info::-webkit-scrollbar-thumb{ background:var(--gold); }
-.i-label{ font-size:9px; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--text-dim); }
+.i-label{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.28em; text-transform:uppercase; color:var(--text-dim); }
 .i-rule{ display:flex; align-items:center; gap:12px; margin:18px 0 22px; }
 .i-rule::before{ content:''; width:20px; height:1px; background:var(--gold); }
 .i-rule::after{ content:''; flex:1; height:1px; background:var(--border); }
@@ -66,28 +66,28 @@ nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative
 .area-blk{ margin-top:38px; }
 .area-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:54px; line-height:1; letter-spacing:-.02em; color:var(--text); }
 .area-unit{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:16px; color:var(--gold); display:inline-block; margin-left:5px; }
-.area-label{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--text-dim); margin-top:10px; display:block; }
+.area-label{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.24em; text-transform:uppercase; color:var(--text-dim); margin-top:10px; display:block; }
 .sec-lbl{ position:absolute; bottom:36px; left:28px; z-index:2; display:flex; align-items:center; gap:10px; pointer-events:none; }
-.sec-lbl-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:11px; color:rgba(232,226,213,.5); }
-.sec-lbl-name{ font-size:9px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:rgba(232,226,213,.4); }
+.sec-lbl-num{ font-family:var(--mono); font-style:normal; font-weight:400; font-size:11px; color:rgba(232,226,213,.5); }
+.sec-lbl-name{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.22em; text-transform:uppercase; color:rgba(232,226,213,.4); }
 .sec-lbl::before{ content:''; width:18px; height:1px; background:rgba(200,128,60,.4); }
 .wm{ position:absolute; bottom:-10px; right:-8px; font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(130px,16vw,200px); line-height:1; color:rgba(255,255,255,.05); pointer-events:none; z-index:1; letter-spacing:-.04em; user-select:none; }
 .concept{ background:var(--bg2); border-left:1px solid var(--border); border-right:1px solid var(--border); display:flex; flex-direction:column; justify-content:center; padding:64px 44px; position:relative; overflow:hidden; }
 .concept-bg{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(100px,14vw,160px); letter-spacing:-.04em; white-space:nowrap; color:rgba(232,226,213,.04); pointer-events:none; user-select:none; line-height:1; }
-.concept-label{ font-size:9px; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:28px; display:flex; align-items:center; gap:12px; }
+.concept-label{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:28px; display:flex; align-items:center; gap:12px; }
 .concept-label::after{ content:''; width:24px; height:1px; background:var(--gold); opacity:.4; }
 .qmark{ font-family:var(--serif); font-weight:200; font-size:64px; line-height:.65; color:var(--gold); opacity:.35; margin-bottom:10px; }
 .qtext{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2vw,22px); line-height:1.65; color:var(--text); margin-bottom:38px; }
 .qtext strong{ font-style:normal; font-weight:300; color:var(--gold); }
 .mat-row{ display:flex; flex-wrap:wrap; gap:6px; margin-top:32px; }
-.mat{ font-size:9px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); padding:5px 12px; border:1px solid var(--border); transition:all .3s; }
+.mat{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); padding:5px 12px; border:1px solid var(--border); transition:all .3s; }
 .mat:hover{ background:var(--gold); color:var(--bg); border-color:var(--gold); }
 .end-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
 .end-veil{ position:absolute; inset:0; background:linear-gradient(to top, rgba(12,10,7,.82) 0%, rgba(12,10,7,.18) 55%, transparent 100%); pointer-events:none; }
 .end-foot{ position:absolute; bottom:0; left:0; right:0; padding:52px 56px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
 .end-q{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2.4vw,30px); line-height:1.5; color:var(--text); max-width:520px; }
 .end-meta{ text-align:right; }
-.end-tag{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; display:block; }
+.end-tag{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; display:block; }
 .end-name{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:18px; color:rgba(232,226,213,.75); }
 
 /* BACK BUTTON - TOP LEFT CORNER */
@@ -107,9 +107,9 @@ nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative
   transition: all 0.3s ease;
   cursor: pointer;
   text-decoration: none;
-  font-family: 'Syne', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--text);
@@ -139,7 +139,7 @@ nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative
 .lb-img{ max-width:90vw; max-height:85vh; object-fit:contain; box-shadow:0 25px 45px rgba(0,0,0,.4); border-radius:2px; cursor:default; }
 .lb-close{ position:fixed; top:28px; right:32px; width:44px; height:44px; background:rgba(255,255,255,.05); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:200; color:var(--gold); transition:all .2s; cursor:pointer; backdrop-filter:blur(8px); border:1px solid rgba(232,226,213,.2); }
 .lb-close:hover{ background:rgba(200,128,60,.2); transform:scale(1.02); color:#fff; }
-.lb-caption{ position:fixed; bottom:24px; left:0; right:0; text-align:center; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,226,213,.6); font-weight:300; pointer-events:none; }
+.lb-caption{ position:fixed; bottom:24px; left:0; right:0; text-align:center; font-family:var(--mono); font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,226,213,.6); font-weight:400; pointer-events:none; }
 
 @media (max-width:720px){
   .back-projects-btn{ top: 68px; left: 16px; padding: 6px 16px; font-size: 9px; gap: 8px; }
@@ -271,7 +271,7 @@ nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative
     <span class="wm">03</span>
   </div>
 
-  <!-- CONCEPT PANEL -->
+ <!-- CONCEPT PANEL -->
 <div class="p concept" style="width:420px">
 
   <div class="concept-bg">Concept</div>
@@ -298,7 +298,6 @@ nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative
     <span class="mat" data-en="Spatial Composition" data-vi="Bố cục không gian">Spatial Composition</span>
     <span class="mat" data-en="Atmosphere Design" data-vi="Thiết kế bầu không khí">Atmosphere Design</span>
   </div>
-
 </div>
 
   <!-- GALLERY PANEL 3: Interior View 3 - Main living space -->
@@ -329,7 +328,7 @@ nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative
     <span class="wm">07</span>
   </div>
 
- <!-- CLOSING / RESULT PANEL: final statement -->
+  <!-- CLOSING / RESULT PANEL: final statement -->
 <div class="p pi" style="width:86vw" data-i="7">
 
   <img class="end-img"
@@ -354,19 +353,12 @@ nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative
     <div class="end-meta">
 
       <span class="end-tag"
-        data-en="Mars Bansiti · ArchViz"
-        data-vi="Mars Bansiti · ArchViz">
-        Mars Bansiti · ArchViz
+        data-en="Mars Bansiti · Interior Designer & ArchViz Artist"
+        data-vi="Mars Bansiti · Nhà thiết kế nội thất & ArchViz Artist">
+        Mars Bansiti · Interior Designer & ArchViz Artist
       </span>
 
       <p class="end-name">House in Charlotte · 2026</p>
-
-      <!-- OPTIONAL CTA -->
-      <p class="end-name" style="margin-top:6px; opacity:.7;"
-        data-en="Available for freelance projects"
-        data-vi="Sẵn sàng cho dự án freelance">
-        Available for freelance projects
-      </p>
 
     </div>
 
@@ -461,12 +453,31 @@ document.addEventListener('keydown', (e) => { if(lightbox.classList.contains('ac
   requestAnimationFrame(loop);
 })();
 
-// Language toggle (shared.js compatible fallback)
-function toggleLang() {
-  const btn = document.getElementById('lang-btn');
-  if(btn.textContent === 'EN') btn.textContent = 'VI';
-  else btn.textContent = 'EN';
-}
+// Language system: Vietnamese default, EN toggle (mirrors index.html)
+(function(){
+  var STORAGE_KEY = 'mb_lang';
+  var lang = localStorage.getItem(STORAGE_KEY) || 'vi';
+
+  function applyLang(l){
+    lang = l;
+    localStorage.setItem(STORAGE_KEY, l);
+    document.documentElement.lang = l;
+
+    document.querySelectorAll('[data-en]').forEach(function(el){
+      var val = l === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-vi');
+      if(val !== null) el.innerHTML = val;
+    });
+
+    var btn = document.getElementById('lang-btn');
+    if(btn) btn.textContent = l === 'vi' ? 'EN' : 'VI';
+  }
+
+  window.toggleLang = function(){
+    applyLang(lang === 'vi' ? 'en' : 'vi');
+  };
+
+  applyLang(lang);
+})();
 </script>
 </body>
 </html>
