@@ -6,38 +6,20 @@
 <title>Raffles The Palm | Siêu Penthouse · Dubai · YODEZEEN</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300;1,9..144,400&family=Syne:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,200;0,300;0,400;0,600;1,200;1,300;1,400;1,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/shared.css">
 <style>
 *{ margin:0; padding:0; box-sizing:border-box; }
-:root{ 
-  --panel-gap: 6px; 
-  --bg: #0a0806;
-  --bg2: #0e0c09;
-  --surface: #11100c;
-  --border: #2a241e;
-  --gold: #c09a6b;
-  --text: #e8e2d5;
-  --text-dim: #b7aa99;
-  --serif: 'Fraunces', serif;
-  --sans: 'Syne', sans-serif;
-}
-body{ height:100vh; overflow:hidden; background:var(--bg); font-family: var(--sans); }
+:root{ --panel-gap: 6px; }
+body{ height:100vh; overflow:hidden; background:var(--bg); }
 
-/* REMOVE ALL SCROLLBARS */
+/* REMOVE ALL SCROLLBARS - navigation and viewport */
 html, body { overflow-x: hidden; }
 nav { overflow-x: hidden; width: 100%; }
-#vp::-webkit-scrollbar { display: none; }
-#vp{ -ms-overflow-style: none; scrollbar-width: none; overflow-x: auto; overflow-y: hidden; }
 
-nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative; z-index:500; width:100%; display: flex; align-items: center; justify-content: space-between; padding: 12px 28px; border-bottom: 1px solid rgba(192,154,107,0.2); }
-.nav-logo{ font-family: var(--serif); font-style: italic; font-size: 18px; font-weight: 300; letter-spacing: -0.2px; color: var(--text); text-decoration: none; }
-.nav-logo span{ color: var(--gold); }
-.nav-mid .nav-cat{ font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-dim); }
-.nav-links{ display: flex; gap: 32px; list-style: none; }
-.nav-links li a{ font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
-.nav-links li a:hover{ color: var(--gold); }
-.lang-btn{ background: none; border: 1px solid var(--border); padding: 4px 12px; border-radius: 40px; font-size: 10px; font-weight: 600; color: var(--text); cursor: pointer; transition: all 0.2s; }
-.lang-btn:hover{ border-color: var(--gold); color: var(--gold); }
+nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative; z-index:500; width:100%; overflow-x: hidden; }
+.nav-links { display: flex; flex-wrap: nowrap; }
+.nav-mid { white-space: nowrap; }
 
 #prog-wrap{ position:fixed; top:58px; left:0; right:0; height:1.5px; background:var(--border); z-index:600; }
 #prog{ height:100%; width:0%; background:var(--gold); transition:width .04s linear; }
@@ -47,63 +29,68 @@ nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative
 .cnt-fill{ position:absolute; top:0; left:0; height:100%; background:var(--gold); transition:width .4s ease; }
 #cnt-tot{ font-family:var(--serif); font-style:italic; font-size:14px; font-weight:200; color:var(--text-dim); min-width:24px; }
 #hint{ position:fixed; bottom:22px; right:44px; z-index:600; display:flex; align-items:center; gap:10px; transition:opacity .7s; background:rgba(12,10,7,.3); padding:5px 12px; border-radius:40px; backdrop-filter:blur(4px); }
-#hint span{ font-size:9px; font-weight:400; letter-spacing:.25em; text-transform:uppercase; color:var(--text-dim); }
+#hint span{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.25em; text-transform:uppercase; color:var(--text-dim); }
 .h-line{ width:32px; height:1px; background:var(--gold); position:relative; overflow:hidden; }
 .h-line::after{ content:'';position:absolute; top:0; left:-100%; width:100%; height:100%; background:var(--text); animation:slide 2s ease-in-out infinite; }
 @keyframes slide{ 0%{left:-100%} 50%{left:100%} 100%{left:100%} }
-#vp{ position:fixed; inset:0; top:59.5px; overflow-x:auto; overflow-y:hidden; scroll-behavior:smooth; scrollbar-width: none; }
+#vp {
+  position: fixed;
+  inset: 0;
+  top: 59.5px;
+  overflow: hidden;
+}
 #track{ display:flex; flex-direction:row; height:calc(100vh - 59.5px); will-change:transform; gap: var(--panel-gap); padding-right: var(--panel-gap); }
 .p{ flex-shrink:0; height:100%; position:relative; overflow:hidden; }
-.pi img{ width:100%; height:100%; object-fit:cover; display:block; transition:filter .5s; cursor:pointer; }
+.pi img{ width:100%; height:100%; object-fit:cover; display:block; transition:filter .5s; cursor:none; }
 .pi img:hover{ filter:brightness(1.02) contrast(1.02); }
-.hero-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+.hero-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:none; }
 .hero-veil{ position:absolute; inset:0; background: linear-gradient(105deg, rgba(12,10,7,.45) 0%, transparent 48%), linear-gradient(to top, rgba(12,10,7,.72) 0%, transparent 44%); pointer-events:none; }
 .hero-foot{ position:absolute; bottom:0; left:0; right:0; padding:44px 52px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
 .h-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(72px,10vw,128px); line-height:.88; letter-spacing:-.02em; color:var(--text); }
-.h-eyebrow{ font-size:9px; font-weight:500; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:block; }
+.h-eyebrow{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:block; }
 .h-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:17px; color:rgba(232,226,213,.7); }
 .info{ background:var(--surface); border-right:1px solid var(--border); border-left:2px solid var(--gold); display:flex; flex-direction:column; justify-content:space-between; padding:52px 46px 46px; overflow-y:auto; scrollbar-width: thin; }
 .info::-webkit-scrollbar{ width:3px; background:var(--border); }
 .info::-webkit-scrollbar-thumb{ background:var(--gold); }
-.i-label{ font-size:9px; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--text-dim); }
+.i-label{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.28em; text-transform:uppercase; color:var(--text-dim); }
 .i-rule{ display:flex; align-items:center; gap:12px; margin:18px 0 22px; }
 .i-rule::before{ content:''; width:20px; height:1px; background:var(--gold); }
 .i-rule::after{ content:''; flex:1; height:1px; background:var(--border); }
 .i-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--text-dim); line-height:1.6; margin-bottom:10px; }
 .i-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(58px,5.5vw,80px); line-height:.9; letter-spacing:-.02em; color:var(--text); margin-bottom:36px; }
-.i-body{ font-size:12.5px; font-weight:300; line-height:1.9; color:var(--text-dim); margin-bottom:40px; }
+.i-body{ font-family:var(--serif); font-size:14px; font-weight:300; line-height:1.9; color:var(--text-dim); margin-bottom:40px; }
 .svc-list{ list-style:none; border-top:1px solid var(--border); }
 .svc-item{ display:flex; align-items:center; justify-content:space-between; padding:11px 0; border-bottom:1px solid var(--border); transition:padding-left .3s; position:relative; }
 .svc-item:hover{ padding-left:8px; }
 .svc-item::before{ content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:0; height:1px; background:var(--gold); transition:width .3s; }
 .svc-item:hover::before{ width:6px; }
-.svc-name{ font-size:11.5px; font-weight:400; letter-spacing:.03em; color:var(--text); }
+.svc-name{ font-family:var(--mono); font-size:11.5px; font-weight:400; letter-spacing:.03em; color:var(--text); }
 .svc-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--gold); }
 .area-blk{ margin-top:38px; }
 .area-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:54px; line-height:1; letter-spacing:-.02em; color:var(--text); }
 .area-unit{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:16px; color:var(--gold); display:inline-block; margin-left:5px; }
-.area-label{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--text-dim); margin-top:10px; display:block; }
+.area-label{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.24em; text-transform:uppercase; color:var(--text-dim); margin-top:10px; display:block; }
 .sec-lbl{ position:absolute; bottom:36px; left:28px; z-index:2; display:flex; align-items:center; gap:10px; pointer-events:none; }
 .sec-lbl-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:11px; color:rgba(232,226,213,.5); }
-.sec-lbl-name{ font-size:9px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:rgba(232,226,213,.4); }
+.sec-lbl-name{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.22em; text-transform:uppercase; color:rgba(232,226,213,.4); }
 .sec-lbl::before{ content:''; width:18px; height:1px; background:rgba(200,128,60,.4); }
 .wm{ position:absolute; bottom:-10px; right:-8px; font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(130px,16vw,200px); line-height:1; color:rgba(255,255,255,.05); pointer-events:none; z-index:1; letter-spacing:-.04em; user-select:none; }
 .concept{ background:var(--bg2); border-left:1px solid var(--border); border-right:1px solid var(--border); display:flex; flex-direction:column; justify-content:center; padding:64px 44px; position:relative; overflow:hidden; }
 .concept-bg{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(100px,14vw,160px); letter-spacing:-.04em; white-space:nowrap; color:rgba(232,226,213,.04); pointer-events:none; user-select:none; line-height:1; }
-.concept-label{ font-size:9px; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:28px; display:flex; align-items:center; gap:12px; }
+.concept-label{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:28px; display:flex; align-items:center; gap:12px; }
 .concept-label::after{ content:''; width:24px; height:1px; background:var(--gold); opacity:.4; }
 .qmark{ font-family:var(--serif); font-weight:200; font-size:64px; line-height:.65; color:var(--gold); opacity:.35; margin-bottom:10px; }
 .qtext{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2vw,22px); line-height:1.65; color:var(--text); margin-bottom:38px; }
 .qtext strong{ font-style:normal; font-weight:300; color:var(--gold); }
 .mat-row{ display:flex; flex-wrap:wrap; gap:6px; margin-top:32px; }
-.mat{ font-size:9px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); padding:5px 12px; border:1px solid var(--border); transition:all .3s; }
+.mat{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); padding:5px 12px; border:1px solid var(--border); transition:all .3s; }
 .mat:hover{ background:var(--gold); color:var(--bg); border-color:var(--gold); }
-.end-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+.end-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:none; }
 .end-veil{ position:absolute; inset:0; background:linear-gradient(to top, rgba(12,10,7,.82) 0%, rgba(12,10,7,.18) 55%, transparent 100%); pointer-events:none; }
 .end-foot{ position:absolute; bottom:0; left:0; right:0; padding:52px 56px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
 .end-q{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2.4vw,30px); line-height:1.5; color:var(--text); max-width:520px; }
 .end-meta{ text-align:right; }
-.end-tag{ font-size:9px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; display:block; }
+.end-tag{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; display:block; }
 .end-name{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:18px; color:rgba(232,226,213,.75); }
 
 /* BACK BUTTON - TOP LEFT CORNER */
@@ -121,9 +108,9 @@ nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative
   border-radius: 40px;
   border: 1px solid rgba(200, 128, 60, 0.6);
   transition: all 0.3s ease;
-  cursor: pointer;
+  cursor: none;
   text-decoration: none;
-  font-family: 'Syne', sans-serif;
+  font-family: var(--mono);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.2em;
@@ -150,12 +137,12 @@ nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative
 }
 
 /* LIGHTBOX STYLES */
-.lb-overlay{ position:fixed; inset:0; background:rgba(8,6,4,.96); backdrop-filter:blur(28px); z-index:2000; display:flex; align-items:center; justify-content:center; visibility:hidden; opacity:0; transition:visibility .25s, opacity .25s; cursor:pointer; }
+.lb-overlay{ position:fixed; inset:0; background:rgba(8,6,4,.96); backdrop-filter:blur(28px); z-index:2000; display:flex; align-items:center; justify-content:center; visibility:hidden; opacity:0; transition:visibility .25s, opacity .25s; cursor:none; }
 .lb-overlay.active{ visibility:visible; opacity:1; }
-.lb-img{ max-width:90vw; max-height:85vh; object-fit:contain; box-shadow:0 25px 45px rgba(0,0,0,.4); border-radius:2px; cursor:default; }
-.lb-close{ position:fixed; top:28px; right:32px; width:44px; height:44px; background:rgba(255,255,255,.05); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:200; color:var(--gold); transition:all .2s; cursor:pointer; backdrop-filter:blur(8px); border:1px solid rgba(232,226,213,.2); }
+.lb-img{ max-width:90vw; max-height:85vh; object-fit:contain; box-shadow:0 25px 45px rgba(0,0,0,.4); border-radius:2px; cursor:none; }
+.lb-close{ position:fixed; top:28px; right:32px; width:44px; height:44px; background:rgba(255,255,255,.05); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:200; color:var(--gold); transition:all .2s; cursor:none; backdrop-filter:blur(8px); border:1px solid rgba(232,226,213,.2); }
 .lb-close:hover{ background:rgba(200,128,60,.2); transform:scale(1.02); color:#fff; }
-.lb-caption{ position:fixed; bottom:24px; left:0; right:0; text-align:center; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,226,213,.6); font-weight:300; pointer-events:none; }
+.lb-caption{ position:fixed; bottom:24px; left:0; right:0; text-align:center; font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,226,213,.6); font-weight:400; pointer-events:none; }
 
 @media (max-width:720px){
   .back-projects-btn{ top: 68px; left: 16px; padding: 6px 16px; font-size: 9px; gap: 8px; }
@@ -169,23 +156,26 @@ nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative
 </style>
 </head>
 <body>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
 <nav>
-  <a href="../index.html" class="nav-logo">YODEZEEN<span>.</span>Studio</a>
+  <a href="../index.html" class="nav-logo">Mars<span>.</span>Bansiti</a>
   <div class="nav-mid">
-    <span class="nav-cat">Raffles The Palm · Dubai</span>
+    <span class="nav-cat" data-en="YODEZEEN · Ultra-Luxury" data-vi="YODEZEEN · Siêu sang">YODEZEEN · Siêu sang</span>
   </div>
   <ul class="nav-links">
-    <li><a href="../index.html">Trang chủ</a></li>
-    <li><a href="../projects.html">Dự án</a></li>
-    <li><a href="../about.html">Studio</a></li>
+    <li><a href="../index.html" data-en="Home" data-vi="Trang chủ">Trang chủ</a></li>
+    <li><a href="../projects.html" data-en="Projects" data-vi="Dự án">Dự án</a></li>
+    <li><a href="../about.html" data-en="About me" data-vi="Về tôi">Về tôi</a></li>
     <li><button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button></li>
   </ul>
 </nav>
 
 <div id="prog-wrap"><div id="prog"></div></div>
 
-<!-- BACK TO PROJECTS BUTTON (Vietnamese default) -->
-<a href="../projects.html" class="back-projects-btn" id="backBtn">← Quay lại dự án</a>
+<!-- BACK TO PROJECTS BUTTON -->
+<a href="../projects.html" class="back-projects-btn" data-en="← Back to projects" data-vi="← Quay lại dự án">← Quay lại dự án</a>
 
 <div id="vp"><div id="track">
   <!-- HERO panel: Raffles Super Penthouse -->
@@ -194,12 +184,12 @@ nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative
     <div class="hero-veil"></div>
     <div class="hero-foot">
       <div>
-        <span class="h-eyebrow" id="heroAddr">Dubai · Palm Jumeirah</span>
+        <span class="h-eyebrow" data-en="Dubai · Palm Jumeirah" data-vi="Dubai · Palm Jumeirah">Dubai · Palm Jumeirah</span>
         <h1 class="h-title">RAFFLES</h1>
       </div>
       <div style="text-align:right;padding-bottom:6px">
-        <span class="h-eyebrow" style="text-align:right" id="heroComplex">Siêu Penthouse</span>
-        <p class="h-sub" id="heroSub">35.392 ft² · Sang trọng hiện đại · YODEZEEN</p>
+        <span class="h-eyebrow" style="text-align:right" data-en="Super Penthouse" data-vi="Siêu Penthouse">Siêu Penthouse</span>
+        <p class="h-sub" data-en="35,392 ft² · Modern Luxury · YODEZEEN" data-vi="35.392 ft² · Sang trọng hiện đại · YODEZEEN">35.392 ft² · Sang trọng hiện đại · YODEZEEN</p>
       </div>
     </div>
     <span class="wm">01</span>
@@ -208,75 +198,127 @@ nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative
   <!-- INFO panel: project details & accolades -->
   <div class="p info" style="width:440px">
     <div>
-      <p class="i-label" id="infoLabel">Giải Vàng Global Future Design Awards 2024</p>
+      <p class="i-label" data-en="Global Future Design Awards 2024 · Gold Winner" data-vi="Giải Vàng Global Future Design Awards 2024">Giải Vàng Global Future Design Awards 2024</p>
       <div class="i-rule"></div>
-      <p class="i-sub" id="infoSub">3.288 m² · Travertine · Mã não · Đồng thau · Gỗ sồi phủ sơn mài · Da</p>
+      <p class="i-sub" data-en="3,288 m² · Travertine · Onyx · Brass · Lacquered oak · Leather" data-vi="3.288 m² · Travertine · Mã não · Đồng thau · Gỗ sồi phủ sơn mài · Da">3.288 m² · Travertine · Mã não · Đồng thau · Gỗ sồi phủ sơn mài · Da</p>
       <h2 class="i-title">SIÊU PENTHOUSE</h2>
-      <div class="i-body" id="infoBody">
-        <p>Siêu Penthouse tại Raffles The Palm Dubai Residences đại diện cho đỉnh cao của bất động sản siêu sang, kết hợp sự xa hoa vô song với thiết kế tinh tế. YODEZEEN đã tạo ra một không gian nội thất không chỉ thể hiện sự tinh tế mà còn hài hòa với kiến trúc tráng lệ, mang tính thẩm mỹ hiện đại pha lẫn những yếu tố vượt thời gian. Bất động sản này nằm trong mạng lưới danh tiếng các dinh thự độc quyền do Raffles quản lý, mang đến tầm nhìn toàn cảnh ngoạn mục ra đường chân trời Dubai và Vịnh Ả Rập.</p>
+      <div class="i-body">
+        <p data-en="The Super Penthouse at Raffles The Palm Dubai Residences represents the pinnacle of high-end real estate, blending unparalleled opulence with thoughtful design. YODEZEEN has crafted an interior that embodies sophistication, showcasing modern aesthetics with timeless elements. This property offers breathtaking panoramic views of Dubai's skyline and the Arabian Gulf." data-vi="Siêu Penthouse tại Raffles The Palm Dubai Residences đại diện cho đỉnh cao của bất động sản siêu sang, kết hợp sự xa hoa vô song với thiết kế tinh tế. YODEZEEN đã tạo ra một không gian nội thất không chỉ thể hiện sự tinh tế mà còn hài hòa với kiến trúc tráng lệ, mang tính thẩm mỹ hiện đại pha lẫn những yếu tố vượt thời gian. Bất động sản này nằm trong mạng lưới danh tiếng các dinh thự độc quyền do Raffles quản lý, mang đến tầm nhìn toàn cảnh ngoạn mục ra đường chân trời Dubai và Vịnh Ả Rập.">Siêu Penthouse tại Raffles The Palm Dubai Residences đại diện cho đỉnh cao của bất động sản siêu sang, kết hợp sự xa hoa vô song với thiết kế tinh tế. YODEZEEN đã tạo ra một không gian nội thất không chỉ thể hiện sự tinh tế mà còn hài hòa với kiến trúc tráng lệ, mang tính thẩm mỹ hiện đại pha lẫn những yếu tố vượt thời gian. Bất động sản này nằm trong mạng lưới danh tiếng các dinh thự độc quyền do Raffles quản lý, mang đến tầm nhìn toàn cảnh ngoạn mục ra đường chân trời Dubai và Vịnh Ả Rập.</p>
       </div>
       <ul class="svc-list">
-        <li class="svc-item"><span class="svc-name" id="svc1">Kiến trúc nội thất</span><span class="svc-num">01</span></li>
-        <li class="svc-item"><span class="svc-name" id="svc2">Tuyển chọn vật liệu</span><span class="svc-num">02</span></li>
-        <li class="svc-item"><span class="svc-name" id="svc3">Nội thất tùy chỉnh</span><span class="svc-num">03</span></li>
-        <li class="svc-item"><span class="svc-name" id="svc4">Thiết kế ánh sáng</span><span class="svc-num">04</span></li>
+        <li class="svc-item"><span class="svc-name" data-en="Interior Architecture" data-vi="Kiến trúc nội thất">Kiến trúc nội thất</span><span class="svc-num">01</span></li>
+        <li class="svc-item"><span class="svc-name" data-en="Material Curation" data-vi="Tuyển chọn vật liệu">Tuyển chọn vật liệu</span><span class="svc-num">02</span></li>
+        <li class="svc-item"><span class="svc-name" data-en="Custom Furnishings" data-vi="Nội thất tùy chỉnh">Nội thất tùy chỉnh</span><span class="svc-num">03</span></li>
+        <li class="svc-item"><span class="svc-name" data-en="Lighting Design" data-vi="Thiết kế ánh sáng">Thiết kế ánh sáng</span><span class="svc-num">04</span></li>
       </ul>
     </div>
     <div class="area-blk">
-      <span class="area-num">35.392</span><span class="area-unit">ft²</span>
-      <span class="area-label" id="areaLabel">3.288 m² · Palm Jumeirah · Dubai</span>
+      <span class="area-num">35,392</span><span class="area-unit">ft²</span>
+      <span class="area-label" data-en="3,288 m² · Palm Jumeirah · Dubai" data-vi="3.288 m² · Palm Jumeirah · Dubai">3.288 m² · Palm Jumeirah · Dubai</span>
       <div style="margin-top:12px; border-top:1px solid var(--border); padding-top:14px;">
-        <span class="area-label" style="margin-top:0" id="areaTags">Grand Salon · Dãy phòng Master · Sân thượng · Đá mã não · Đồng thau</span>
+        <span class="area-label" style="margin-top:0" data-en="Grand Salon · Master Suite · Terraces · Onyx · Brass" data-vi="Grand Salon · Dãy phòng Master · Sân thượng · Đá mã não · Đồng thau">Grand Salon · Dãy phòng Master · Sân thượng · Đá mã não · Đồng thau</span>
       </div>
     </div>
   </div>
 
-  <!-- GRAND SALON GALLERY - all image links from document -->
-  <div class="p pi" style="width:52vw" data-i="1"><img src="https://cdn.yodezeen.com/grand_salon_View12_C_Shading_Light_Mix_View190000_b966c4baf8.jpg" alt="Grand Salon không gian sống rộng lớn" data-full="https://cdn.yodezeen.com/grand_salon_View12_C_Shading_Light_Mix_View190000_b966c4baf8.jpg"><div class="sec-lbl"><span class="sec-lbl-num">01</span><span class="sec-lbl-name" id="cap1">Grand Salon · Quy mô xa hoa</span></div><span class="wm">02</span></div>
-  <div class="p pi" style="width:46vw" data-i="2"><img src="https://cdn.yodezeen.com/grand_salon_View12_C_Shading_Light_Mix_View020000_7400c3d9dd.jpg" alt="Khu vực ghế ngồi thư giãn" data-full="https://cdn.yodezeen.com/grand_salon_View12_C_Shading_Light_Mix_View020000_7400c3d9dd.jpg"><div class="sec-lbl"><span class="sec-lbl-num">02</span><span class="sec-lbl-name" id="cap2">Phòng khách · Travertine & Đồng thau</span></div><span class="wm">03</span></div>
-  <div class="p pi" style="width:48vw" data-i="3"><img src="https://cdn.yodezeen.com/grand_salon_View12_C_Shading_Light_Mix_View210000_a90e64e59c.jpg" alt="Góc phòng khách tinh tế" data-full="https://cdn.yodezeen.com/grand_salon_View12_C_Shading_Light_Mix_View210000_a90e64e59c.jpg"><div class="sec-lbl"><span class="sec-lbl-num">03</span><span class="sec-lbl-name" id="cap3">Phòng khách · Sang trọng vượt thời gian</span></div><span class="wm">04</span></div>
-  <div class="p pi" style="width:44vw" data-i="4"><img src="https://cdn.yodezeen.com/grand_salon_C_Shading_Light_Mix_View140000_94e9c1ff4a.jpg" alt="Khu vực ăn uống Grand Salon" data-full="https://cdn.yodezeen.com/grand_salon_C_Shading_Light_Mix_View140000_94e9c1ff4a.jpg"><div class="sec-lbl"><span class="sec-lbl-num">04</span><span class="sec-lbl-name" id="cap4">Phòng ăn · Đá mã não & gỗ sồi sơn mài</span></div><span class="wm">05</span></div>
-  <div class="p pi" style="width:50vw" data-i="5"><img src="https://cdn.yodezeen.com/grand_salon_C_Shading_Light_Mix_View05_gigapixel_standard_width_3000px_41c7b252a5.jpeg" alt="Gigapixel Grand Salon siêu nét" data-full="https://cdn.yodezeen.com/grand_salon_C_Shading_Light_Mix_View05_gigapixel_standard_width_3000px_41c7b252a5.jpeg"><div class="sec-lbl"><span class="sec-lbl-num">05</span><span class="sec-lbl-name" id="cap5">Grand Salon · Chi tiết siêu phân giải</span></div><span class="wm">06</span></div>
+  <!-- GRAND SALON GALLERY -->
+  <div class="p pi" style="width:52vw" data-i="1"><img src="https://cdn.yodezeen.com/grand_salon_View12_C_Shading_Light_Mix_View190000_b966c4baf8.jpg" alt="Grand Salon không gian sống rộng lớn" data-full="https://cdn.yodezeen.com/grand_salon_View12_C_Shading_Light_Mix_View190000_b966c4baf8.jpg"><div class="sec-lbl"><span class="sec-lbl-num">01</span><span class="sec-lbl-name" data-en="Grand Salon · Opulent scale" data-vi="Grand Salon · Quy mô xa hoa">Grand Salon · Quy mô xa hoa</span></div><span class="wm">02</span></div>
+  <div class="p pi" style="width:46vw" data-i="2"><img src="https://cdn.yodezeen.com/grand_salon_View12_C_Shading_Light_Mix_View020000_7400c3d9dd.jpg" alt="Khu vực ghế ngồi thư giãn" data-full="https://cdn.yodezeen.com/grand_salon_View12_C_Shading_Light_Mix_View020000_7400c3d9dd.jpg"><div class="sec-lbl"><span class="sec-lbl-num">02</span><span class="sec-lbl-name" data-en="Lounge · Travertine & Brass" data-vi="Phòng khách · Travertine & Đồng thau">Phòng khách · Travertine & Đồng thau</span></div><span class="wm">03</span></div>
+  <div class="p pi" style="width:48vw" data-i="3"><img src="https://cdn.yodezeen.com/grand_salon_View12_C_Shading_Light_Mix_View210000_a90e64e59c.jpg" alt="Góc phòng khách tinh tế" data-full="https://cdn.yodezeen.com/grand_salon_View12_C_Shading_Light_Mix_View210000_a90e64e59c.jpg"><div class="sec-lbl"><span class="sec-lbl-num">03</span><span class="sec-lbl-name" data-en="Lounge · Timeless elegance" data-vi="Phòng khách · Sang trọng vượt thời gian">Phòng khách · Sang trọng vượt thời gian</span></div><span class="wm">04</span></div>
+  <div class="p pi" style="width:44vw" data-i="4"><img src="https://cdn.yodezeen.com/grand_salon_C_Shading_Light_Mix_View140000_94e9c1ff4a.jpg" alt="Khu vực ăn uống Grand Salon" data-full="https://cdn.yodezeen.com/grand_salon_C_Shading_Light_Mix_View140000_94e9c1ff4a.jpg"><div class="sec-lbl"><span class="sec-lbl-num">04</span><span class="sec-lbl-name" data-en="Dining · Onyx & lacquered oak" data-vi="Phòng ăn · Đá mã não & gỗ sồi sơn mài">Phòng ăn · Đá mã não & gỗ sồi sơn mài</span></div><span class="wm">05</span></div>
+  <div class="p pi" style="width:50vw" data-i="5"><img src="https://cdn.yodezeen.com/grand_salon_C_Shading_Light_Mix_View05_gigapixel_standard_width_3000px_41c7b252a5.jpeg" alt="Gigapixel Grand Salon siêu nét" data-full="https://cdn.yodezeen.com/grand_salon_C_Shading_Light_Mix_View05_gigapixel_standard_width_3000px_41c7b252a5.jpeg"><div class="sec-lbl"><span class="sec-lbl-num">05</span><span class="sec-lbl-name" data-en="Grand Salon · Gigapixel detail" data-vi="Grand Salon · Chi tiết siêu phân giải">Grand Salon · Chi tiết siêu phân giải</span></div><span class="wm">06</span></div>
 
   <!-- CONCEPT PANEL: Design Philosophy -->
   <div class="p concept" style="width:400px">
     <div class="concept-bg">Palm Jumeirah</div>
-    <div class="concept-label" id="conceptLabel">Khái niệm thiết kế</div>
+    <div class="concept-label" data-en="Design Concept" data-vi="Khái niệm thiết kế">Khái niệm thiết kế</div>
     <div class="qmark">"</div>
-    <p class="qtext" id="conceptText">Khái niệm xoay quanh việc tạo ra dòng chảy liền mạch giữa không gian trong nhà sang trọng và sân thượng ngoài trời rộng rãi. Travertine, đá mã não và đồng thau gợi lên sự xa hoa vượt thời gian, trong khi gỗ sồi phủ sơn mài và da mang đến sự ấm áp. Các tấm ốp bo tròn bằng đồng thau lấy cảm hứng từ mái vòm Raffles kết nối kết cấu tự nhiên với chi tiết thủ công.</p>
-    <div class="mat-row"><span class="mat">Travertine</span><span class="mat">Mã não</span><span class="mat">Đồng thau</span><span class="mat">Gỗ sồi sơn mài</span><span class="mat">Da cao cấp</span></div>
+    <p class="qtext" data-en="The concept revolves around a seamless flow between lavish indoor spaces and expansive outdoor terraces. Travertine, onyx, and brass evoke timeless luxury, while lacquered oak veneer and leather introduce warmth. Brass-rounded panels inspired by Raffles' domes unite natural textures with crafted details." data-vi="Khái niệm xoay quanh việc tạo ra dòng chảy liền mạch giữa không gian trong nhà sang trọng và sân thượng ngoài trời rộng rãi. Travertine, đá mã não và đồng thau gợi lên sự xa hoa vượt thời gian, trong khi gỗ sồi phủ sơn mài và da mang đến sự ấm áp. Các tấm ốp bo tròn bằng đồng thau lấy cảm hứng từ mái vòm Raffles kết nối kết cấu tự nhiên với chi tiết thủ công.">Khái niệm xoay quanh việc tạo ra dòng chảy liền mạch giữa không gian trong nhà sang trọng và sân thượng ngoài trời rộng rãi. Travertine, đá mã não và đồng thau gợi lên sự xa hoa vượt thời gian, trong khi gỗ sồi phủ sơn mài và da mang đến sự ấm áp. Các tấm ốp bo tròn bằng đồng thau lấy cảm hứng từ mái vòm Raffles kết nối kết cấu tự nhiên với chi tiết thủ công.</p>
+    <div class="mat-row">
+      <span class="mat" data-en="Travertine" data-vi="Travertine">Travertine</span>
+      <span class="mat" data-en="Onyx" data-vi="Mã não">Mã não</span>
+      <span class="mat" data-en="Brass" data-vi="Đồng thau">Đồng thau</span>
+      <span class="mat" data-en="Lacquered oak" data-vi="Gỗ sồi sơn mài">Gỗ sồi sơn mài</span>
+      <span class="mat" data-en="Fine leather" data-vi="Da cao cấp">Da cao cấp</span>
+    </div>
   </div>
 
   <!-- MASTER BEDROOM & BATHROOM -->
-  <div class="p pi" style="width:46vw" data-i="6"><img src="https://cdn.yodezeen.com/master_bedroom_1_4262015f30.jpg" alt="Phòng ngủ master thư thái" data-full="https://cdn.yodezeen.com/master_bedroom_1_4262015f30.jpg"><div class="sec-lbl"><span class="sec-lbl-num">06</span><span class="sec-lbl-name" id="cap6">Phòng ngủ Master · Nơi nghỉ dưỡng</span></div><span class="wm">07</span></div>
-  <div class="p pi" style="width:48vw" data-i="7"><img src="https://cdn.yodezeen.com/master_bathroom_4_efbf32fd53.jpg" alt="Phòng tắm master điểm nhấn đá mã não" data-full="https://cdn.yodezeen.com/master_bathroom_4_efbf32fd53.jpg"><div class="sec-lbl"><span class="sec-lbl-num">07</span><span class="sec-lbl-name" id="cap7">Phòng tắm Master · Mã não & Cẩm thạch</span></div><span class="wm">08</span></div>
+  <div class="p pi" style="width:46vw" data-i="6"><img src="https://cdn.yodezeen.com/master_bedroom_1_4262015f30.jpg" alt="Phòng ngủ master thư thái" data-full="https://cdn.yodezeen.com/master_bedroom_1_4262015f30.jpg"><div class="sec-lbl"><span class="sec-lbl-num">06</span><span class="sec-lbl-name" data-en="Master Bedroom · Serene luxury" data-vi="Phòng ngủ Master · Nơi nghỉ dưỡng">Phòng ngủ Master · Nơi nghỉ dưỡng</span></div><span class="wm">07</span></div>
+  <div class="p pi" style="width:48vw" data-i="7"><img src="https://cdn.yodezeen.com/master_bathroom_4_efbf32fd53.jpg" alt="Phòng tắm master điểm nhấn đá mã não" data-full="https://cdn.yodezeen.com/master_bathroom_4_efbf32fd53.jpg"><div class="sec-lbl"><span class="sec-lbl-num">07</span><span class="sec-lbl-name" data-en="Master Bath · Onyx & marble" data-vi="Phòng tắm Master · Mã não & Cẩm thạch">Phòng tắm Master · Mã não & Cẩm thạch</span></div><span class="wm">08</span></div>
 
   <!-- ADDITIONAL RENDER VIEW -->
-  <div class="p pi" style="width:44vw" data-i="8"><img src="https://cdn.yodezeen.com/render_C_Shading_Light_Mix_View02_b60c3be2f9.jpg" alt="Kết xuất kiến trúc cầu thang" data-full="https://cdn.yodezeen.com/render_C_Shading_Light_Mix_View02_b60c3be2f9.jpg"><div class="sec-lbl"><span class="sec-lbl-num">08</span><span class="sec-lbl-name" id="cap8">Cầu thang điêu khắc · Đồng thau</span></div><span class="wm">09</span></div>
+  <div class="p pi" style="width:44vw" data-i="8"><img src="https://cdn.yodezeen.com/render_C_Shading_Light_Mix_View02_b60c3be2f9.jpg" alt="Kết xuất kiến trúc cầu thang" data-full="https://cdn.yodezeen.com/render_C_Shading_Light_Mix_View02_b60c3be2f9.jpg"><div class="sec-lbl"><span class="sec-lbl-num">08</span><span class="sec-lbl-name" data-en="Sculptural staircase · Brass accents" data-vi="Cầu thang điêu khắc · Đồng thau">Cầu thang điêu khắc · Đồng thau</span></div><span class="wm">09</span></div>
 
-  <!-- EXTRA LIVING AREA DETAILS (additional from document) -->
-  <div class="p pi" style="width:50vw" data-i="9"><img src="https://cdn.yodezeen.com/grand_salon_View12_C_Shading_Light_Mix_View020000_7400c3d9dd.jpg" alt="Khu vực tiếp khách" data-full="https://cdn.yodezeen.com/grand_salon_View12_C_Shading_Light_Mix_View020000_7400c3d9dd.jpg"><div class="sec-lbl"><span class="sec-lbl-num">09</span><span class="sec-lbl-name" id="cap9">Khu vực ghế bành · Kết cấu sang trọng</span></div><span class="wm">10</span></div>
+  <!-- EXTRA LIVING AREA DETAILS -->
+  <div class="p pi" style="width:50vw" data-i="9"><img src="https://cdn.yodezeen.com/grand_salon_View12_C_Shading_Light_Mix_View020000_7400c3d9dd.jpg" alt="Khu vực tiếp khách" data-full="https://cdn.yodezeen.com/grand_salon_View12_C_Shading_Light_Mix_View020000_7400c3d9dd.jpg"><div class="sec-lbl"><span class="sec-lbl-num">09</span><span class="sec-lbl-name" data-en="Seating area · Luxurious textures" data-vi="Khu vực ghế bành · Kết cấu sang trọng">Khu vực ghế bành · Kết cấu sang trọng</span></div><span class="wm">10</span></div>
 
   <!-- CLOSING / RESULT PANEL with award highlight -->
   <div class="p pi" style="width:86vw" data-i="10">
     <img class="end-img" src="https://cdn.yodezeen.com/grand_salon_View12_C_Shading_Light_Mix_View210000_a90e64e59c.jpg" alt="Raffles Siêu Penthouse - thiết kế đoạt giải" data-full="https://cdn.yodezeen.com/grand_salon_View12_C_Shading_Light_Mix_View210000_a90e64e59c.jpg">
     <div class="end-veil"></div>
     <div class="end-foot">
-      <p class="end-q" id="endQuote">Siêu Penthouse tại Raffles The Palm Dubai — Giải Vàng Global Future Design Awards 2024. Tầm nhìn của YODEZEEN tái định nghĩa cuộc sống siêu sang, tích hợp travertine, đá mã não, đồng thau và các họa tiết kiến trúc lấy cảm hứng từ mái vòm biểu tượng của Raffles, tạo nên sự kết hợp hài hòa giữa nghệ thuật, chức năng và phong cách sống đẳng cấp.</p>
-      <div class="end-meta"><span class="end-tag" id="endTag">Raffles The Palm · Dubai · Siêu Penthouse</span><p class="end-name" id="endName">YODEZEEN · 35.392 ft² · Sang trọng hiện đại</p></div>
+      <p class="end-q" data-en="The Super Penthouse at Raffles The Palm Dubai — Global Future Design Awards 2024 Gold Winner. YODEZEEN's vision redefines ultra-luxury living, integrating travertine, onyx, brass, and architectural motifs that echo the iconic domes of Raffles, crafting a harmonious blend of art, function, and premium lifestyle." data-vi="Siêu Penthouse tại Raffles The Palm Dubai — Giải Vàng Global Future Design Awards 2024. Tầm nhìn của YODEZEEN tái định nghĩa cuộc sống siêu sang, tích hợp travertine, đá mã não, đồng thau và các họa tiết kiến trúc lấy cảm hứng từ mái vòm biểu tượng của Raffles, tạo nên sự kết hợp hài hòa giữa nghệ thuật, chức năng và phong cách sống đẳng cấp.">Siêu Penthouse tại Raffles The Palm Dubai — Giải Vàng Global Future Design Awards 2024. Tầm nhìn của YODEZEEN tái định nghĩa cuộc sống siêu sang, tích hợp travertine, đá mã não, đồng thau và các họa tiết kiến trúc lấy cảm hứng từ mái vòm biểu tượng của Raffles, tạo nên sự kết hợp hài hòa giữa nghệ thuật, chức năng và phong cách sống đẳng cấp.</p>
+      <div class="end-meta">
+        <span class="end-tag" data-en="Raffles The Palm · Dubai · Super Penthouse" data-vi="Raffles The Palm · Dubai · Siêu Penthouse">Raffles The Palm · Dubai · Siêu Penthouse</span>
+        <p class="end-name" data-en="YODEZEEN · 35,392 ft² · Modern Luxury" data-vi="YODEZEEN · 35.392 ft² · Sang trọng hiện đại">YODEZEEN · 35.392 ft² · Sang trọng hiện đại</p>
+      </div>
     </div>
     <span class="wm" style="font-size:clamp(100px,13vw,170px)">11</span>
   </div>
 </div></div>
 
-<div id="counter"><span id="cnt-cur">01</span><div class="cnt-track"><div class="cnt-fill" id="cnt-fill"></div></div><span id="cnt-tot">11</span></div>
-<div id="hint"><span>Cuộn</span><div class="h-line"></div></div>
+<div id="counter">
+  <span id="cnt-cur">01</span>
+  <div class="cnt-track"><div class="cnt-fill" id="cnt-fill"></div></div>
+  <span id="cnt-tot">11</span>
+</div>
+
+<div id="hint">
+  <span data-en="Scroll" data-vi="Cuộn">Cuộn</span>
+  <div class="h-line"></div>
+</div>
 
 <!-- LIGHTBOX -->
-<div id="lightbox" class="lb-overlay"><div class="lb-close" id="lbClose">✕</div><img id="lbImg" class="lb-img" src="" alt="Xem toàn màn hình"><div id="lbCaption" class="lb-caption"></div></div>
+<div id="lightbox" class="lb-overlay">
+  <div class="lb-close" id="lbClose">✕</div>
+  <img id="lbImg" class="lb-img" src="" alt="Full size view">
+  <div id="lbCaption" class="lb-caption"></div>
+</div>
 
+<script src="../assets/js/shared.js"></script>
 <script>
-// Horizontal scroll + lightbox logic
+/* ── Language system: Vietnamese default, EN toggle ── */
+(function(){
+  var STORAGE_KEY = 'mb_lang';
+  var lang = localStorage.getItem(STORAGE_KEY) || 'vi';
+
+  function applyLang(l){
+    lang = l;
+    localStorage.setItem(STORAGE_KEY, l);
+    document.documentElement.lang = l;
+
+    // Update all [data-en] / [data-vi] elements
+    document.querySelectorAll('[data-en]').forEach(function(el){
+      var val = l === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-vi');
+      if(val !== null) el.innerHTML = val;
+    });
+
+    // Button shows the language you can switch TO
+    var btn = document.getElementById('lang-btn');
+    if(btn) btn.textContent = l === 'vi' ? 'EN' : 'VI';
+  }
+
+  // Override any toggleLang defined in shared.js
+  window.toggleLang = function(){
+    applyLang(lang === 'vi' ? 'en' : 'vi');
+  };
+
+  // Boot with stored or default (vi)
+  applyLang(lang);
+})();
+</script>
+<script>
 const track = document.getElementById('track'), vp = document.getElementById('vp'), prog = document.getElementById('prog');
 const hint = document.getElementById('hint'), cntCur = document.getElementById('cnt-cur'), cntFill = document.getElementById('cnt-fill');
 let tx=0, cx=0, maxS=0;
@@ -285,8 +327,9 @@ const TOTAL = piEls.length;
 document.getElementById('cnt-tot').textContent = String(TOTAL).padStart(2,'0');
 function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
 function getMax(){ return track.scrollWidth - vp.offsetWidth; }
-window.addEventListener('wheel', e=>{ e.preventDefault(); maxS=getMax(); tx=clamp(tx+e.deltaY*1.6+e.deltaX,0,maxS); },{passive:false});
+window.addEventListener('wheel', e=>{ e.preventDefault(); maxS=getMax(); tx=clamp(tx+e.deltaY*1.55+e.deltaX,0,maxS); },{passive:false});
 
+// LIGHTBOX FUNCTIONALITY
 const lightbox = document.getElementById('lightbox');
 const lbImg = document.getElementById('lbImg');
 const lbClose = document.getElementById('lbClose');
@@ -295,13 +338,17 @@ const lbCaption = document.getElementById('lbCaption');
 function openLightbox(imgElement) {
   const fullUrl = imgElement.getAttribute('data-full') || imgElement.src;
   lbImg.src = fullUrl;
-  let captionText = imgElement.alt || 'Raffles Siêu Penthouse · Dubai';
+  let captionText = imgElement.alt || '';
   const parentPanel = imgElement.closest('.p');
   if(parentPanel){
     const secLabelSpan = parentPanel.querySelector('.sec-lbl-name');
     if(secLabelSpan) captionText = secLabelSpan.innerText.trim() + ' · Raffles The Palm';
+    else if(parentPanel.classList.contains('pi') && !secLabelSpan){
+      const heroEyebrow = parentPanel.querySelector('.h-eyebrow');
+      if(heroEyebrow) captionText = heroEyebrow.innerText.trim() + ' · Dubai';
+    }
   }
-  lbCaption.textContent = captionText;
+  lbCaption.textContent = captionText || 'Raffles Super Penthouse · YODEZEEN';
   lightbox.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
@@ -311,13 +358,13 @@ function closeLightbox() {
   document.body.style.overflow = '';
 }
 document.querySelectorAll('.pi img, .hero-img, .end-img').forEach(img => {
-  img.style.cursor = 'pointer';
   img.addEventListener('click', (e) => { e.stopPropagation(); openLightbox(img); });
 });
 lbClose.addEventListener('click', closeLightbox);
 lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
 document.addEventListener('keydown', (e) => { if(lightbox.classList.contains('active') && e.key === 'Escape') closeLightbox(); });
 
+// SCROLL LOOP
 (function loop(){
   cx+=(tx-cx)*.09; if(Math.abs(tx-cx)<0.05) cx=tx;
   track.style.transform=`translateX(${-cx}px)`;
@@ -333,75 +380,6 @@ document.addEventListener('keydown', (e) => { if(lightbox.classList.contains('ac
   cntFill.style.width=((visIdx+1)/TOTAL*100)+'%';
   requestAnimationFrame(loop);
 })();
-
-// Bilingual Dictionary (Vietnamese default, English toggle)
-let lang = 'vi';
-const translations = {
-  vi: {
-    backBtn: '← Quay lại dự án', heroAddr: 'Dubai · Palm Jumeirah', heroComplex: 'Siêu Penthouse', heroSub: '35.392 ft² · Sang trọng hiện đại · YODEZEEN',
-    infoLabel: 'Giải Vàng Global Future Design Awards 2024', infoSub: '3.288 m² · Travertine · Mã não · Đồng thau · Gỗ sồi phủ sơn mài · Da',
-    infoBody: 'Siêu Penthouse tại Raffles The Palm Dubai Residences đại diện cho đỉnh cao của bất động sản siêu sang, kết hợp sự xa hoa vô song với thiết kế tinh tế. YODEZEEN đã tạo ra một không gian nội thất không chỉ thể hiện sự tinh tế mà còn hài hòa với kiến trúc tráng lệ, mang tính thẩm mỹ hiện đại pha lẫn những yếu tố vượt thời gian. Bất động sản này nằm trong mạng lưới danh tiếng các dinh thự độc quyền do Raffles quản lý, mang đến tầm nhìn toàn cảnh ngoạn mục ra đường chân trời Dubai và Vịnh Ả Rập.',
-    svc1: 'Kiến trúc nội thất', svc2: 'Tuyển chọn vật liệu', svc3: 'Nội thất tùy chỉnh', svc4: 'Thiết kế ánh sáng',
-    areaLabel: '3.288 m² · Palm Jumeirah · Dubai', areaTags: 'Grand Salon · Dãy phòng Master · Sân thượng · Đá mã não · Đồng thau',
-    conceptLabel: 'Khái niệm thiết kế', conceptText: 'Khái niệm xoay quanh việc tạo ra dòng chảy liền mạch giữa không gian trong nhà sang trọng và sân thượng ngoài trời rộng rãi. Travertine, đá mã não và đồng thau gợi lên sự xa hoa vượt thời gian, trong khi gỗ sồi phủ sơn mài và da mang đến sự ấm áp. Các tấm ốp bo tròn bằng đồng thau lấy cảm hứng từ mái vòm Raffles kết nối kết cấu tự nhiên với chi tiết thủ công.',
-    endQuote: 'Siêu Penthouse tại Raffles The Palm Dubai — Giải Vàng Global Future Design Awards 2024. Tầm nhìn của YODEZEEN tái định nghĩa cuộc sống siêu sang, tích hợp travertine, đá mã não, đồng thau và các họa tiết kiến trúc lấy cảm hứng từ mái vòm biểu tượng của Raffles, tạo nên sự kết hợp hài hòa giữa nghệ thuật, chức năng và phong cách sống đẳng cấp.',
-    endTag: 'Raffles The Palm · Dubai · Siêu Penthouse', endName: 'YODEZEEN · 35.392 ft² · Sang trọng hiện đại',
-    hintText: 'Cuộn', langBtn: 'EN',
-    captions: {
-      cap1:'Grand Salon · Quy mô xa hoa', cap2:'Phòng khách · Travertine & Đồng thau', cap3:'Phòng khách · Sang trọng vượt thời gian',
-      cap4:'Phòng ăn · Đá mã não & gỗ sồi sơn mài', cap5:'Grand Salon · Chi tiết siêu phân giải', cap6:'Phòng ngủ Master · Nơi nghỉ dưỡng',
-      cap7:'Phòng tắm Master · Mã não & Cẩm thạch', cap8:'Cầu thang điêu khắc · Đồng thau', cap9:'Khu vực ghế bành · Kết cấu sang trọng'
-    }
-  },
-  en: {
-    backBtn: '← Back to projects', heroAddr: 'Dubai · Palm Jumeirah', heroComplex: 'Super Penthouse', heroSub: '35,392 ft² · Modern Luxury · YODEZEEN',
-    infoLabel: 'Global Future Design Awards 2024 · Gold Winner', infoSub: '3,288 m² · Travertine · Onyx · Brass · Lacquered oak · Leather',
-    infoBody: 'The Super Penthouse at Raffles The Palm Dubai Residences represents the pinnacle of high-end real estate, blending unparalleled opulence with thoughtful design. YODEZEEN has crafted an interior that embodies sophistication, showcasing modern aesthetics with timeless elements. This property offers breathtaking panoramic views of Dubai\'s skyline and the Arabian Gulf.',
-    svc1: 'Interior Architecture', svc2: 'Material Curation', svc3: 'Custom Furnishings', svc4: 'Lighting Design',
-    areaLabel: '3,288 m² · Palm Jumeirah · Dubai', areaTags: 'Grand Salon · Master Suite · Terraces · Onyx · Brass',
-    conceptLabel: 'Design Concept', conceptText: 'The concept revolves around a seamless flow between lavish indoor spaces and expansive outdoor terraces. Travertine, onyx, and brass evoke timeless luxury, while lacquered oak veneer and leather introduce warmth. Brass-rounded panels inspired by Raffles\' domes unite natural textures with crafted details.',
-    endQuote: 'The Super Penthouse at Raffles The Palm Dubai — Global Future Design Awards 2024 Gold Winner. YODEZEEN\'s vision redefines ultra-luxury living, integrating travertine, onyx, brass, and architectural motifs that echo the iconic domes of Raffles, crafting a harmonious blend of art, function, and premium lifestyle.',
-    endTag: 'Raffles The Palm · Dubai · Super Penthouse', endName: 'YODEZEEN · 35,392 ft² · Modern Luxury',
-    hintText: 'Scroll', langBtn: 'VI',
-    captions: {
-      cap1:'Grand Salon · Opulent scale', cap2:'Lounge · Travertine & Brass', cap3:'Lounge · Timeless elegance',
-      cap4:'Dining · Onyx & lacquered oak', cap5:'Grand Salon · Gigapixel detail', cap6:'Master Bedroom · Serene luxury',
-      cap7:'Master Bath · Onyx & marble', cap8:'Sculptural staircase · Brass accents', cap9:'Seating area · Luxurious textures'
-    }
-  }
-};
-
-function toggleLang() {
-  const newLang = lang === 'vi' ? 'en' : 'vi';
-  lang = newLang;
-  const t = translations[lang];
-  document.getElementById('backBtn').innerText = t.backBtn;
-  document.getElementById('heroAddr').innerText = t.heroAddr;
-  document.getElementById('heroComplex').innerText = t.heroComplex;
-  document.getElementById('heroSub').innerText = t.heroSub;
-  document.getElementById('infoLabel').innerText = t.infoLabel;
-  document.getElementById('infoSub').innerText = t.infoSub;
-  document.getElementById('infoBody').innerHTML = `<p>${t.infoBody}</p>`;
-  document.getElementById('svc1').innerText = t.svc1;
-  document.getElementById('svc2').innerText = t.svc2;
-  document.getElementById('svc3').innerText = t.svc3;
-  document.getElementById('svc4').innerText = t.svc4;
-  document.getElementById('areaLabel').innerText = t.areaLabel;
-  document.getElementById('areaTags').innerText = t.areaTags;
-  document.getElementById('conceptLabel').innerText = t.conceptLabel;
-  document.getElementById('conceptText').innerHTML = t.conceptText.replace(/<strong>(.*?)<\/strong>/g, '<strong>$1</strong>');
-  document.getElementById('endQuote').innerText = t.endQuote;
-  document.getElementById('endTag').innerText = t.endTag;
-  document.getElementById('endName').innerText = t.endName;
-  document.querySelector('#hint span').innerText = t.hintText;
-  document.getElementById('lang-btn').innerText = t.langBtn;
-  // update all captions
-  for(let i=1;i<=9;i++) {
-    const el = document.getElementById(`cap${i}`);
-    if(el && t.captions[`cap${i}`]) el.innerText = t.captions[`cap${i}`];
-  }
-}
-window.toggleLang = toggleLang;
 </script>
 </body>
 </html>
