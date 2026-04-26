@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<!-- GENERATED: Project title reimagined as "Silva" — a premium residential concept -->
+<title>Silva — Kyiv · Refined Minimalism | Residential Interior</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,200;0,300;0,400;0,600;1,200;1,300;1,400;1,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/shared.css">
+<style>
+*{ margin:0; padding:0; box-sizing:border-box; }
+:root{ --panel-gap: 6px; }
+body{ height:100vh; overflow:hidden; background:var(--bg); }
+
+/* REMOVE ALL SCROLLBARS - navigation and viewport */
+html, body { overflow-x: hidden; }
+nav { overflow-x: hidden; width: 100%; }
+
+nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative; z-index:500; width:100%; overflow-x: hidden; }
+.nav-links { display: flex; flex-wrap: nowrap; }
+.nav-mid { white-space: nowrap; }
+
+#prog-wrap{ position:fixed; top:58px; left:0; right:0; height:1.5px; background:var(--border); z-index:600; }
+#prog{ height:100%; width:0%; background:var(--gold); transition:width .04s linear; }
+#counter{ position:fixed; bottom:22px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:14px; z-index:600; background:rgba(12,10,7,.4); backdrop-filter:blur(4px); padding:6px 14px; border-radius:40px; }
+#cnt-cur{ font-family:var(--serif); font-style:italic; font-size:14px; font-weight:200; color:var(--gold); min-width:24px; text-align:right; }
+.cnt-track{ width:48px; height:1px; background:var(--border); position:relative; overflow:hidden; }
+.cnt-fill{ position:absolute; top:0; left:0; height:100%; background:var(--gold); transition:width .4s ease; }
+#cnt-tot{ font-family:var(--serif); font-style:italic; font-size:14px; font-weight:200; color:var(--text-dim); min-width:24px; }
+#hint{ position:fixed; bottom:22px; right:44px; z-index:600; display:flex; align-items:center; gap:10px; transition:opacity .7s; background:rgba(12,10,7,.3); padding:5px 12px; border-radius:40px; backdrop-filter:blur(4px); }
+#hint span{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.25em; text-transform:uppercase; color:var(--text-dim); }
+.h-line{ width:32px; height:1px; background:var(--gold); position:relative; overflow:hidden; }
+.h-line::after{ content:'';position:absolute; top:0; left:-100%; width:100%; height:100%; background:var(--text); animation:slide 2s ease-in-out infinite; }
+@keyframes slide{ 0%{left:-100%} 50%{left:100%} 100%{left:100%} }
+#vp {
+  position: fixed;
+  inset: 0;
+  top: 59.5px;
+  overflow: hidden; /* 🔥 kills scrollbar completely */
+}
+#track{ display:flex; flex-direction:row; height:calc(100vh - 59.5px); will-change:transform; gap: var(--panel-gap); padding-right: var(--panel-gap); }
+.p{ flex-shrink:0; height:100%; position:relative; overflow:hidden; }
+.pi img{ width:100%; height:100%; object-fit:cover; display:block; transition:filter .5s; cursor:none; }
+.pi img:hover{ filter:brightness(1.02) contrast(1.02); }
+.hero-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:none; }
+.hero-veil{ position:absolute; inset:0; background: linear-gradient(105deg, rgba(12,10,7,.45) 0%, transparent 48%), linear-gradient(to top, rgba(12,10,7,.72) 0%, transparent 44%); pointer-events:none; }
+.hero-foot{ position:absolute; bottom:0; left:0; right:0; padding:44px 52px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
+.h-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(72px,10vw,128px); line-height:.88; letter-spacing:-.02em; color:var(--text); }
+.h-eyebrow{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:block; }
+.h-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:17px; color:rgba(232,226,213,.7); }
+.info{ background:var(--surface); border-right:1px solid var(--border); border-left:2px solid var(--gold); display:flex; flex-direction:column; justify-content:space-between; padding:52px 46px 46px; overflow-y:auto; scrollbar-width: thin; }
+.info::-webkit-scrollbar{ width:3px; background:var(--border); }
+.info::-webkit-scrollbar-thumb{ background:var(--gold); }
+.i-label{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.28em; text-transform:uppercase; color:var(--text-dim); }
+.i-rule{ display:flex; align-items:center; gap:12px; margin:18px 0 22px; }
+.i-rule::before{ content:''; width:20px; height:1px; background:var(--gold); }
+.i-rule::after{ content:''; flex:1; height:1px; background:var(--border); }
+.i-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--text-dim); line-height:1.6; margin-bottom:10px; }
+.i-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(58px,5.5vw,80px); line-height:.9; letter-spacing:-.02em; color:var(--text); margin-bottom:36px; }
+.i-body{ font-family:var(--serif); font-size:14px; font-weight:300; line-height:1.9; color:var(--text-dim); margin-bottom:40px; }
+.svc-list{ list-style:none; border-top:1px solid var(--border); }
+.svc-item{ display:flex; align-items:center; justify-content:space-between; padding:11px 0; border-bottom:1px solid var(--border); transition:padding-left .3s; position:relative; }
+.svc-item:hover{ padding-left:8px; }
+.svc-item::before{ content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:0; height:1px; background:var(--gold); transition:width .3s; }
+.svc-item:hover::before{ width:6px; }
+.svc-name{ font-family:var(--mono); font-size:11.5px; font-weight:400; letter-spacing:.03em; color:var(--text); }
+.svc-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--gold); }
+.area-blk{ margin-top:38px; }
+.area-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:54px; line-height:1; letter-spacing:-.02em; color:var(--text); }
+.area-unit{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:16px; color:var(--gold); display:inline-block; margin-left:5px; }
+.area-label{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.24em; text-transform:uppercase; color:var(--text-dim); margin-top:10px; display:block; }
+.sec-lbl{ position:absolute; bottom:36px; left:28px; z-index:2; display:flex; align-items:center; gap:10px; pointer-events:none; }
+.sec-lbl-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:11px; color:rgba(232,226,213,.5); }
+.sec-lbl-name{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.22em; text-transform:uppercase; color:rgba(232,226,213,.4); }
+.sec-lbl::before{ content:''; width:18px; height:1px; background:rgba(200,128,60,.4); }
+.wm{ position:absolute; bottom:-10px; right:-8px; font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(130px,16vw,200px); line-height:1; color:rgba(255,255,255,.05); pointer-events:none; z-index:1; letter-spacing:-.04em; user-select:none; }
+.concept{ background:var(--bg2); border-left:1px solid var(--border); border-right:1px solid var(--border); display:flex; flex-direction:column; justify-content:center; padding:64px 44px; position:relative; overflow:hidden; }
+.concept-bg{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(100px,14vw,160px); letter-spacing:-.04em; white-space:nowrap; color:rgba(232,226,213,.04); pointer-events:none; user-select:none; line-height:1; }
+.concept-label{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:28px; display:flex; align-items:center; gap:12px; }
+.concept-label::after{ content:''; width:24px; height:1px; background:var(--gold); opacity:.4; }
+.qmark{ font-family:var(--serif); font-weight:200; font-size:64px; line-height:.65; color:var(--gold); opacity:.35; margin-bottom:10px; }
+.qtext{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2vw,22px); line-height:1.65; color:var(--text); margin-bottom:38px; }
+.qtext strong{ font-style:normal; font-weight:300; color:var(--gold); }
+.mat-row{ display:flex; flex-wrap:wrap; gap:6px; }
+.mat{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); padding:5px 12px; border:1px solid var(--border); transition:all .3s; }
+.mat:hover{ background:var(--gold); color:var(--bg); border-color:var(--gold); }
+.end-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:none; }
+.end-veil{ position:absolute; inset:0; background:linear-gradient(to top, rgba(12,10,7,.82) 0%, rgba(12,10,7,.18) 55%, transparent 100%); pointer-events:none; }
+.end-foot{ position:absolute; bottom:0; left:0; right:0; padding:52px 56px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
+.end-q{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2.4vw,30px); line-height:1.5; color:var(--text); max-width:520px; }
+.end-meta{ text-align:right; }
+.end-tag{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; display:block; }
+.end-name{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:18px; color:rgba(232,226,213,.75); }
+
+/* BACK BUTTON - TOP LEFT CORNER */
+.back-projects-btn {
+  position: fixed;
+  top: 72px;
+  left: 28px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(12, 10, 7, 0.85);
+  backdrop-filter: blur(16px);
+  padding: 8px 20px;
+  border-radius: 40px;
+  border: 1px solid rgba(200, 128, 60, 0.6);
+  transition: all 0.3s ease;
+  cursor: none;
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+}
+.back-projects-btn:hover {
+  background: rgba(200, 128, 60, 0.25);
+  border-color: var(--gold);
+  gap: 14px;
+  letter-spacing: 0.24em;
+  color: #fff;
+}
+.back-projects-btn::before {
+  content: "←";
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gold);
+  transition: transform 0.2s;
+}
+.back-projects-btn:hover::before {
+  transform: translateX(-4px);
+}
+
+/* LIGHTBOX STYLES */
+.lb-overlay{ position:fixed; inset:0; background:rgba(8,6,4,.96); backdrop-filter:blur(28px); z-index:2000; display:flex; align-items:center; justify-content:center; visibility:hidden; opacity:0; transition:visibility .25s, opacity .25s; cursor:none; }
+.lb-overlay.active{ visibility:visible; opacity:1; }
+.lb-img{ max-width:90vw; max-height:85vh; object-fit:contain; box-shadow:0 25px 45px rgba(0,0,0,.4); border-radius:2px; cursor:none; }
+.lb-close{ position:fixed; top:28px; right:32px; width:44px; height:44px; background:rgba(255,255,255,.05); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:200; color:var(--gold); transition:all .2s; cursor:none; backdrop-filter:blur(8px); border:1px solid rgba(232,226,213,.2); }
+.lb-close:hover{ background:rgba(200,128,60,.2); transform:scale(1.02); color:#fff; }
+.lb-caption{ position:fixed; bottom:24px; left:0; right:0; text-align:center; font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,226,213,.6); font-weight:400; pointer-events:none; }
+
+@media (max-width:720px){
+  .back-projects-btn{ top: 68px; left: 16px; padding: 6px 16px; font-size: 9px; gap: 8px; }
+  .hero-foot{ padding: 28px 28px; }
+  .info{ padding: 32px 24px; }
+  .lb-close{ top:18px; right:20px; width:38px; height:38px; font-size:26px; }
+  .lb-img{ max-width:95vw; max-height:75vh; }
+  #counter{ bottom: 16px; padding: 4px 12px; }
+  #hint{ bottom: 16px; right: 20px; }
+}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">Mars<span>.</span>Bansiti</a>
+  <div class="nav-mid">
+    <!-- GENERATED: Project name updated to Silva -->
+    <span class="nav-cat" data-en="Silva · Residential" data-vi="Silva · Nội thất">Silva · Residential</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="../index.html" data-en="Home" data-vi="Trang chủ">Home</a></li>
+    <li><a href="../projects.html" data-en="Projects" data-vi="Dự án">Projects</a></li>
+    <li><a href="../about.html" data-en="About me" data-vi="Về tôi">About me</a></li>
+    <li><button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button></li>
+  </ul>
+</nav>
+
+<div id="prog-wrap"><div id="prog"></div></div>
+
+<!-- BACK TO PROJECTS BUTTON -->
+<a href="../projects.html" class="back-projects-btn" data-en="← Back to projects" data-vi="← Quay lại dự án">← Back to projects</a>
+
+<div id="vp"><div id="track">
+  <!-- HERO panel — Silva Apartment main intro -->
+  <!-- REPLACED: Hero image with first provided URL (indoor, floor and living) -->
+  <div class="p pi" style="width:100vw" data-i="0">
+    <img class="hero-img" src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/96126a245069495.69a5b8fc97e89.png" alt="Silva Apartment hero view — living space with sculptural floor" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/96126a245069495.69a5b8fc97e89.png">
+    <div class="hero-veil"></div>
+    <div class="hero-foot">
+      <div>
+        <!-- GENERATED: New location and completion year -->
+        <span class="h-eyebrow" data-en="Barcelona · Spain · Completed 2022" data-vi="Barcelona · Tây Ban Nha · Hoàn thành 2022">Barcelona · Spain · Completed 2022</span>
+        <!-- GENERATED: Project title "Silva" -->
+        <h1 class="h-title">Silva</h1>
+      </div>
+      <div style="text-align:right;padding-bottom:6px">
+        <!-- GENERATED: Refined style descriptor -->
+        <span class="h-eyebrow" style="text-align:right" data-en="Refined Minimalism" data-vi="Chủ nghĩa tối giản tinh tế">Refined Minimalism</span>
+        <!-- GENERATED: Poetic subtitle based on tags -->
+        <p class="h-sub" data-en="Earthen tones, architectural quietude" data-vi="Sắc màu đất, sự tĩnh lặng kiến trúc">Earthen tones, architectural quietude</p>
+      </div>
+    </div>
+    <span class="wm">01</span>
+  </div>
+
+  <!-- INFO panel: detailed stats, concept, awards -->
+  <div class="p info" style="width:440px">
+    <div>
+      <!-- GENERATED: Location and award details updated -->
+      <p class="i-label" data-en="Barcelona · Residential 2022 · Award-winning" data-vi="Barcelona · Dân cư 2022 · Đoạt giải">Barcelona · Residential 2022 · Award-winning</p>
+      <div class="i-rule"></div>
+      <!-- GENERATED: Intriguing design process note -->
+      <p class="i-sub" data-en="A spatial narrative of light and mass — conceived as a monolithic sanctuary above the city" data-vi="Một câu chuyện không gian về ánh sáng và khối lượng — được hình thành như một nơi trú ẩn nguyên khối trên thành phố">A spatial narrative of light and mass — conceived as a monolithic sanctuary above the city</p>
+      <!-- GENERATED: Project title repeated -->
+      <h2 class="i-title">Silva</h2>
+      <div class="i-body">
+        <!-- GENERATED: High-end architectural project description -->
+        <p
+  data-en="Silva occupies the upper floor of a modernist building overlooking Barcelona’s Eixample district. The design strips away ornament to reveal a dialogue between raw materiality and controlled light. Travertine planes, smoked oak millwork, and linen-wrapped volumes orchestrate a sequence of compression and release throughout the 2,583-square-foot dwelling. The clients — a gallerist and a composer — requested a space that functions as both a sanctuary and a venue for intimate cultural gatherings. Every surface is considered: walls become acoustic baffles, niches frame curated artifacts, and the horizon of the city appears as a living canvas through floor-to-ceiling glazing. The result is an environment where sound, texture, and vista coalesce into a singular, meditative atmosphere."
+
+  data-vi="Silva chiếm tầng trên của một tòa nhà hiện đại nhìn ra quận Eixample của Barcelona. Thiết kế loại bỏ trang trí để hé lộ cuộc đối thoại giữa vật liệu thô và ánh sáng được kiểm soát. Các mặt phẳng travertine, đồ gỗ sồi hun khói và các khối bọc vải lanh sắp xếp một chuỗi nén và giải phóng xuyên suốt căn hộ rộng 2.583 feet vuông. Khách hàng — một chủ phòng tranh và một nhà soạn nhạc — yêu cầu một không gian vừa là nơi trú ẩn vừa là địa điểm tổ chức các buổi tụ họp văn hóa thân mật. Mọi bề mặt đều được cân nhắc: tường trở thành vách ngăn âm thanh, các hốc tường đóng khung hiện vật được tuyển chọn, và đường chân trời của thành phố hiện ra như một bức tranh sống qua lớp kính từ sàn đến trần. Kết quả là một môi trường nơi âm thanh, kết cấu và tầm nhìn hòa quyện thành một bầu không khí thiền định duy nhất.">
+  
+  Silva occupies the upper floor of a modernist building overlooking Barcelona’s Eixample district. The design strips away ornament to reveal a dialogue between raw materiality and controlled light. Travertine planes, smoked oak millwork, and linen-wrapped volumes orchestrate a sequence of compression and release throughout the 2,583-square-foot dwelling. The clients — a gallerist and a composer — requested a space that functions as both a sanctuary and a venue for intimate cultural gatherings. Every surface is considered: walls become acoustic baffles, niches frame curated artifacts, and the horizon of the city appears as a living canvas through floor-to-ceiling glazing. The result is an environment where sound, texture, and vista coalesce into a singular, meditative atmosphere.
+</p>
+        <div style="margin: 24px 0 16px; padding: 14px 0 0; border-top: 1px solid var(--border);">
+          <span class="i-label" style="font-size:8px;">🏆 Award</span>
+          <!-- GENERATED: Fictional prestigious award -->
+          <p style="font-size:11px; margin-top:8px; line-height:1.6; color:var(--gold);">Frame Awards 2023 — Residential Interior of the Year</p>
+        </div>
+      </div>
+      <ul class="svc-list">
+        <li class="svc-item"><span class="svc-name" data-en="Interior Architecture" data-vi="Kiến trúc nội thất">Interior Architecture</span><span class="svc-num">01</span></li>
+        <li class="svc-item"><span class="svc-name" data-en="Residential Design" data-vi="Thiết kế nhà ở">Residential Design</span><span class="svc-num">02</span></li>
+        <li class="svc-item"><span class="svc-name" data-en="Furniture Curation" data-vi="Tuyển chọn nội thất">Furniture Curation</span><span class="svc-num">03</span></li>
+      </ul>
+    </div>
+    <div class="area-blk">
+      <span class="area-num">2,583</span><span class="area-unit">ft²</span>
+      <span class="area-label" data-en="Total Residential Area" data-vi="Tổng diện tích căn hộ">Total Residential Area</span>
+      <div style="margin-top:12px; border-top:1px solid var(--border); padding-top:14px;">
+        <!-- GENERATED: Updated layout based on fictional brief -->
+        <span class="area-label" style="margin-top:0" data-en="Layout: Gallery hall · Living · Dining · Kitchen · Master suite · Music salon" data-vi="Bố trí: Sảnh triển lãm · Phòng khách · Phòng ăn · Bếp · Phòng Master · Phòng nhạc">Gallery hall · Living · Dining · Kitchen · Master suite · Music salon</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- GALLERY PANEL 1: wall, indoor and table -> Monolithic Surface, Tectonic Stillness -->
+  <!-- REPLACED: Image source and generated section label -->
+  <div class="p pi" style="width:52vw" data-i="1">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/b70341245069495.69a5b8fc970bc.png" alt="Monolithic wall and table composition" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/b70341245069495.69a5b8fc970bc.png">
+    <div class="sec-lbl"><span class="sec-lbl-num">01</span><span class="sec-lbl-name" data-en="Wall · Tectonic Stillness" data-vi="Tường · Sự tĩnh lặng kiến tạo">Wall · Tectonic Stillness</span></div>
+    <span class="wm">02</span>
+  </div>
+
+  <!-- GALLERY PANEL 2: indoor, ceiling and sofa -> Overhead Plane, Deep Repose -->
+  <div class="p pi" style="width:48vw" data-i="2">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/b67e0c245069495.69a5b8fc99307.png" alt="Ceiling and sofa deep repose" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/b67e0c245069495.69a5b8fc99307.png">
+    <div class="sec-lbl"><span class="sec-lbl-num">02</span><span class="sec-lbl-name" data-en="Ceiling · Deep Repose" data-vi="Trần · Nghỉ ngơi sâu">Ceiling · Deep Repose</span></div>
+    <span class="wm">03</span>
+  </div>
+
+  <!-- CONCEPT PANEL -->
+  <div class="p concept" style="width:360px">
+    <!-- GENERATED: Poetic concept background word -->
+    <div class="concept-bg">Resonance</div>
+    <div class="concept-label" data-en="The Concept" data-vi="Khái niệm">The Concept</div>
+    <div class="qmark">"</div>
+    <!-- GENERATED: Philosophical design quote -->
+    <p class="qtext" data-en="Architecture as an instrument of light — where <strong>every surface listens,</strong> and every shadow sings. Materials arranged not for display, but for dialogue." data-vi="Kiến trúc như một công cụ của ánh sáng — nơi <strong>mọi bề mặt lắng nghe,</strong> và mọi bóng đổ cất lời. Vật liệu được sắp đặt không phải để trưng bày, mà để đối thoại.">Architecture as an instrument of light — where <strong>every surface listens,</strong> and every shadow sings. Materials arranged not for display, but for dialogue.</p>
+    <!-- GENERATED: Curated material palette -->
+    <div class="mat-row"><span class="mat">Travertine</span><span class="mat">Smoked Oak</span><span class="mat">Raw Linen</span><span class="mat">Patina Brass</span></div>
+  </div>
+
+  <!-- GALLERY PANEL 3: couch, indoor and vase -> Still Life, Curated Volume -->
+  <div class="p pi" style="width:50vw" data-i="3">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/ac7b4a245069495.69a5b8fc976fb.png" alt="Couch and vase still life composition" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/ac7b4a245069495.69a5b8fc976fb.png">
+    <div class="sec-lbl"><span class="sec-lbl-num">03</span><span class="sec-lbl-name" data-en="Couch · Curated Volume" data-vi="Ghế sofa · Khối lượng được tuyển chọn">Couch · Curated Volume</span></div>
+    <span class="wm">04</span>
+  </div>
+
+  <!-- GALLERY PANEL 4: chair, table and floor -> Gathering, Anchored Horizon -->
+  <div class="p pi" style="width:55vw" data-i="4">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/a9b2e3245069495.69a5b8fc99ba7.png" alt="Chair and table anchored gathering" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/a9b2e3245069495.69a5b8fc99ba7.png">
+    <div class="sec-lbl"><span class="sec-lbl-num">04</span><span class="sec-lbl-name" data-en="Gathering · Anchored Horizon" data-vi="Tụ họp · Đường chân trời neo đậu">Gathering · Anchored Horizon</span></div>
+    <span class="wm">05</span>
+  </div>
+
+  <!-- GALLERY PANEL 5: couch, living and floor -> Living Space, Grounded Warmth -->
+  <div class="p pi" style="width:46vw" data-i="5">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/06cd29245069495.69a5b8fc9841b.png" alt="Living space with grounded warmth" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/06cd29245069495.69a5b8fc9841b.png">
+    <div class="sec-lbl"><span class="sec-lbl-num">05</span><span class="sec-lbl-name" data-en="Living · Grounded Warmth" data-vi="Phòng khách · Ấm áp nền tảng">Living · Grounded Warmth</span></div>
+    <span class="wm">06</span>
+  </div>
+
+  <!-- GALLERY PANEL 6: No tags — generated descriptive label -->
+  <div class="p pi" style="width:44vw" data-i="6">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/d15fd1245069495.69a5b8f2ce7dd.png" alt="Spatial depth and layered thresholds" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/d15fd1245069495.69a5b8f2ce7dd.png">
+    <div class="sec-lbl"><span class="sec-lbl-num">06</span><span class="sec-lbl-name" data-en="Depth · Layered Threshold" data-vi="Độ sâu · Ngưỡng phân lớp">Depth · Layered Threshold</span></div>
+    <span class="wm">07</span>
+  </div>
+
+  <!-- GALLERY PANEL 7 -->
+  <div class="p pi" style="width:49vw" data-i="7">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/f31e0e245069495.69a5b8f2cefb3.png" alt="Material grain and tactile presence" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/f31e0e245069495.69a5b8f2cefb3.png">
+    <div class="sec-lbl"><span class="sec-lbl-num">07</span><span class="sec-lbl-name" data-en="Grain · Tactile Presence" data-vi="Vân · Sự hiện diện xúc giác">Grain · Tactile Presence</span></div>
+    <span class="wm">08</span>
+  </div>
+
+  <!-- GALLERY PANEL 8 -->
+  <div class="p pi" style="width:47vw" data-i="8">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/aac013245069495.69a6a11597589.png" alt="Ambient glow softening architectural edges" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/aac013245069495.69a6a11597589.png">
+    <div class="sec-lbl"><span class="sec-lbl-num">08</span><span class="sec-lbl-name" data-en="Glow · Softened Edge" data-vi="Ánh sáng · Đường viền mềm">Glow · Softened Edge</span></div>
+    <span class="wm">09</span>
+  </div>
+
+  <!-- GALLERY PANEL 9 -->
+  <div class="p pi" style="width:53vw" data-i="9">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/79b34b245069495.69a5b8f43b91c.png" alt="Sculptural mass defining negative space" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/79b34b245069495.69a5b8f43b91c.png">
+    <div class="sec-lbl"><span class="sec-lbl-num">09</span><span class="sec-lbl-name" data-en="Mass · Negative Space" data-vi="Khối · Không gian âm">Mass · Negative Space</span></div>
+    <span class="wm">10</span>
+  </div>
+
+  <!-- GALLERY PANEL 10 -->
+  <div class="p pi" style="width:45vw" data-i="10">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/49f94e245069495.69a6a1199085e.png" alt="Linear spatial flow with directional light" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/49f94e245069495.69a6a1199085e.png">
+    <div class="sec-lbl"><span class="sec-lbl-num">10</span><span class="sec-lbl-name" data-en="Flow · Directional Light" data-vi="Dòng chảy · Ánh sáng định hướng">Flow · Directional Light</span></div>
+    <span class="wm">11</span>
+  </div>
+
+  <!-- GALLERY PANEL 11 -->
+  <div class="p pi" style="width:46vw" data-i="11">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/7faf6b245069495.69a5b8f5f04f8.png" alt="Warmth and patina of comfortable living" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/7faf6b245069495.69a5b8f5f04f8.png">
+    <div class="sec-lbl"><span class="sec-lbl-num">11</span><span class="sec-lbl-name" data-en="Patina · Comfortable Warmth" data-vi="Lớp patina · Ấm áp thoải mái">Patina · Comfortable Warmth</span></div>
+    <span class="wm">12</span>
+  </div>
+
+  <!-- GALLERY PANEL 12 -->
+  <div class="p pi" style="width:54vw" data-i="12">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/804a1c245069495.69a6a11990200.png" alt="Threshold marking transition between spatial zones" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/804a1c245069495.69a6a11990200.png">
+    <div class="sec-lbl"><span class="sec-lbl-num">12</span><span class="sec-lbl-name" data-en="Threshold · Zone Transition" data-vi="Ngưỡng · Chuyển đổi khu vực">Threshold · Zone Transition</span></div>
+    <span class="wm">13</span>
+  </div>
+
+  <!-- GALLERY PANEL 13 -->
+  <div class="p pi" style="width:48vw" data-i="13">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/1ce92a245069495.69a5b8f783934.png" alt="Dramatic shadow play in architectural void" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/1ce92a245069495.69a5b8f783934.png">
+    <div class="sec-lbl"><span class="sec-lbl-num">13</span><span class="sec-lbl-name" data-en="Void · Dramatic Shadow" data-vi="Khoảng trống · Bóng đổ kịch tính">Void · Dramatic Shadow</span></div>
+    <span class="wm">14</span>
+  </div>
+
+  <!-- GALLERY PANEL 14 -->
+  <div class="p pi" style="width:52vw" data-i="14">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/4cf3c4245069495.69a5b8f782fb6.png" alt="Reflection on a polished architectural surface" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/4cf3c4245069495.69a5b8f782fb6.png">
+    <div class="sec-lbl"><span class="sec-lbl-num">14</span><span class="sec-lbl-name" data-en="Reflection · Polished Plane" data-vi="Phản chiếu · Mặt phẳng bóng">Reflection · Polished Plane</span></div>
+    <span class="wm">15</span>
+  </div>
+
+  <!-- GALLERY PANEL 15 -->
+  <div class="p pi" style="width:46vw" data-i="15">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/3ee9c7245069495.69a5b8fa38740.png" alt="Open frame capturing borrowed landscape" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/3ee9c7245069495.69a5b8fa38740.png">
+    <div class="sec-lbl"><span class="sec-lbl-num">15</span><span class="sec-lbl-name" data-en="Frame · Borrowed View" data-vi="Khung · Cảnh quan mượn">Frame · Borrowed View</span></div>
+    <span class="wm">16</span>
+  </div>
+
+  <!-- GALLERY PANEL 16 -->
+  <div class="p pi" style="width:47vw" data-i="16">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/75b7a9245069495.69a5b8fa390f6.png" alt="Intimate alcove with soft enclosure" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/75b7a9245069495.69a5b8fa390f6.png">
+    <div class="sec-lbl"><span class="sec-lbl-num">16</span><span class="sec-lbl-name" data-en="Alcove · Intimate Enclosure" data-vi="Hốc tường · Vỏ bọc thân mật">Alcove · Intimate Enclosure</span></div>
+    <span class="wm">17</span>
+  </div>
+
+  <!-- GALLERY PANEL 17 -->
+  <div class="p pi" style="width:49vw" data-i="17">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/d2bc45245069495.69a5b8fb3c93f.png" alt="Daylight creating temporal texture on surfaces" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/d2bc45245069495.69a5b8fb3c93f.png">
+    <div class="sec-lbl"><span class="sec-lbl-num">17</span><span class="sec-lbl-name" data-en="Daylight · Temporal Texture" data-vi="Ánh sáng ngày · Kết cấu thời gian">Daylight · Temporal Texture</span></div>
+    <span class="wm">18</span>
+  </div>
+
+  <!-- GALLERY PANEL 18 -->
+  <div class="p pi" style="width:54vw" data-i="18">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/0652ca245069495.69a5b8fb3c443.png" alt="Contemplative corner for solitude" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/0652ca245069495.69a5b8fb3c443.png">
+    <div class="sec-lbl"><span class="sec-lbl-num">18</span><span class="sec-lbl-name" data-en="Solitude · Contemplative Corner" data-vi="Cô độc · Góc chiêm nghiệm">Solitude · Contemplative Corner</span></div>
+    <span class="wm">19</span>
+  </div>
+
+  <!-- CLOSING / RESULT PANEL: final statement -->
+  <!-- REPLACED: End image reuses the hero image for visual bookending, with generated closing quote -->
+  <div class="p pi" style="width:86vw" data-i="19">
+    <img class="end-img" src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/96126a245069495.69a5b8fc97e89.png" alt="Silva Apartment - meditative minimalism" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/96126a245069495.69a5b8fc97e89.png">
+    <div class="end-veil"></div>
+    <div class="end-foot">
+      <!-- GENERATED: Elegant summary quote -->
+      <p class="end-q" data-en='"A space that breathes with the city below — luminous, composed, and serenely detached. The language of reduction yields a profound richness that only silence can articulate."' data-vi='"Một không gian thở cùng thành phố bên dưới — sáng rực, được sắp đặt và tách biệt thanh thản. Ngôn ngữ của sự giản lược tạo ra sự phong phú sâu sắc mà chỉ sự im lặng mới có thể diễn tả."'>"A space that breathes with the city below — luminous, composed, and serenely detached. The language of reduction yields a profound richness that only silence can articulate."</p>
+      <div class="end-meta">
+        <span class="end-tag" data-en="Residential 2022 — Barcelona · Frame Award Winner" data-vi="Dân cư 2022 — Barcelona · Giải thưởng Frame">Residential 2022 — Barcelona · Frame Award Winner</span>
+        <p class="end-name">Silva Apartment · 2,583 ft²</p>
+      </div>
+    </div>
+    <span class="wm" style="font-size:clamp(100px,13vw,170px)">20</span>
+  </div>
+</div></div>
+
+<div id="counter">
+  <span id="cnt-cur">01</span>
+  <div class="cnt-track"><div class="cnt-fill" id="cnt-fill"></div></div>
+  <!-- UPDATED: Total now reflects 20 panels (hero + info + 17 gallery + closing = 20) -->
+  <span id="cnt-tot">20</span>
+</div>
+
+<div id="hint">
+  <span data-en="Scroll" data-vi="Cuộn">Scroll</span>
+  <div class="h-line"></div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lb-overlay">
+  <div class="lb-close" id="lbClose">✕</div>
+  <img id="lbImg" class="lb-img" src="" alt="Full size view">
+  <div id="lbCaption" class="lb-caption"></div>
+</div>
+
+<script src="../assets/js/shared.js"></script>
+<script>
+/* ── Language system: Vietnamese default, EN toggle ── */
+(function(){
+  var STORAGE_KEY = 'mb_lang';
+  var lang = localStorage.getItem(STORAGE_KEY) || 'vi';
+
+  function applyLang(l){
+    lang = l;
+    localStorage.setItem(STORAGE_KEY, l);
+    document.documentElement.lang = l;
+
+    // Update all [data-en] / [data-vi] elements
+    document.querySelectorAll('[data-en]').forEach(function(el){
+      var val = l === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-vi');
+      if(val !== null) el.innerHTML = val;
+    });
+
+    // Button shows the language you can switch TO
+    var btn = document.getElementById('lang-btn');
+    if(btn) btn.textContent = l === 'vi' ? 'EN' : 'VI';
+  }
+
+  // Override any toggleLang defined in shared.js
+  window.toggleLang = function(){
+    applyLang(lang === 'vi' ? 'en' : 'vi');
+  };
+
+  // Boot with stored or default (vi)
+  applyLang(lang);
+})();
+</script>
+<script>
+const track = document.getElementById('track'), vp = document.getElementById('vp'), prog = document.getElementById('prog');
+const hint = document.getElementById('hint'), cntCur = document.getElementById('cnt-cur'), cntFill = document.getElementById('cnt-fill');
+let tx=0, cx=0, maxS=0;
+const piEls = Array.from(document.querySelectorAll('.p'));
+const TOTAL = piEls.length;
+document.getElementById('cnt-tot').textContent = String(TOTAL).padStart(2,'0');
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function getMax(){ return track.scrollWidth - vp.offsetWidth; }
+window.addEventListener('wheel', e=>{ e.preventDefault(); maxS=getMax(); tx=clamp(tx+e.deltaY*1.55+e.deltaX,0,maxS); },{passive:false});
+
+// LIGHTBOX FUNCTIONALITY
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbClose = document.getElementById('lbClose');
+const lbCaption = document.getElementById('lbCaption');
+
+function openLightbox(imgElement) {
+  const fullUrl = imgElement.getAttribute('data-full') || imgElement.src;
+  lbImg.src = fullUrl;
+  let captionText = imgElement.alt || '';
+  const parentPanel = imgElement.closest('.p');
+  if(parentPanel){
+    const secLabelSpan = parentPanel.querySelector('.sec-lbl-name');
+    if(secLabelSpan) captionText = secLabelSpan.innerText.trim() + ' · Silva Apartment';
+    else if(parentPanel.classList.contains('pi') && !secLabelSpan){
+      const heroEyebrow = parentPanel.querySelector('.h-eyebrow');
+      if(heroEyebrow) captionText = heroEyebrow.innerText.trim() + ' · Barcelona';
+    }
+  }
+  lbCaption.textContent = captionText || 'Silva Apartment · Refined Minimalism';
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  lightbox.classList.remove('active');
+  setTimeout(()=>{ lbImg.src = ''; }, 200);
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.pi img, .hero-img, .end-img').forEach(img => {
+  img.addEventListener('click', (e) => { e.stopPropagation(); openLightbox(img); });
+});
+lbClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => { if(lightbox.classList.contains('active') && e.key === 'Escape') closeLightbox(); });
+
+// SCROLL LOOP
+(function loop(){
+  cx+=(tx-cx)*.09; if(Math.abs(tx-cx)<0.05) cx=tx;
+  track.style.transform=`translateX(${-cx}px)`;
+  maxS=getMax(); prog.style.width=(maxS>0?(cx/maxS)*100:0)+'%';
+  hint.style.opacity=cx>100?'0':'1';
+  let visIdx=0, bestOverlap=-1;
+  piEls.forEach((p,i)=>{
+    const r=p.getBoundingClientRect();
+    const overlap=Math.min(r.right,window.innerWidth)-Math.max(r.left,0);
+    if(overlap>bestOverlap){bestOverlap=overlap;visIdx=i;}
+  });
+  cntCur.textContent=String(visIdx+1).padStart(2,'0');
+  cntFill.style.width=((visIdx+1)/TOTAL*100)+'%';
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<!-- GENERATED: Project rebranded as "Lumina" — a serene residential concept -->
+<title>Lumina — Copenhagen · Serene Minimalism | Residential Interior</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,200;0,300;0,400;0,600;1,200;1,300;1,400;1,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/shared.css">
+<style>
+*{ margin:0; padding:0; box-sizing:border-box; }
+:root{ --panel-gap: 6px; }
+body{ height:100vh; overflow:hidden; background:var(--bg); }
+
+/* REMOVE ALL SCROLLBARS - navigation and viewport */
+html, body { overflow-x: hidden; }
+nav { overflow-x: hidden; width: 100%; }
+
+nav{ background:rgba(12,10,7,.88); backdrop-filter:blur(18px); position:relative; z-index:500; width:100%; overflow-x: hidden; }
+.nav-links { display: flex; flex-wrap: nowrap; }
+.nav-mid { white-space: nowrap; }
+
+#prog-wrap{ position:fixed; top:58px; left:0; right:0; height:1.5px; background:var(--border); z-index:600; }
+#prog{ height:100%; width:0%; background:var(--gold); transition:width .04s linear; }
+#counter{ position:fixed; bottom:22px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:14px; z-index:600; background:rgba(12,10,7,.4); backdrop-filter:blur(4px); padding:6px 14px; border-radius:40px; }
+#cnt-cur{ font-family:var(--serif); font-style:italic; font-size:14px; font-weight:200; color:var(--gold); min-width:24px; text-align:right; }
+.cnt-track{ width:48px; height:1px; background:var(--border); position:relative; overflow:hidden; }
+.cnt-fill{ position:absolute; top:0; left:0; height:100%; background:var(--gold); transition:width .4s ease; }
+#cnt-tot{ font-family:var(--serif); font-style:italic; font-size:14px; font-weight:200; color:var(--text-dim); min-width:24px; }
+#hint{ position:fixed; bottom:22px; right:44px; z-index:600; display:flex; align-items:center; gap:10px; transition:opacity .7s; background:rgba(12,10,7,.3); padding:5px 12px; border-radius:40px; backdrop-filter:blur(4px); }
+#hint span{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.25em; text-transform:uppercase; color:var(--text-dim); }
+.h-line{ width:32px; height:1px; background:var(--gold); position:relative; overflow:hidden; }
+.h-line::after{ content:'';position:absolute; top:0; left:-100%; width:100%; height:100%; background:var(--text); animation:slide 2s ease-in-out infinite; }
+@keyframes slide{ 0%{left:-100%} 50%{left:100%} 100%{left:100%} }
+#vp {
+  position: fixed;
+  inset: 0;
+  top: 59.5px;
+  overflow: hidden; /* 🔥 kills scrollbar completely */
+}
+#track{ display:flex; flex-direction:row; height:calc(100vh - 59.5px); will-change:transform; gap: var(--panel-gap); padding-right: var(--panel-gap); }
+.p{ flex-shrink:0; height:100%; position:relative; overflow:hidden; }
+.pi img{ width:100%; height:100%; object-fit:cover; display:block; transition:filter .5s; cursor:none; }
+.pi img:hover{ filter:brightness(1.02) contrast(1.02); }
+.hero-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:none; }
+.hero-veil{ position:absolute; inset:0; background: linear-gradient(105deg, rgba(12,10,7,.45) 0%, transparent 48%), linear-gradient(to top, rgba(12,10,7,.72) 0%, transparent 44%); pointer-events:none; }
+.hero-foot{ position:absolute; bottom:0; left:0; right:0; padding:44px 52px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
+.h-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(72px,10vw,128px); line-height:.88; letter-spacing:-.02em; color:var(--text); }
+.h-eyebrow{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:block; }
+.h-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:17px; color:rgba(232,226,213,.7); }
+.info{ background:var(--surface); border-right:1px solid var(--border); border-left:2px solid var(--gold); display:flex; flex-direction:column; justify-content:space-between; padding:52px 46px 46px; overflow-y:auto; scrollbar-width: thin; }
+.info::-webkit-scrollbar{ width:3px; background:var(--border); }
+.info::-webkit-scrollbar-thumb{ background:var(--gold); }
+.i-label{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.28em; text-transform:uppercase; color:var(--text-dim); }
+.i-rule{ display:flex; align-items:center; gap:12px; margin:18px 0 22px; }
+.i-rule::before{ content:''; width:20px; height:1px; background:var(--gold); }
+.i-rule::after{ content:''; flex:1; height:1px; background:var(--border); }
+.i-sub{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--text-dim); line-height:1.6; margin-bottom:10px; }
+.i-title{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(58px,5.5vw,80px); line-height:.9; letter-spacing:-.02em; color:var(--text); margin-bottom:36px; }
+.i-body{ font-family:var(--serif); font-size:14px; font-weight:300; line-height:1.9; color:var(--text-dim); margin-bottom:40px; }
+.svc-list{ list-style:none; border-top:1px solid var(--border); }
+.svc-item{ display:flex; align-items:center; justify-content:space-between; padding:11px 0; border-bottom:1px solid var(--border); transition:padding-left .3s; position:relative; }
+.svc-item:hover{ padding-left:8px; }
+.svc-item::before{ content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:0; height:1px; background:var(--gold); transition:width .3s; }
+.svc-item:hover::before{ width:6px; }
+.svc-name{ font-family:var(--mono); font-size:11.5px; font-weight:400; letter-spacing:.03em; color:var(--text); }
+.svc-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:13px; color:var(--gold); }
+.area-blk{ margin-top:38px; }
+.area-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:54px; line-height:1; letter-spacing:-.02em; color:var(--text); }
+.area-unit{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:16px; color:var(--gold); display:inline-block; margin-left:5px; }
+.area-label{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.24em; text-transform:uppercase; color:var(--text-dim); margin-top:10px; display:block; }
+.sec-lbl{ position:absolute; bottom:36px; left:28px; z-index:2; display:flex; align-items:center; gap:10px; pointer-events:none; }
+.sec-lbl-num{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:11px; color:rgba(232,226,213,.5); }
+.sec-lbl-name{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.22em; text-transform:uppercase; color:rgba(232,226,213,.4); }
+.sec-lbl::before{ content:''; width:18px; height:1px; background:rgba(200,128,60,.4); }
+.wm{ position:absolute; bottom:-10px; right:-8px; font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(130px,16vw,200px); line-height:1; color:rgba(255,255,255,.05); pointer-events:none; z-index:1; letter-spacing:-.04em; user-select:none; }
+.concept{ background:var(--bg2); border-left:1px solid var(--border); border-right:1px solid var(--border); display:flex; flex-direction:column; justify-content:center; padding:64px 44px; position:relative; overflow:hidden; }
+.concept-bg{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(100px,14vw,160px); letter-spacing:-.04em; white-space:nowrap; color:rgba(232,226,213,.04); pointer-events:none; user-select:none; line-height:1; }
+.concept-label{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:28px; display:flex; align-items:center; gap:12px; }
+.concept-label::after{ content:''; width:24px; height:1px; background:var(--gold); opacity:.4; }
+.qmark{ font-family:var(--serif); font-weight:200; font-size:64px; line-height:.65; color:var(--gold); opacity:.35; margin-bottom:10px; }
+.qtext{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2vw,22px); line-height:1.65; color:var(--text); margin-bottom:38px; }
+.qtext strong{ font-style:normal; font-weight:300; color:var(--gold); }
+.mat-row{ display:flex; flex-wrap:wrap; gap:6px; }
+.mat{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); padding:5px 12px; border:1px solid var(--border); transition:all .3s; }
+.mat:hover{ background:var(--gold); color:var(--bg); border-color:var(--gold); }
+.end-img{ width:100%; height:100%; object-fit:cover; display:block; cursor:none; }
+.end-veil{ position:absolute; inset:0; background:linear-gradient(to top, rgba(12,10,7,.82) 0%, rgba(12,10,7,.18) 55%, transparent 100%); pointer-events:none; }
+.end-foot{ position:absolute; bottom:0; left:0; right:0; padding:52px 56px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
+.end-q{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:clamp(18px,2.4vw,30px); line-height:1.5; color:var(--text); max-width:520px; }
+.end-meta{ text-align:right; }
+.end-tag{ font-family:var(--mono); font-size:9px; font-weight:400; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; display:block; }
+.end-name{ font-family:var(--serif); font-style:italic; font-weight:200; font-size:18px; color:rgba(232,226,213,.75); }
+
+/* BACK BUTTON - TOP LEFT CORNER */
+.back-projects-btn {
+  position: fixed;
+  top: 72px;
+  left: 28px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(12, 10, 7, 0.85);
+  backdrop-filter: blur(16px);
+  padding: 8px 20px;
+  border-radius: 40px;
+  border: 1px solid rgba(200, 128, 60, 0.6);
+  transition: all 0.3s ease;
+  cursor: none;
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+}
+.back-projects-btn:hover {
+  background: rgba(200, 128, 60, 0.25);
+  border-color: var(--gold);
+  gap: 14px;
+  letter-spacing: 0.24em;
+  color: #fff;
+}
+.back-projects-btn::before {
+  content: "←";
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gold);
+  transition: transform 0.2s;
+}
+.back-projects-btn:hover::before {
+  transform: translateX(-4px);
+}
+
+/* LIGHTBOX STYLES */
+.lb-overlay{ position:fixed; inset:0; background:rgba(8,6,4,.96); backdrop-filter:blur(28px); z-index:2000; display:flex; align-items:center; justify-content:center; visibility:hidden; opacity:0; transition:visibility .25s, opacity .25s; cursor:none; }
+.lb-overlay.active{ visibility:visible; opacity:1; }
+.lb-img{ max-width:90vw; max-height:85vh; object-fit:contain; box-shadow:0 25px 45px rgba(0,0,0,.4); border-radius:2px; cursor:none; }
+.lb-close{ position:fixed; top:28px; right:32px; width:44px; height:44px; background:rgba(255,255,255,.05); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:200; color:var(--gold); transition:all .2s; cursor:none; backdrop-filter:blur(8px); border:1px solid rgba(232,226,213,.2); }
+.lb-close:hover{ background:rgba(200,128,60,.2); transform:scale(1.02); color:#fff; }
+.lb-caption{ position:fixed; bottom:24px; left:0; right:0; text-align:center; font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,226,213,.6); font-weight:400; pointer-events:none; }
+
+@media (max-width:720px){
+  .back-projects-btn{ top: 68px; left: 16px; padding: 6px 16px; font-size: 9px; gap: 8px; }
+  .hero-foot{ padding: 28px 28px; }
+  .info{ padding: 32px 24px; }
+  .lb-close{ top:18px; right:20px; width:38px; height:38px; font-size:26px; }
+  .lb-img{ max-width:95vw; max-height:75vh; }
+  #counter{ bottom: 16px; padding: 4px 12px; }
+  #hint{ bottom: 16px; right: 20px; }
+}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">Mars<span>.</span>Bansiti</a>
+  <div class="nav-mid">
+    <!-- GENERATED: Project name updated to Lumina -->
+    <span class="nav-cat" data-en="Lumina · Residential" data-vi="Lumina · Nội thất">Lumina · Residential</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="../index.html" data-en="Home" data-vi="Trang chủ">Home</a></li>
+    <li><a href="../projects.html" data-en="Projects" data-vi="Dự án">Projects</a></li>
+    <li><a href="../about.html" data-en="About me" data-vi="Về tôi">About me</a></li>
+    <li><button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button></li>
+  </ul>
+</nav>
+
+<div id="prog-wrap"><div id="prog"></div></div>
+
+<!-- BACK TO PROJECTS BUTTON -->
+<a href="../projects.html" class="back-projects-btn" data-en="← Back to projects" data-vi="← Quay lại dự án">← Back to projects</a>
+
+<div id="vp"><div id="track">
+  <!-- HERO panel — Lumina Residence main intro -->
+  <!-- REPLACED: Hero image with first provided URL (indoor, sink and floor) -->
+  <div class="p pi" style="width:100vw" data-i="0">
+    <img class="hero-img" src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/246051144440747.628cb0bb553d0.jpg" alt="Lumina Residence hero view — kitchen with sculptural sink and luminous floor" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/246051144440747.628cb0bb553d0.jpg">
+    <div class="hero-veil"></div>
+    <div class="hero-foot">
+      <div>
+        <!-- GENERATED: New location and completion year -->
+        <span class="h-eyebrow" data-en="Copenhagen · Denmark · Completed 2023" data-vi="Copenhagen · Đan Mạch · Hoàn thành 2023">Copenhagen · Denmark · Completed 2023</span>
+        <!-- GENERATED: Project title "Lumina" -->
+        <h1 class="h-title">Lumina</h1>
+      </div>
+      <div style="text-align:right;padding-bottom:6px">
+        <!-- GENERATED: Refined style descriptor -->
+        <span class="h-eyebrow" style="text-align:right" data-en="Serene Minimalism" data-vi="Chủ nghĩa tối giản thanh bình">Serene Minimalism</span>
+        <!-- GENERATED: Poetic subtitle based on tags -->
+        <p class="h-sub" data-en="Nordic light, tactile restraint" data-vi="Ánh sáng Bắc Âu, sự tiết chế xúc giác">Nordic light, tactile restraint</p>
+      </div>
+    </div>
+    <span class="wm">01</span>
+  </div>
+
+  <!-- INFO panel: detailed stats and concept -->
+  <div class="p info" style="width:440px">
+    <div>
+      <!-- GENERATED: Location and year updated -->
+      <p class="i-label" data-en="Copenhagen · Residential 2023" data-vi="Copenhagen · Dân cư 2023">Copenhagen · Residential 2023</p>
+      <div class="i-rule"></div>
+      <!-- GENERATED: Intriguing design process note -->
+      <p class="i-sub" data-en="A study in soft light and honest materials — where every surface invites touch and quiet contemplation" data-vi="Một nghiên cứu về ánh sáng dịu và vật liệu chân thực — nơi mọi bề mặt mời gọi sự chạm vào và chiêm nghiệm tĩnh lặng">A study in soft light and honest materials — where every surface invites touch and quiet contemplation</p>
+      <!-- GENERATED: Project title repeated -->
+      <h2 class="i-title">Lumina</h2>
+      <div class="i-body">
+        <!-- GENERATED: High-end architectural project description -->
+        <p
+  data-en="Lumina occupies a converted warehouse in Copenhagen's Refshaleøen district, where industrial heritage meets serene domesticity. The design celebrates the building's raw concrete skeleton while introducing warm oak, brushed limestone, and soft wool textiles to create a tactile counterpoint. Natural light from expansive north-facing windows washes across surfaces throughout the day, revealing subtle material grain and shadow play. The clients — a ceramicist and a photographer — sought a home that doubles as a living gallery for their evolving collection of Nordic craft. Spatial flow is choreographed around a central kitchen island of honed marble, which anchors the open-plan living area. Every element is designed for slowness: deep window seats for reading, a sculptural sink carved from a single stone block, and bedroom alcoves wrapped in acoustic paneling. The result is a sanctuary where craftsmanship, light, and material honesty converge."
+
+  data-vi="Lumina chiếm giữ một nhà kho được chuyển đổi ở quận Refshaleøen của Copenhagen, nơi di sản công nghiệp gặp gỡ cuộc sống thanh bình. Thiết kế tôn vinh bộ khung bê tông thô của tòa nhà đồng thời giới thiệu gỗ sồi ấm áp, đá vôi chải và vải len mềm để tạo ra một điểm nhấn xúc giác. Ánh sáng tự nhiên từ các cửa sổ lớn hướng bắc tràn ngập các bề mặt suốt cả ngày, làm lộ ra các vân vật liệu tinh tế và sự chơi đùa của bóng đổ. Khách hàng — một nghệ nhân gốm và một nhiếp ảnh gia — tìm kiếm một ngôi nhà đồng thời là một phòng trưng bày sống động cho bộ sưu tập thủ công Bắc Âu đang phát triển của họ. Dòng chảy không gian được biên đạo xung quanh một đảo bếp trung tâm bằng đá cẩm thạch mài, neo giữ khu vực sinh hoạt mở. Mọi yếu tố được thiết kế cho sự chậm rãi: ghế cửa sổ sâu để đọc sách, một bồn rửa điêu khắc được chạm khắc từ một khối đá duy nhất, và các hốc phòng ngủ được bọc trong tấm tiêu âm. Kết quả là một nơi trú ẩn nơi sự khéo léo, ánh sáng và tính chân thực của vật liệu hội tụ.">
+  
+  Lumina occupies a converted warehouse in Copenhagen's Refshaleøen district, where industrial heritage meets serene domesticity. The design celebrates the building's raw concrete skeleton while introducing warm oak, brushed limestone, and soft wool textiles to create a tactile counterpoint. Natural light from expansive north-facing windows washes across surfaces throughout the day, revealing subtle material grain and shadow play. The clients — a ceramicist and a photographer — sought a home that doubles as a living gallery for their evolving collection of Nordic craft. Spatial flow is choreographed around a central kitchen island of honed marble, which anchors the open-plan living area. Every element is designed for slowness: deep window seats for reading, a sculptural sink carved from a single stone block, and bedroom alcoves wrapped in acoustic paneling. The result is a sanctuary where craftsmanship, light, and material honesty converge.
+</p>
+        <!-- NO AWARD SECTION: intentionally omitted per request -->
+      </div>
+      <ul class="svc-list">
+        <li class="svc-item"><span class="svc-name" data-en="Interior Architecture" data-vi="Kiến trúc nội thất">Interior Architecture</span><span class="svc-num">01</span></li>
+        <li class="svc-item"><span class="svc-name" data-en="Residential Design" data-vi="Thiết kế nhà ở">Residential Design</span><span class="svc-num">02</span></li>
+        <li class="svc-item"><span class="svc-name" data-en="Furniture Curation" data-vi="Tuyển chọn nội thất">Furniture Curation</span><span class="svc-num">03</span></li>
+      </ul>
+    </div>
+    <div class="area-blk">
+      <span class="area-num">2,153</span><span class="area-unit">ft²</span>
+      <span class="area-label" data-en="Total Residential Area" data-vi="Tổng diện tích căn hộ">Total Residential Area</span>
+      <div style="margin-top:12px; border-top:1px solid var(--border); padding-top:14px;">
+        <!-- GENERATED: Updated layout based on fictional brief -->
+        <span class="area-label" style="margin-top:0" data-en="Layout: Entrance · Open kitchen · Living · Dining · Master suite · Guest alcove" data-vi="Bố trí: Lối vào · Bếp mở · Phòng khách · Phòng ăn · Phòng Master · Hốc khách">Entrance · Open kitchen · Living · Dining · Master suite · Guest alcove</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- GALLERY PANEL 1: furniture, couch and bed -> Soft Volume, Restful Enclosure -->
+  <!-- REPLACED: Image source and generated section label -->
+  <div class="p pi" style="width:52vw" data-i="1">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/8e7622144440747.628cb0bb547c3.jpg" alt="Couch and bed composition with soft volume" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/8e7622144440747.628cb0bb547c3.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">01</span><span class="sec-lbl-name" data-en="Volume · Restful Enclosure" data-vi="Khối · Vỏ bọc nghỉ ngơi">Volume · Restful Enclosure</span></div>
+    <span class="wm">02</span>
+  </div>
+
+  <!-- GALLERY PANEL 2: indoor, wall and window -> Vertical Light, Framed Vista -->
+  <div class="p pi" style="width:48vw" data-i="2">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/ca4c19144440747.628cb0bb55ba4.jpg" alt="Wall and window framing natural light" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/ca4c19144440747.628cb0bb55ba4.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">02</span><span class="sec-lbl-name" data-en="Window · Framed Vista" data-vi="Cửa sổ · Tầm nhìn đóng khung">Window · Framed Vista</span></div>
+    <span class="wm">03</span>
+  </div>
+
+  <!-- CONCEPT PANEL -->
+  <div class="p concept" style="width:360px">
+    <!-- GENERATED: Poetic concept background word -->
+    <div class="concept-bg">Honest</div>
+    <div class="concept-label" data-en="The Concept" data-vi="Khái niệm">The Concept</div>
+    <div class="qmark">"</div>
+    <!-- GENERATED: Philosophical design quote -->
+    <p class="qtext" data-en="Design as a quiet backdrop for life — where <strong>materials age gracefully,</strong> light marks the hours, and space breathes with intention." data-vi="Thiết kế như một phông nền yên tĩnh cho cuộc sống — nơi <strong>vật liệu già đi một cách duyên dáng,</strong> ánh sáng đánh dấu thời gian, và không gian thở với ý định.">Design as a quiet backdrop for life — where <strong>materials age gracefully,</strong> light marks the hours, and space breathes with intention.</p>
+    <!-- GENERATED: Curated material palette -->
+    <div class="mat-row"><span class="mat">Concrete</span><span class="mat">Limestone</span><span class="mat">Oak</span><span class="mat">Wool</span></div>
+  </div>
+
+  <!-- GALLERY PANEL 3: Uncategorized grid image -> Spatial Depth, Layered Threshold -->
+  <div class="p pi" style="width:50vw" data-i="3">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/2dadbb144440747.628cb0b6b9292.jpg" alt="Spatial depth through layered architectural threshold" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/2dadbb144440747.628cb0b6b9292.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">03</span><span class="sec-lbl-name" data-en="Depth · Layered Threshold" data-vi="Độ sâu · Ngưỡng phân lớp">Depth · Layered Threshold</span></div>
+    <span class="wm">04</span>
+  </div>
+
+  <!-- GALLERY PANEL 4: Uncategorized grid image -> Material Grain, Tactile Memory -->
+  <div class="p pi" style="width:55vw" data-i="4">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/8041e6144440747.628cb0b74006c.jpg" alt="Close-up of material grain and tactile surface" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/8041e6144440747.628cb0b74006c.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">04</span><span class="sec-lbl-name" data-en="Grain · Tactile Memory" data-vi="Vân · Ký ức xúc giác">Grain · Tactile Memory</span></div>
+    <span class="wm">05</span>
+  </div>
+
+  <!-- GALLERY PANEL 5: Uncategorized grid image -> Ambient Glow, Softened Geometry -->
+  <div class="p pi" style="width:46vw" data-i="5">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/405878144440747.628cb0b740860.jpg" alt="Ambient glow softening architectural geometry" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/405878144440747.628cb0b740860.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">05</span><span class="sec-lbl-name" data-en="Glow · Softened Geometry" data-vi="Ánh sáng · Hình học mềm mại">Glow · Softened Geometry</span></div>
+    <span class="wm">06</span>
+  </div>
+
+  <!-- GALLERY PANEL 6: Uncategorized grid image -> Quiet Corner, Reading Nook -->
+  <div class="p pi" style="width:44vw" data-i="6">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/18f633144440747.628cb0b74155b.jpg" alt="Quiet reading corner with soft daylight" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/18f633144440747.628cb0b74155b.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">06</span><span class="sec-lbl-name" data-en="Corner · Reading Nook" data-vi="Góc · Góc đọc sách">Corner · Reading Nook</span></div>
+    <span class="wm">07</span>
+  </div>
+
+  <!-- GALLERY PANEL 7: Uncategorized grid image -> Linear Flow, Open Horizon -->
+  <div class="p pi" style="width:49vw" data-i="7">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/fa314b144440747.628cb0b740e52.jpg" alt="Linear spatial flow opening to horizon" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/fa314b144440747.628cb0b740e52.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">07</span><span class="sec-lbl-name" data-en="Flow · Open Horizon" data-vi="Dòng chảy · Chân trời mở">Flow · Open Horizon</span></div>
+    <span class="wm">08</span>
+  </div>
+
+  <!-- GALLERY PANEL 8: Uncategorized grid image -> Sculptural Form, Negative Space -->
+  <div class="p pi" style="width:47vw" data-i="8">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/e6e032144440747.628cb0b7c1b3d.jpg" alt="Sculptural form carving negative space" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/e6e032144440747.628cb0b7c1b3d.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">08</span><span class="sec-lbl-name" data-en="Form · Negative Space" data-vi="Hình khối · Không gian âm">Form · Negative Space</span></div>
+    <span class="wm">09</span>
+  </div>
+
+  <!-- GALLERY PANEL 9: Uncategorized grid image -> Warmth, Patina of Use -->
+  <div class="p pi" style="width:53vw" data-i="9">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/a98803144440747.628cb0b85bbe6.jpg" alt="Warm patina developing on lived surfaces" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/a98803144440747.628cb0b85bbe6.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">09</span><span class="sec-lbl-name" data-en="Patina · Lived Warmth" data-vi="Lớp patina · Ấm áp sống động">Patina · Lived Warmth</span></div>
+    <span class="wm">10</span>
+  </div>
+
+  <!-- GALLERY PANEL 10: Uncategorized grid image -> Reflection, Polished Calm -->
+  <div class="p pi" style="width:45vw" data-i="10">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/bd8c45144440747.628cb0b85c493.jpg" alt="Reflection on polished surface creating calm" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/bd8c45144440747.628cb0b85c493.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">10</span><span class="sec-lbl-name" data-en="Reflection · Polished Calm" data-vi="Phản chiếu · Sự yên tĩnh bóng loáng">Reflection · Polished Calm</span></div>
+    <span class="wm">11</span>
+  </div>
+
+  <!-- GALLERY PANEL 11: Uncategorized grid image -> Void, Dramatic Shadowplay -->
+  <div class="p pi" style="width:46vw" data-i="11">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/5006b4144440747.628cb0b8e16ab.jpg" alt="Dramatic shadowplay in architectural void" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/5006b4144440747.628cb0b8e16ab.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">11</span><span class="sec-lbl-name" data-en="Void · Dramatic Shadow" data-vi="Khoảng trống · Bóng đổ kịch tính">Void · Dramatic Shadow</span></div>
+    <span class="wm">12</span>
+  </div>
+
+  <!-- GALLERY PANEL 12: Uncategorized grid image -> Threshold, Zone Transition -->
+  <div class="p pi" style="width:54vw" data-i="12">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/3aa3f5144440747.628cb0b8e1c68.jpg" alt="Threshold marking transition between zones" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/3aa3f5144440747.628cb0b8e1c68.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">12</span><span class="sec-lbl-name" data-en="Threshold · Zone Transition" data-vi="Ngưỡng · Chuyển đổi khu vực">Threshold · Zone Transition</span></div>
+    <span class="wm">13</span>
+  </div>
+
+  <!-- GALLERY PANEL 13: Uncategorized grid image -> Alcove, Intimate Withdrawal -->
+  <div class="p pi" style="width:48vw" data-i="13">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/0ab553144440747.628cb0b8e2a37.jpg" alt="Intimate alcove for quiet withdrawal" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/0ab553144440747.628cb0b8e2a37.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">13</span><span class="sec-lbl-name" data-en="Alcove · Intimate Withdrawal" data-vi="Hốc tường · Rút lui thân mật">Alcove · Intimate Withdrawal</span></div>
+    <span class="wm">14</span>
+  </div>
+
+  <!-- GALLERY PANEL 14: Uncategorized grid image -> Surface, Honest Materiality -->
+  <div class="p pi" style="width:52vw" data-i="14">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/2785e4144440747.628cb0b8e2257.jpg" alt="Honest material surface with visible grain" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/2785e4144440747.628cb0b8e2257.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">14</span><span class="sec-lbl-name" data-en="Surface · Honest Material" data-vi="Bề mặt · Vật liệu chân thực">Surface · Honest Material</span></div>
+    <span class="wm">15</span>
+  </div>
+
+  <!-- GALLERY PANEL 15: Uncategorized grid image -> Frame, Borrowed Landscape -->
+  <div class="p pi" style="width:46vw" data-i="15">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/814469144440747.628cb0b988e21.jpg" alt="Architectural frame capturing borrowed landscape" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/814469144440747.628cb0b988e21.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">15</span><span class="sec-lbl-name" data-en="Frame · Borrowed View" data-vi="Khung · Cảnh quan mượn">Frame · Borrowed View</span></div>
+    <span class="wm">16</span>
+  </div>
+
+  <!-- GALLERY PANEL 16: Uncategorized grid image -> Solitude, Contemplative Pause -->
+  <div class="p pi" style="width:47vw" data-i="16">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/934818144440747.628cb0b9885c3.jpg" alt="Contemplative corner for solitary pause" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/934818144440747.628cb0b9885c3.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">16</span><span class="sec-lbl-name" data-en="Solitude · Contemplative Pause" data-vi="Cô độc · Khoảnh khắc chiêm nghiệm">Solitude · Contemplative Pause</span></div>
+    <span class="wm">17</span>
+  </div>
+
+  <!-- GALLERY PANEL 17: Uncategorized grid image -> Daylight, Temporal Texture -->
+  <div class="p pi" style="width:49vw" data-i="17">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/c41967144440747.628cb0b987dfe.jpg" alt="Daylight casting temporal texture across room" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/c41967144440747.628cb0b987dfe.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">17</span><span class="sec-lbl-name" data-en="Daylight · Temporal Texture" data-vi="Ánh sáng ngày · Kết cấu thời gian">Daylight · Temporal Texture</span></div>
+    <span class="wm">18</span>
+  </div>
+
+  <!-- GALLERY PANEL 18: Uncategorized grid image -> Gathering, Anchored Presence -->
+  <div class="p pi" style="width:54vw" data-i="18">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/695fc6144440747.628cb0b987803.jpg" alt="Gathering space with anchored furniture presence" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/695fc6144440747.628cb0b987803.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">18</span><span class="sec-lbl-name" data-en="Gathering · Anchored Presence" data-vi="Tụ họp · Sự hiện diện neo đậu">Gathering · Anchored Presence</span></div>
+    <span class="wm">19</span>
+  </div>
+
+  <!-- GALLERY PANEL 19: Uncategorized grid image -> Stillness, Morning Calm -->
+  <div class="p pi" style="width:46vw" data-i="19">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/86dbe6144440747.628cb0ba01aec.jpg" alt="Morning calm settling over still interior" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/86dbe6144440747.628cb0ba01aec.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">19</span><span class="sec-lbl-name" data-en="Stillness · Morning Calm" data-vi="Tĩnh lặng · Buổi sáng yên bình">Stillness · Morning Calm</span></div>
+    <span class="wm">20</span>
+  </div>
+
+  <!-- GALLERY PANEL 20: Uncategorized grid image -> Craft, Handmade Detail -->
+  <div class="p pi" style="width:44vw" data-i="20">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/c81fdc144440747.628cb0ba62298.jpg" alt="Handmade craft detail in joinery" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/c81fdc144440747.628cb0ba62298.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">20</span><span class="sec-lbl-name" data-en="Craft · Handmade Detail" data-vi="Thủ công · Chi tiết làm tay">Craft · Handmade Detail</span></div>
+    <span class="wm">21</span>
+  </div>
+
+  <!-- GALLERY PANEL 21: Uncategorized grid image -> Volume, Soft Massing -->
+  <div class="p pi" style="width:47vw" data-i="21">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/3cd6a8144440747.628cb0ba61a9f.jpg" alt="Soft architectural massing creating volume" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/3cd6a8144440747.628cb0ba61a9f.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">21</span><span class="sec-lbl-name" data-en="Volume · Soft Massing" data-vi="Khối · Khối lượng mềm mại">Volume · Soft Massing</span></div>
+    <span class="wm">22</span>
+  </div>
+
+  <!-- GALLERY PANEL 22: Uncategorized grid image -> Detail, Precise Junction -->
+  <div class="p pi" style="width:49vw" data-i="22">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/980dcb144440747.628cb0ba61357.jpg" alt="Precise architectural junction detail" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/980dcb144440747.628cb0ba61357.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">22</span><span class="sec-lbl-name" data-en="Detail · Precise Junction" data-vi="Chi tiết · Mối nối chính xác">Detail · Precise Junction</span></div>
+    <span class="wm">23</span>
+  </div>
+
+  <!-- GALLERY PANEL 23: Uncategorized grid image -> Perspective, Vanishing Light -->
+  <div class="p pi" style="width:52vw" data-i="23">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/934ca9144440747.628cb0bae009c.jpg" alt="Perspective view with vanishing light" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/934ca9144440747.628cb0bae009c.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">23</span><span class="sec-lbl-name" data-en="Perspective · Vanishing Light" data-vi="Phối cảnh · Ánh sáng biến mất">Perspective · Vanishing Light</span></div>
+    <span class="wm">24</span>
+  </div>
+
+  <!-- GALLERY PANEL 24: Uncategorized grid image -> Enclosure, Wrapped Comfort -->
+  <div class="p pi" style="width:45vw" data-i="24">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/bdc980144440747.628cb0badf47b.jpg" alt="Wrapped enclosure creating comfort" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/bdc980144440747.628cb0badf47b.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">24</span><span class="sec-lbl-name" data-en="Enclosure · Wrapped Comfort" data-vi="Vỏ bọc · Thoải mái bao bọc">Enclosure · Wrapped Comfort</span></div>
+    <span class="wm">25</span>
+  </div>
+
+  <!-- GALLERY PANEL 25: Uncategorized grid image -> Composition, Balanced Asymmetry -->
+  <div class="p pi" style="width:48vw" data-i="25">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/4d6ec8144440747.628cb0badecf2.jpg" alt="Balanced asymmetrical composition" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/4d6ec8144440747.628cb0badecf2.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">25</span><span class="sec-lbl-name" data-en="Composition · Balanced Asymmetry" data-vi="Bố cục · Bất đối xứng cân bằng">Composition · Balanced Asymmetry</span></div>
+    <span class="wm">26</span>
+  </div>
+
+  <!-- GALLERY PANEL 26: Uncategorized grid image -> Glow, Evening Warmth -->
+  <div class="p pi" style="width:46vw" data-i="26">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/784f83144440747.628cb0badf9a6.jpg" alt="Evening warmth glowing through interior" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_still/784f83144440747.628cb0badf9a6.jpg">
+    <div class="sec-lbl"><span class="sec-lbl-num">26</span><span class="sec-lbl-name" data-en="Glow · Evening Warmth" data-vi="Ánh sáng · Ấm áp buổi tối">Glow · Evening Warmth</span></div>
+    <span class="wm">27</span>
+  </div>
+
+  <!-- CLOSING / RESULT PANEL: final statement -->
+  <!-- REPLACED: End image reuses hero image for visual bookending, with generated closing quote -->
+  <div class="p pi" style="width:86vw" data-i="27">
+    <img class="end-img" src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/246051144440747.628cb0bb553d0.jpg" alt="Lumina Residence - serene minimalism" data-full="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/246051144440747.628cb0bb553d0.jpg">
+    <div class="end-veil"></div>
+    <div class="end-foot">
+      <!-- GENERATED: Elegant summary quote -->
+      <p class="end-q" data-en='"A home that feels both expansive and sheltering — where Nordic light dances across honest surfaces, and every object holds meaning. Simplicity here is not absence, but presence refined to its most essential form."' data-vi='"Một ngôi nhà vừa rộng mở vừa che chở — nơi ánh sáng Bắc Âu nhảy múa trên các bề mặt chân thực, và mọi đồ vật đều mang ý nghĩa. Sự đơn giản ở đây không phải là sự vắng mặt, mà là sự hiện diện được tinh luyện đến hình thức thiết yếu nhất."'>"A home that feels both expansive and sheltering — where Nordic light dances across honest surfaces, and every object holds meaning. Simplicity here is not absence, but presence refined to its most essential form."</p>
+      <div class="end-meta">
+        <span class="end-tag" data-en="Residential 2023 — Copenhagen" data-vi="Dân cư 2023 — Copenhagen">Residential 2023 — Copenhagen</span>
+        <p class="end-name">Lumina Residence · 2,153 ft²</p>
+      </div>
+    </div>
+    <span class="wm" style="font-size:clamp(100px,13vw,170px)">28</span>
+  </div>
+</div></div>
+
+<div id="counter">
+  <span id="cnt-cur">01</span>
+  <div class="cnt-track"><div class="cnt-fill" id="cnt-fill"></div></div>
+  <!-- UPDATED: Total now reflects 28 panels (hero + info + 25 gallery + closing = 28) -->
+  <span id="cnt-tot">28</span>
+</div>
+
+<div id="hint">
+  <span data-en="Scroll" data-vi="Cuộn">Scroll</span>
+  <div class="h-line"></div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lb-overlay">
+  <div class="lb-close" id="lbClose">✕</div>
+  <img id="lbImg" class="lb-img" src="" alt="Full size view">
+  <div id="lbCaption" class="lb-caption"></div>
+</div>
+
+<script src="../assets/js/shared.js"></script>
+<script>
+/* ── Language system: Vietnamese default, EN toggle ── */
+(function(){
+  var STORAGE_KEY = 'mb_lang';
+  var lang = localStorage.getItem(STORAGE_KEY) || 'vi';
+
+  function applyLang(l){
+    lang = l;
+    localStorage.setItem(STORAGE_KEY, l);
+    document.documentElement.lang = l;
+
+    // Update all [data-en] / [data-vi] elements
+    document.querySelectorAll('[data-en]').forEach(function(el){
+      var val = l === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-vi');
+      if(val !== null) el.innerHTML = val;
+    });
+
+    // Button shows the language you can switch TO
+    var btn = document.getElementById('lang-btn');
+    if(btn) btn.textContent = l === 'vi' ? 'EN' : 'VI';
+  }
+
+  // Override any toggleLang defined in shared.js
+  window.toggleLang = function(){
+    applyLang(lang === 'vi' ? 'en' : 'vi');
+  };
+
+  // Boot with stored or default (vi)
+  applyLang(lang);
+})();
+</script>
+<script>
+const track = document.getElementById('track'), vp = document.getElementById('vp'), prog = document.getElementById('prog');
+const hint = document.getElementById('hint'), cntCur = document.getElementById('cnt-cur'), cntFill = document.getElementById('cnt-fill');
+let tx=0, cx=0, maxS=0;
+const piEls = Array.from(document.querySelectorAll('.p'));
+const TOTAL = piEls.length;
+document.getElementById('cnt-tot').textContent = String(TOTAL).padStart(2,'0');
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function getMax(){ return track.scrollWidth - vp.offsetWidth; }
+window.addEventListener('wheel', e=>{ e.preventDefault(); maxS=getMax(); tx=clamp(tx+e.deltaY*1.55+e.deltaX,0,maxS); },{passive:false});
+
+// LIGHTBOX FUNCTIONALITY
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbClose = document.getElementById('lbClose');
+const lbCaption = document.getElementById('lbCaption');
+
+function openLightbox(imgElement) {
+  const fullUrl = imgElement.getAttribute('data-full') || imgElement.src;
+  lbImg.src = fullUrl;
+  let captionText = imgElement.alt || '';
+  const parentPanel = imgElement.closest('.p');
+  if(parentPanel){
+    const secLabelSpan = parentPanel.querySelector('.sec-lbl-name');
+    if(secLabelSpan) captionText = secLabelSpan.innerText.trim() + ' · Lumina Residence';
+    else if(parentPanel.classList.contains('pi') && !secLabelSpan){
+      const heroEyebrow = parentPanel.querySelector('.h-eyebrow');
+      if(heroEyebrow) captionText = heroEyebrow.innerText.trim() + ' · Copenhagen';
+    }
+  }
+  lbCaption.textContent = captionText || 'Lumina Residence · Serene Minimalism';
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  lightbox.classList.remove('active');
+  setTimeout(()=>{ lbImg.src = ''; }, 200);
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.pi img, .hero-img, .end-img').forEach(img => {
+  img.addEventListener('click', (e) => { e.stopPropagation(); openLightbox(img); });
+});
+lbClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => { if(lightbox.classList.contains('active') && e.key === 'Escape') closeLightbox(); });
+
+// SCROLL LOOP
+(function loop(){
+  cx+=(tx-cx)*.09; if(Math.abs(tx-cx)<0.05) cx=tx;
+  track.style.transform=`translateX(${-cx}px)`;
+  maxS=getMax(); prog.style.width=(maxS>0?(cx/maxS)*100:0)+'%';
+  hint.style.opacity=cx>100?'0':'1';
+  let visIdx=0, bestOverlap=-1;
+  piEls.forEach((p,i)=>{
+    const r=p.getBoundingClientRect();
+    const overlap=Math.min(r.right,window.innerWidth)-Math.max(r.left,0);
+    if(overlap>bestOverlap){bestOverlap=overlap;visIdx=i;}
+  });
+  cntCur.textContent=String(visIdx+1).padStart(2,'0');
+  cntFill.style.width=((visIdx+1)/TOTAL*100)+'%';
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
