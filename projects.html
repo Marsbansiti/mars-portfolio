@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mars Bansiti — Dự Án</title>
+<title>Mars Bansiti — Projects</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,200;0,300;0,400;0,600;1,200;1,300;1,400;1,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/7.2.3/css/flag-icons.min.css">
 <style>
 /* ── SHARED DESIGN TOKENS ── */
 :root {
@@ -48,8 +49,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .nav-links{display:flex;align-items:center;gap:32px;list-style:none;}
 .nav-links a{font-family:var(--mono);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--text-muted);transition:color .22s;}
 .nav-links a:hover{color:var(--gold);}
-.lang-btn{font-family:var(--mono);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border);padding:5px 11px;transition:all .22s;}
+.lang-btn{font-family:var(--mono);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border);padding:5px 11px;transition:all .22s;display:inline-flex;align-items:center;gap:6px;}
 .lang-btn:hover{color:var(--gold);border-color:var(--gold2);}
+.lang-btn.active{color:var(--gold);border-color:var(--gold2);background:rgba(200,169,110,.08);}
+.lang-btns{display:flex;align-items:center;gap:6px;}
 
 /* ── PAGE WRAPPER ── */
 .page{position:fixed;top:64px;left:0;right:0;bottom:0;overflow-y:auto;overflow-x:hidden;}
@@ -105,7 +108,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
     <li><a href="index.html" data-en="Home" data-vi="Trang chủ">Trang chủ</a></li>
     <li><a href="projects.html" data-en="Projects" data-vi="Dự án">Dự án</a></li>
     <li><a href="about.html" data-en="About me" data-vi="Về tôi">Về tôi</a></li>
-    <li><button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button></li>
+    <li>
+      <div class="lang-btns">
+        <button class="lang-btn active" id="btn-en" onclick="setLang('en')"><span class="fi fi-gb"></span> EN</button>
+        <button class="lang-btn" id="btn-vi" onclick="setLang('vi')"><span class="fi fi-vn"></span> VI</button>
+      </div>
+    </li>
   </ul>
 </nav>
 
@@ -113,7 +121,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   <div class="prj-hero">
     <div class="prj-hero-bg"></div>
     <div class="prj-hero-grid"></div>
-    <div class="prj-hero-ghost">22</div>
+    <div class="prj-hero-ghost">24</div>
     <div class="prj-hero-eye" data-en="Selected Works · 2021–2026" data-vi="Tác Phẩm Chọn Lọc · 2021–2026">Tác Phẩm Chọn Lọc · 2021–2026</div>
     <div class="prj-hero-h">Projects</div>
     <span class="prj-hero-sub" data-en="Architectural Visualization · Mars Bansiti" data-vi="Trực Quan Hóa Kiến Trúc · Mars Bansiti">Trực Quan Hóa Kiến Trúc · Mars Bansiti</span>
@@ -506,11 +514,47 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
         <span class="pt-tag">Nieuw Kralingen</span>
       </div>
     </a>
+    <!-- Project Card 23: Silva — NEWLY ADDED -->
+    <a href="projects/silva.html" class="pt" data-cat="Residential">
+      <div class="pt-img">
+        <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/96126a245069495.69a5b8fc97e89.png" alt="Silva">
+        <div class="pt-ov">
+          <span class="pt-ov-cat">Residential</span>
+          <span class="pt-ov-cta">View Project →</span>
+        </div>
+      </div>
+      <div class="pt-meta">
+        <span class="pt-n">23</span>
+        <div class="pt-info">
+          <div class="pt-title">Silva</div>
+          <div class="pt-loc">Barcelona · Spain · 2022</div>
+        </div>
+        <span class="pt-tag">Refined Minimalism</span>
+      </div>
+    </a>
+    <!-- Project Card 24: Lumina — NEWLY ADDED -->
+    <a href="projects/lumina.html" class="pt" data-cat="Residential">
+      <div class="pt-img">
+        <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/246051144440747.628cb0bb553d0.jpg" alt="Lumina">
+        <div class="pt-ov">
+          <span class="pt-ov-cat">Residential</span>
+          <span class="pt-ov-cta">View Project →</span>
+        </div>
+      </div>
+      <div class="pt-meta">
+        <span class="pt-n">24</span>
+        <div class="pt-info">
+          <div class="pt-title">Lumina</div>
+          <div class="pt-loc">Copenhagen · Denmark · 2023</div>
+        </div>
+        <span class="pt-tag">Serene Minimalism</span>
+      </div>
+    </a>
   </div>
 
   <div class="prj-foot">
     <span data-en="Mars Bansiti · Architectural Visualization · 2021–2026" data-vi="Mars Bansiti · Trực Quan Hóa Kiến Trúc · 2021–2026">Mars Bansiti · Trực Quan Hóa Kiến Trúc · 2021–2026</span>
-    <span data-en="22 Projects · 8 Countries" data-vi="22 Dự Án · 8 Quốc Gia">22 Dự Án · 8 Quốc Gia</span>
+    <span data-en="24 Projects · 9 Countries" data-vi="24 Dự Án · 9 Quốc Gia">24 Dự Án · 9 Quốc Gia</span>
   </div>
 </div>
 
@@ -524,14 +568,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 })();
 
 /* ── Language toggle ── */
-let lang='vi';
-function toggleLang(){
-  lang=lang==='vi'?'en':'vi';
-  document.getElementById('lang-btn').textContent=lang==='vi'?'EN':'VI';
+let lang='en';
+function setLang(l){
+  lang=l;
+  document.documentElement.lang=l;
+  document.getElementById('btn-en').classList.toggle('active',l==='en');
+  document.getElementById('btn-vi').classList.toggle('active',l==='vi');
   document.querySelectorAll('[data-en]').forEach(el=>{
-    el.innerHTML=lang==='en'?el.dataset.en:el.dataset.vi;
+    el.innerHTML=l==='en'?el.dataset.en:el.dataset.vi;
   });
 }
+setLang('en');
 </script>
 <script>
 function pfFilter(btn, cat) {
